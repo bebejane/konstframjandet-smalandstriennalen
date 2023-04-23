@@ -30,8 +30,7 @@ export default function AboutItem({ about: { id, image, title, intro, content, _
 
 export async function getStaticPaths() {
   const { abouts } = await apiQueryAll(AllAboutsDocument)
-  const paths = abouts.map(({ slug }) => ({ params: { about: slug }, locale: 'sv' }))
-  paths.forEach(el => paths.push({ ...el, locale: 'en' }))
+  const paths = abouts.map(({ slug }) => ({ params: { about: slug } }))
 
   return {
     paths,

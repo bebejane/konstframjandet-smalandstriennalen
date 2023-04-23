@@ -45,8 +45,7 @@ export default function Location({ location: { id, image, title, intro, content,
 
 export async function getStaticPaths() {
   const { locations } = await apiQueryAll(AllLocationsDocument)
-  const paths = locations.map(({ slug }) => ({ params: { location: slug }, locale: 'sv' }))
-  paths.forEach(el => paths.push({ ...el, locale: 'en' }))
+  const paths = locations.map(({ slug }) => ({ params: { location: slug } }))
 
   return {
     paths,

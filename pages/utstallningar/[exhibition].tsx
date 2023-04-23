@@ -60,8 +60,7 @@ export default function Exhibition({ exhibition: {
 
 export async function getStaticPaths() {
   const { exhibitions } = await apiQueryAll(AllExhibitionsDocument)
-  const paths = exhibitions.map(({ slug }) => ({ params: { exhibition: slug }, locale: 'sv' }))
-  paths.forEach(el => paths.push({ ...el, locale: 'en' }))
+  const paths = exhibitions.map(({ slug }) => ({ params: { exhibition: slug } }))
 
   return {
     paths,

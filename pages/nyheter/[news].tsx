@@ -33,8 +33,7 @@ export default function News({ news: { id, image, title, intro, content, _seoMet
 
 export async function getStaticPaths() {
   const { news } = await apiQueryAll(AllNewsDocument)
-  const paths = news.map(({ slug }) => ({ params: { news: slug }, locale: 'sv' }))
-  paths.forEach(el => paths.push({ ...el, locale: 'en' }))
+  const paths = news.map(({ slug }) => ({ params: { news: slug } }))
 
   return {
     paths,

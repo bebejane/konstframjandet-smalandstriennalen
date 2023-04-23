@@ -68,8 +68,7 @@ export default function Program({ program: {
 
 export async function getStaticPaths() {
   const { programs } = await apiQueryAll(AllProgramsDocument)
-  const paths = programs.map(({ slug }) => ({ params: { program: slug }, locale: 'sv' }))
-  paths.forEach(el => paths.push({ ...el, locale: 'en' }))
+  const paths = programs.map(({ slug }) => ({ params: { program: slug } }))
 
   return {
     paths,

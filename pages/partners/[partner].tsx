@@ -56,8 +56,7 @@ export default function Partner({ partner: {
 
 export async function getStaticPaths() {
   const { partners } = await apiQueryAll(AllPartnersDocument)
-  const paths = partners.map(({ slug }) => ({ params: { partner: slug }, locale: 'sv' }))
-  paths.forEach(el => paths.push({ ...el, locale: 'en' }))
+  const paths = partners.map(({ slug }) => ({ params: { partner: slug } }))
 
   return {
     paths,

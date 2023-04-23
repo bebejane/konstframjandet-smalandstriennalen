@@ -39,8 +39,7 @@ export default function Participant({ participant: { id, image, name, intro, con
 
 export async function getStaticPaths() {
   const { participants } = await apiQueryAll(AllParticipantsDocument)
-  const paths = participants.map(({ slug }) => ({ params: { participant: slug }, locale: 'sv' }))
-  paths.forEach(el => paths.push({ ...el, locale: 'en' }))
+  const paths = participants.map(({ slug }) => ({ params: { participant: slug } }))
 
   return {
     paths,

@@ -1,4 +1,4 @@
-type SiteLocale = 'en' | 'sv'
+type SiteLocale = 'sv'
 
 type PageSlug = {
   locale: SiteLocale
