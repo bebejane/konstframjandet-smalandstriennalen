@@ -1,5 +1,5 @@
-query Footer($locale: SiteLocale) {
-	footer: general(locale: $locale) {
+query Footer {
+	footer: general {
 		id
 		email
 		facebook

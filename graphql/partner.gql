@@ -1,14 +1,14 @@
-query AllPartners($locale: SiteLocale, $yearId: ItemId) {
-	partners: allPartners(filter: { year: { eq: $yearId } }, locale: $locale, first: 100) {
+query AllPartners($yearId: ItemId) {
+	partners: allPartners(filter: { year: { eq: $yearId } }, first: 100) {
 		...PartnerFragmentLight
 	}
-	pagination: _allPartnersMeta(locale: $locale) {
+	pagination: _allPartnersMeta {
 		count
 	}
 }
 
-query Partner($slug: String!, $locale: SiteLocale) {
-	partner(filter: { slug: { eq: $slug } }, locale: $locale) {
+query Partner($slug: String!) {
+	partner(filter: { slug: { eq: $slug } }) {
 		...PartnerFragment
 	}
 }

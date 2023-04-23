@@ -13,7 +13,7 @@ const base: Menu = [
   { id: 'partners', label: 'Partners', slug: '/partners', general: false },
   { id: 'about', label: 'Om', slug: '/om', virtual: true, sub: [] },
   { id: 'contact', label: 'Kontakt', slug: '/kontakt', general: true },
-  { id: 'archive', label: 'Arkiv', slug: '/arkiv', general: true, sub: [] },
+  //{ id: 'archive', label: 'Arkiv', slug: '/arkiv', general: true, sub: [] },
   { id: 'search', label: 'Sök', slug: '/sok', general: true }
 ]
 
@@ -28,7 +28,8 @@ export const buildMenu = async (locale: string) => {
   const menu = buildYearMenu(res, { locale, altLocale, isArchive: false, messages });
   const archiveIndex = menu.findIndex(el => el.id === 'archive')
 
-  //@ts-ignore
+  /*
+
   menu[archiveIndex].sub = archive.map(el => {
     const year = el.year.title;
     const haveAboutOverview = el.abouts.filter(({ year }) => year).length > 0
@@ -53,6 +54,7 @@ export const buildMenu = async (locale: string) => {
         .sort((a, b) => a.id === 'about' ? -1 : 1)
     }
   })
+  */
 
   return menu
 }

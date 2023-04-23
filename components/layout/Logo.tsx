@@ -5,10 +5,10 @@ import { usePage } from '/lib/context/page'
 import Link from 'next/link'
 
 export default function Logo() {
-  const { year: { color: { hex }, isArchive }, isHome } = usePage()
+  const { isHome } = usePage()
 
   return (
-    <div className={cn(s.container, isHome && s.home)} style={isArchive ? { fill: hex } : undefined}>
+    <div className={cn(s.container, isHome && s.home)}>
       <Link href={'/'}><LogoIcon /></Link>
     </div>
   )

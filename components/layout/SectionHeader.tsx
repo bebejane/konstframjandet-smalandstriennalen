@@ -24,25 +24,23 @@ export default function SectionHeader() {
   const { locale, defaultLocale } = router
 
   const [showMenu] = useStore((state) => [state.showMenu])
-  const { section, parent, year, year: { color: { hex }, isArchive }, isHome, slugs } = usePage()
+  const { section, parent, year, isHome, slugs } = usePage()
 
   const locationsParentPath = `${translatePath('/partners', locale, defaultLocale, year?.title)}#locations`
   const isLocation = section === 'locations'
   const parentPath = isLocation ? locationsParentPath : slugs.find((slug) => slug.locale === locale)?.parent
 
-  const isArchiveHome = section === 'home' && isArchive
   const isSearch = section === 'search'
   const isArchiveOverview = section === 'archive'
-  const isOverview = !parent && !isArchive
-  const showArchive = isArchive || isArchiveOverview
+  const isOverview = !parent
   const showLine = !isHome
 
-  const yearLabel = isArchiveHome ? `${PROJECT_NAME} ${year.title}` : `${PROJECT_ABBR}°${year.title.substring(2)}`
-  const label = isArchiveOverview ? PROJECT_NAME : isArchiveHome ? yearLabel : !isSearch ? `${yearLabel}${!isHome ? ` — ${t(isLocation ? 'partners' : section)}` : ''}` : t('search')
+  const yearLabel = `${PROJECT_ABBR}°${year.title.substring(2)}`
+  const label = !isSearch ? `${yearLabel}${!isHome ? ` — ${t(isLocation ? 'partners' : section)}` : ''}` : t('search')
 
   const header = (
     <h2>
-      <span style={{ color: hex }} key={label}>
+      <span key={label}>
         {label.split('').map((c, idx) =>
           <span
             key={`${idx}`}
@@ -65,7 +63,6 @@ export default function SectionHeader() {
             </Link>
             : <>{header}</>
         }
-        {showArchive && <span className={s.archive}>ARKIV</span>}
       </header>
       {!isHome && <div className={s.spacer}></div>}
       {showLine && <div className={s.line}></div>}

@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react'
 import type { Menu, MenuItem } from '/lib/menu'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Hamburger, Temperature } from '/components'
+import { Hamburger } from '/components'
 import useStore from '/lib/store'
 import { useScrollInfo } from 'dato-nextjs-utils/hooks'
 import { useWindowSize } from 'usehooks-ts'
@@ -69,7 +69,6 @@ export default function Menu({ items }: MenuProps) {
 				className={cn(s.menu, !showMenu && s.hide)}
 				style={{ minHeight: `calc(100vh - ${footerScrollPosition}px - 1px)` }}
 			>
-				<Temperature />
 				<ul
 					data-level={0}
 					ref={menuRef}

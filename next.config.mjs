@@ -1,7 +1,7 @@
 import { GraphQLClient, gql } from "graphql-request";
 import i18nPaths from "./lib/i18n/paths.json" assert { type: "json" };
 
-export const locales = ["sv", "en"];
+export const locales = ["sv"];
 export const defaultLocale = "sv";
 
 const sassOptions = {
@@ -13,50 +13,6 @@ const sassOptions = {
   `,
 };
 
-async function allYears() {
-	const graphQLClient = new GraphQLClient("https://graphql.datocms.com", {
-		headers: {
-			Authorization: process.env.GRAPHQL_API_TOKEN,
-			"X-Exclude-Invalid": true,
-		},
-	});
-
-	const { years } = await graphQLClient.request(
-		gql`
-			{
-				years: allYears(first: 100) {
-					title
-				}
-			}
-		`
-	);
-	return years;
-}
-
-const i18Rewrites = async () => {
-	const years = await allYears();
-	const rewrites = [];
-
-	Object.keys(i18nPaths).forEach((k) =>
-		rewrites.push({
-			destination: `/en/${i18nPaths[k].sv}/:path*`,
-			source: `/en/${i18nPaths[k].en}/:path*`,
-			locale: false,
-		})
-	);
-
-	years.forEach(({ title }) =>
-		Object.keys(i18nPaths).forEach((k) =>
-			rewrites.push({
-				destination: `/en/${title}/${i18nPaths[k].sv}/:path*`,
-				source: `/en/${title}/${i18nPaths[k].en}/:path*`,
-				locale: false,
-			})
-		)
-	);
-	return rewrites;
-};
-
 export default async (phase, { defaultConfig }) => {
 	/**
 	 * @type {import('next').NextConfig}
@@ -66,9 +22,6 @@ export default async (phase, { defaultConfig }) => {
 			locales,
 			defaultLocale,
 			localeDetection: false,
-		},
-		async rewrites() {
-			return await i18Rewrites();
 		},
 		sassOptions,
 		typescript: {

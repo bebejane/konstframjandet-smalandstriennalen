@@ -19,7 +19,7 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
 
   return async (context: GetStaticPropsContext) => {
 
-    const years = await allYears(context.locale)
+    const years = await allYears()
     let year = years.find(({ title }) => context.params?.year ? title === context.params?.year : title === years[0].title)
 
     if (!year) {
@@ -32,11 +32,7 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
     const props = await apiQuery(queries, { preview: context.preview, variables });
 
     let messages = (await import(`./i18n/${context.locale}.json`)).default
-    if (year.participantName) {
-      // Custom translation for participants
-      messages.Menu.participants = year.participantName
-      messages.BackButton.showAllParticipants = `${messages.BackButton.showAll} ${year.participantName.toLowerCase()}`
-    }
+
     props.year = year
     props.messages = messages;
     props.locale = context.locale

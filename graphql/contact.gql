@@ -1,5 +1,5 @@
-query Contact($locale: SiteLocale) {
-	contact(locale: $locale) {
+query Contact {
+	contact {
 		id
 		image {
 			...ImageFragment

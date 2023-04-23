@@ -1,10 +1,5 @@
-query AllAbouts($first: IntType = 100, $skip: IntType = 0, $yearId: ItemId, $locale: SiteLocale) {
-	abouts: allAbouts(
-		filter: { year: { eq: $yearId } }
-		locale: $locale
-		first: $first
-		skip: $skip
-	) {
+query AllAbouts($first: IntType = 100, $skip: IntType = 0, $yearId: ItemId) {
+	abouts: allAbouts(filter: { year: { eq: $yearId } }, first: $first, skip: $skip) {
 		...AboutFragmentLight
 	}
 	pagination: _allAboutsMeta {
@@ -12,20 +7,20 @@ query AllAbouts($first: IntType = 100, $skip: IntType = 0, $yearId: ItemId, $loc
 	}
 }
 
-query About($slug: String!, $locale: SiteLocale) {
-	about(filter: { slug: { eq: $slug } }, locale: $locale) {
+query About($slug: String!) {
+	about(filter: { slug: { eq: $slug } }) {
 		...AboutFragment
 	}
 }
 
-query MainAbout($yearId: ItemId, $locale: SiteLocale) {
-	abouts: allAbouts(filter: { year: { eq: $yearId } }, first: 1, locale: $locale) {
+query MainAbout($yearId: ItemId) {
+	abouts: allAbouts(filter: { year: { eq: $yearId } }, first: 1) {
 		...AboutFragment
 	}
 }
 
-query AllAboutsMenu($locale: SiteLocale) {
-	abouts: allAbouts(locale: $locale, first: 100) {
+query AllAboutsMenu {
+	abouts: allAbouts(first: 100) {
 		title
 		slug
 	}

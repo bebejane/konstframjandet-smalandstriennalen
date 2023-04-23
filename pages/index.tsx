@@ -13,7 +13,7 @@ export type Props = {
 const fullBlocks = ['StartFullscreenImageRecord', 'StartFullBleedImageRecord', 'StartFullscreenVideoRecord']
 
 export default function Home({ start }: Props) {
-
+	console.log(start)
 	return (
 		<div className={s.container}>
 			{start.content.map((block, idx) =>
@@ -60,7 +60,8 @@ export const getStaticProps = withGlobalProps({ queries: [StartDocument] }, asyn
 		props: {
 			...props,
 			start: {
-				...start, content: start.content.map(block => ({
+				...start,
+				content: start.content.map(block => ({
 					...block,
 					news: block.__typename === 'StartNewsRecord' ? news : null,
 					programs: block.__typename === 'StartProgramRecord' ? programs : null,

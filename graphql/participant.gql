@@ -1,19 +1,19 @@
-query AllParticipants($locale: SiteLocale, $yearId: ItemId) {
+query AllParticipants($yearId: ItemId) {
 	participants: allParticipants(
 		filter: { year: { eq: $yearId } }
-		locale: $locale
+
 		first: 100
 		orderBy: name_ASC
 	) {
 		...ParticipantFragmentLight
 	}
-	pagination: _allParticipantsMeta(locale: $locale) {
+	pagination: _allParticipantsMeta {
 		count
 	}
 }
 
-query Participant($slug: String, $locale: SiteLocale) {
-	participant(filter: { slug: { eq: $slug } }, locale: $locale) {
+query Participant($slug: String) {
+	participant(filter: { slug: { eq: $slug } }) {
 		...ParticipantFragment
 	}
 }
