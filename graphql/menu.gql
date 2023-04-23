@@ -21,8 +21,8 @@ query Menu($locale: SiteLocale, $altLocale: SiteLocale, $yearId: ItemId) {
 		...YearFragment
 	}
 	year(filter: { id: { eq: $yearId } }, locale: $locale, orderBy: title_DESC) {
+		id
 		title
-		participantName
 	}
 	aboutMeta: _allAboutsMeta(filter: { year: { eq: $yearId } }) {
 		count

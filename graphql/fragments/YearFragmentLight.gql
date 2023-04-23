@@ -1,22 +1,5 @@
 fragment YearFragmentLight on YearRecord {
 	id
 	title
-	participantName
 	slug
-	theme
-	image {
-		...ImageThumbnailFragment
-	}
-	color {
-		hex
-		red
-		green
-		red
-	}
-	backgroundColor {
-		hex
-		red
-		green
-		red
-	}
 }

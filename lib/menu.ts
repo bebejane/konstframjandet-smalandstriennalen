@@ -65,7 +65,6 @@ export const buildYearMenu = (res: MenuQueryResponse, { locale, altLocale, isArc
     const year = res.year.title
 
     if (item.slug) {
-      item.label = item.id === 'participants' ? res.year.participantName : messages.Menu[item.id]
       item.slug = `/${!item.general ? year + '/' : ''}${i18nPaths[item.id][locale]}`
       item.altSlug = `/${!item.general ? year + '/' : ''}${i18nPaths[item.id][altLocale]}`
     }
@@ -79,8 +78,10 @@ export const buildYearMenu = (res: MenuQueryResponse, { locale, altLocale, isArc
           slug: `/${year}/${i18nPaths.about[locale]}/${el.slug}`,
           altSlug: `/${year}/${i18nPaths.about[altLocale]}/${el.altSlug}`
         }))
-        item.slug = `/${year}/${i18nPaths.about[locale]}/${res.abouts[0].slug}`
-        item.altSlug = `/${year}/${i18nPaths.about[altLocale]}/${res.abouts[0].altSlug}`
+        if (res.abouts.length) {
+          item.slug = `/${year}/${i18nPaths.about[locale]}/${res.abouts[0].slug}`
+          item.altSlug = `/${year}/${i18nPaths.about[altLocale]}/${res.abouts[0].altSlug}`
+        }
         break;
       default:
         break;

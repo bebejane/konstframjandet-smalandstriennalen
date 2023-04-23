@@ -5,15 +5,6 @@ query AllPartners($locale: SiteLocale, $yearId: ItemId) {
 	pagination: _allPartnersMeta(locale: $locale) {
 		count
 	}
-	financiers: year(filter: { id: { eq: $yearId } }, locale: $locale) {
-		fundedBy {
-			id
-			url
-			logo {
-				...ImageMediumFragment
-			}
-		}
-	}
 }
 
 query Partner($slug: String!, $locale: SiteLocale) {

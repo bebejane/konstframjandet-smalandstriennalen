@@ -6,5 +6,5 @@ export const breakpoints = {
   wide: 1600,
   navBreak: 1100
 }
-export const PROJECT_NAME = 'Luleåbiennalen'
-export const PROJECT_ABBR = 'LB'
+export const PROJECT_NAME = 'Smålandstriennalen'
+export const PROJECT_ABBR = 'ST'
