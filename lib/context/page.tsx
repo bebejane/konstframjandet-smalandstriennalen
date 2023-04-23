@@ -4,6 +4,7 @@ const initialState: PageProps = {
   year: undefined,
   title: undefined,
   isHome: false,
+  section: 'home'
 }
 
 export const PageContext = createContext(initialState);
