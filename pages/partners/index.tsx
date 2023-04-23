@@ -6,7 +6,6 @@ import { CardContainer, Card, Thumbnail, Link } from "/components";
 import { useRouter } from "next/router";
 import { DatoSEO } from "dato-nextjs-utils/components";
 import { useTranslations } from "next-intl";
-import { Image } from "react-datocms";
 import { pageSlugs } from "/lib/i18n";
 import { usePage } from "/lib/context/page";
 
@@ -16,7 +15,7 @@ export type Props = {
   financiers: YearRecord
 }
 
-export default function Partners({ partners, locations, financiers: { fundedBy } }: Props) {
+export default function Partners({ partners, locations }: Props) {
 
   const t = useTranslations()
   const { asPath } = useRouter()
@@ -53,22 +52,6 @@ export default function Partners({ partners, locations, financiers: { fundedBy }
           </Card>
         )}
       </CardContainer>
-      <section className={s.financiers}>
-        <h2 className={s.head}>{t('Partners.supportedBy')}</h2>
-        <ul>
-          {fundedBy.map(({ id, url, logo }) =>
-            <li key={id}>
-              <a href={url}>
-                <Image
-                  data={logo.responsiveImage}
-                  className={s.image}
-                  objectFit={'contain'}
-                />
-              </a>
-            </li>
-          )}
-        </ul>
-      </section>
     </>
   );
 }
