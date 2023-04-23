@@ -1,0 +1,9 @@
+.button {
+  margin-top: var(--small-space);
+  margin-bottom: var(--small-space);
+  display: block;
+  button {
+    cursor: pointer;
+    width: var(--body-width);
+  }
+}

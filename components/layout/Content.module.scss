@@ -1,0 +1,58 @@
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 0 1;
+  flex-basis: 100%;
+  border-right: 1px solid var(--black);
+
+  @include mq($from: tablet) {
+    flex-basis: 80%;
+    max-width: 80%;
+    transition: max-width 0.3s ease-in-out, margin 0.3s ease-in-out, flex-basis 0.3s ease-in-out;
+
+    &.full {
+      flex-basis: 100%;
+      max-width: 100%;
+      border-right: 0px;
+
+      article {
+        @include mq($from: tablet) {
+          margin-left: calc(var(--grid-unit) + var(--total-outer-margin)) !important;
+          margin-right: calc(var(--grid-unit) + var(--total-outer-margin)) !important;
+        }
+
+        @include mq($from: wide) {
+          margin-left: var(--wide-margin) !important;
+          margin-right: var(--wide-margin) !important;
+        }
+      }
+    }
+  }
+
+  @include mq($until: tablet) {
+    --max-width: calc(100% - var(--logo-size-optical) - calc(var(--outer-margin) * 3));
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(calc(-1 * var(--max-width)));
+
+    &.full {
+      transform: translateX(0%);
+      border-right: 0px;
+    }
+  }
+
+  article {
+    transition: all 0.3s ease-in-out;
+    padding-bottom: var(--space);
+    margin: 0;
+
+    @include mq($until: tablet) {
+      padding-top: var(--navbar-height);
+    }
+
+    @include mq($from: tablet) {
+      margin-left: calc(var(--total-outer-margin));
+      margin-right: calc(var(--total-outer-margin));
+    }
+  }
+}

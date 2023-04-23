@@ -1,0 +1,32 @@
+.financiers {
+  margin-top: var(--space);
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+
+    li {
+      a {
+        .image {
+          aspect-ratio: 4/4;
+          max-height: 5rem;
+        }
+      }
+    }
+  }
+}
+
+h2.head {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: var(--small-space);
+  margin-bottom: var(--space);
+
+  &.locations {
+    scroll-margin-top: var(--space);
+  }
+}

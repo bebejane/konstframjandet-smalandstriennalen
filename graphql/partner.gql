@@ -1,0 +1,23 @@
+query AllPartners($locale: SiteLocale, $yearId: ItemId) {
+	partners: allPartners(filter: { year: { eq: $yearId } }, locale: $locale, first: 100) {
+		...PartnerFragmentLight
+	}
+	pagination: _allPartnersMeta(locale: $locale) {
+		count
+	}
+	financiers: year(filter: { id: { eq: $yearId } }, locale: $locale) {
+		fundedBy {
+			id
+			url
+			logo {
+				...ImageMediumFragment
+			}
+		}
+	}
+}
+
+query Partner($slug: String!, $locale: SiteLocale) {
+	partner(filter: { slug: { eq: $slug } }, locale: $locale) {
+		...PartnerFragment
+	}
+}

@@ -1,0 +1,62 @@
+{
+	"Menu": {
+		"home": "Home",
+		"about": "About",
+		"program": "Program",
+		"exhibitions": "Exhibitions",
+		"partners": "Partners",
+		"participants": "Participants",
+		"locations": "Locations",
+		"news": "News",
+		"contact": "Contact",
+		"archive": "Archive",
+		"search": "Search"
+	},
+	"FilterBar": {
+		"all": "All"
+	},
+	"MetaSection": {
+		"what": "What",
+		"where": "Where",
+		"when": "When",
+		"times": "Times",
+		"link": "Link",
+		"webpage": "More info",
+		"city": "City",
+		"address": "Address"
+	},
+	"BackButton": {
+		"showAll": "Show all",
+		"showAllPrograms": "Show complete program",
+		"showAllExhibitons": "Show all exhibitons",
+		"showAllParticipants": "Show all participants",
+		"showAllLocations": "Show all locations",
+		"showAllNews": "Show all news",
+		"showAllPartners": "Show all partners"
+	},
+	"Footer": {
+		"subscribe": "Subscribe to our newsletter",
+		"followUs": "Follow us on",
+		"and": "and"
+	},
+	"Search": {
+		"searcResults": "Search results",
+		"noHitsFor": "Nothing found for"
+	},
+	"General": {
+		"showAll": "Show all",
+		"readMore": "Read more",
+		"close": "Close",
+		"inCooperationWith": "In cooperation with"
+	},
+	"Related": {
+		"related": "Related",
+		"participatingIn": "Participating in"
+	},
+	"Partners": {
+		"supportedBy": "Financed by"
+	},
+	"Program": {
+		"noProgramItems": "There are no events in this category"
+	}
+}

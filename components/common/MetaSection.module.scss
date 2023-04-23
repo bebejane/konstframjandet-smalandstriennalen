@@ -1,0 +1,36 @@
+.meta {
+  margin-top: var(--space);
+  margin-bottom: -0.5em;
+  width: var(--body-width);
+  padding-top: var(--space);
+  border-top: 1px solid var(--black);
+  margin-left: var(--outer-margin);
+  columns: 2;
+  text-align: center;
+
+  @include mq($from: tablet) {
+    margin-left: var(--grid-unit);
+    columns: 1;
+  }
+
+  > ul {
+    list-style: none;
+    padding-left: 0 !important;
+
+    @include mq($from: tablet) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    li {
+      padding-bottom: 0.5em;
+      text-align: center;
+
+      a:hover {
+        border-bottom: 1px solid var(--black);
+      }
+    }
+  }
+}

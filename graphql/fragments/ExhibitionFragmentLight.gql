@@ -1,0 +1,15 @@
+#import "./ImageFragment.gql"
+#import "./VideoFragment.gql"
+
+fragment ExhibitionFragmentLight on ExhibitionRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	startDate
+	endDate
+	image {
+		...ImageThumbnailFragment
+	}
+	slug
+}

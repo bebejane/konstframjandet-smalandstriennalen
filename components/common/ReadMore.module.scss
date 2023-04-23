@@ -1,0 +1,48 @@
+.more {
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  color: var(--foreground);
+
+  &:hover {
+    .square {
+      transform: translateX(-0.14em) rotate(45deg);
+    }
+  }
+
+  .square {
+    overflow: hidden;
+    display: inline-block;
+    background: var(--foreground);
+    width: 0.4em;
+    height: 0.4em;
+    margin-right: 0.4em;
+    margin-bottom: 0.1em;
+    transition: all 0.1s;
+
+    &[data-theme='dark'] {
+      background-color: var(--foreground);
+    }
+  }
+
+  span {
+    color: var(--foreground);
+
+    &[data-theme='dark'] {
+      color: var(--foreground);
+    }
+  }
+
+  &.invert {
+    .square {
+      background-color: var(--white);
+    }
+
+    span {
+      color: var(--white) !important;
+      width: 0.45em;
+    }
+  }
+
+
+}

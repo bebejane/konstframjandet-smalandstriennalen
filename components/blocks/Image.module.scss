@@ -1,0 +1,29 @@
+.figure {
+  margin-top: var(--space);
+  margin-bottom: var(--space);
+
+  &.small {
+    padding-left: calc(2 * var(--grid-unit));
+    padding-right: calc(2 * var(--grid-unit));
+  }
+
+  &.medium {
+    padding-left: var(--grid-unit);
+    padding-right: var(--grid-unit);
+  }
+
+  &.large {}
+
+  &.portrait {}
+
+  .image {}
+
+  figcaption {
+    line-height: 0 !important;
+
+    @include mq($until: tablet) {
+      padding-left: var(--outer-margin);
+      padding-right: var(--outer-margin);
+    }
+  }
+}

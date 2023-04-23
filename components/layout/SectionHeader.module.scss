@@ -1,0 +1,149 @@
+.header {
+  position: fixed;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-top: var(--outer-margin);
+  z-index: var(--z-section-header);
+  transition: width 0.3s ease-in-out;
+  width: 100%;
+  mix-blend-mode: difference;
+
+  h2 {
+    line-height: 1;
+  }
+
+  svg {
+    path {
+      width: 200px;
+    }
+  }
+
+  @include mq($from: tablet) {
+    a,
+    span {
+      color: var(--white);
+    }
+  }
+
+  &:hover {
+    // mix-blend-mode: normal !important;
+    a,
+    span {
+      //color: var(--black);
+    }
+  }
+
+  &.full {
+    @include mq($until: tablet) {
+      width: 100%;
+    }
+
+    width: calc(100% - (2 * var(--total-outer-margin) + (var(--grid-unit))));
+
+    @include mq($from: wide) {
+      width: calc(100% - (2 * var(--total-outer-margin) + (2 * var(--grid-unit))));
+    }
+  }
+
+  @include mq($until: tablet) {
+    margin-top: -1em;
+  }
+
+  @include mq($from: tablet) {
+    width: calc(80% - var(--total-outer-margin));
+    padding-right: var(--total-outer-margin);
+  }
+
+  .archive {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    font-family: $headline-font;
+    font-weight: bold;
+    margin-top: -0.15em;
+    letter-spacing: 0.2em;
+    font-size: 2.7rem;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px;
+    text-align: center;
+    color: rgb(47, 47, 47);
+    width: 100%;
+
+    @include mq($from: tablet) {
+      margin-top: -0.08em;
+      width: calc(100% - var(--total-outer-margin));
+    }
+  }
+
+  svg {
+    margin-top: -0.5em;
+    transform: scale(1.1);
+
+    @include mq($until: tablet) {
+      display: none;
+    }
+  }
+
+  a {
+    //width: 100%;
+
+    h2 {
+      line-height: 1;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+
+      > span {
+        /*
+        &:hover {
+          padding-left: 1em;
+          padding-right: 1em;
+          padding-top: 0.5em;
+          padding-bottom: 0.5em;
+          border-radius: 1.5em;
+          background-color: var(--foreground);
+        }
+        */
+
+        span {
+          animation-name: show;
+          animation-duration: 0.2s;
+          animation-timing-function: steps(1, end);
+          animation-fill-mode: forwards;
+          opacity: 0.5;
+
+          @keyframes show {
+            to {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.line {
+  margin-bottom: var(--space);
+  width: 100%;
+  border-bottom: 1px solid var(--black);
+
+  @include mq($until: tablet) {
+    margin-left: var(--outer-margin);
+    margin-right: var(--outer-margin);
+    width: var(--body-width);
+  }
+}
+
+.spacer {
+  position: relative;
+  height: calc(var(--header-height) - 0.8rem);
+
+  @include mq($from: tablet) {
+    height: var(--header-height);
+  }
+}

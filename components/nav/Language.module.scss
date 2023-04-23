@@ -1,0 +1,22 @@
+.language {
+  mix-blend-mode: difference;
+  @include mq($until: tablet) {
+    display: none; //Temp
+  }
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-language);
+  margin: var(--outer-margin);
+  line-height: 1;
+
+  a {
+    margin-right: 0.5em;
+    color: var(--white);
+
+    &.selected {
+      font-weight: bold;
+    }
+  }
+}

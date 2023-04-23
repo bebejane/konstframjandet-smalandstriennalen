@@ -1,0 +1,62 @@
+{
+	"Menu": {
+		"home": "Hem",
+		"about": "Om",
+		"program": "Program",
+		"exhibitions": "Utställningar",
+		"partners": "Partners",
+		"participants": "Medverkande",
+		"locations": "Platser",
+		"news": "Nyheter",
+		"contact": "Kontakt",
+		"archive": "Arkiv",
+		"search": "Sök"
+	},
+	"FilterBar": {
+		"all": "Alla"
+	},
+	"MetaSection": {
+		"what": "Vad",
+		"where": "Var",
+		"when": "När",
+		"times": "Tider",
+		"link": "Länk",
+		"webpage": "Mer info",
+		"city": "Stad",
+		"address": "Adress"
+	},
+	"BackButton": {
+		"showAll": "Visa alla",
+		"showAllPrograms": "Visa hela programmet",
+		"showAllExhibitons": "Visa alla utställningar",
+		"showAllParticipants": "Visa alla medverkande",
+		"showAllLocations": "Visa alla platser",
+		"showAllNews": "Visa alla nyheter",
+		"showAllPartners": "Visa alla partners"
+	},
+	"Footer": {
+		"subscribe": "Prenumerera på vårt nyhetsbrev",
+		"followUs": "Följ oss på",
+		"and": "och"
+	},
+	"Search": {
+		"searcResults": "Sökresultat",
+		"noHitsFor": "Inga träffar för",
+		"close": "Stäng"
+	},
+	"General": {
+		"showAll": "Visa alla",
+		"readMore": "Läs mer",
+		"inCooperationWith": "I samarbete med"
+	},
+	"Related": {
+		"related": "Relaterat",
+		"participatingIn": "Deltar i"
+	},
+	"Partners": {
+		"supportedBy": "Finansiärer"
+	},
+	"Program": {
+		"noProgramItems": "Det finns inga program i den här kategorin"
+	}
+}

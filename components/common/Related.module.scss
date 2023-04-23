@@ -1,0 +1,91 @@
+.related {
+  width: var(--body-width);
+  border-top: 1px solid var(--black);
+  padding-top: var(--space);
+  margin-top: var(--space);
+  position: relative;
+  margin-left: var(--outer-margin);
+  margin-right: var(--outer-margin);
+
+  @include mq($from: tablet) {
+    margin-left: var(--grid-unit);
+    margin-right: var(--grid-unit);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: var(--space) !important;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ul {
+    padding-left: 0;
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: calc(-1 * var(--space));
+
+    @include mq($until: tablet) {
+      margin-left: calc(-1 * var(--gutter-half));
+      margin-right: calc(-1 * var(--gutter-half));
+    }
+
+    @include mq($from: tablet) {
+      width: 100%;
+    }
+
+    li {
+      flex: 0 0 33%.33;
+      padding-right: var(--gutter-half);
+      padding-left: var(--gutter-half);
+      padding-top: var(--space);
+
+      @include mq($until: tablet) {
+        max-width: 33.33%;
+      }
+
+      figure {
+        display: flex;
+        aspect-ratio: 8 / 5;
+        box-shadow: 0px 0px 0px var(--black);
+        transition: all 0.5s;
+        position: relative;
+
+        .border {
+          width: 100%;
+          height: 100%;
+          border: 0px solid white;
+          mix-blend-mode: difference;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: all 0.3s ease;
+        }
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s;
+      }
+
+      figcaption {
+        padding-left: 0;
+        padding-right: 0;
+        word-break: break-word;
+      }
+
+      &:hover {
+        figure .border {
+          border-width: 5px;
+        }
+      }
+    }
+  }
+}

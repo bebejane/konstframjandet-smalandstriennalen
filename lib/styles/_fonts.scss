@@ -1,0 +1,60 @@
+// FONT EMBEDDING & TYPO VARIABLES
+$body-font: "Remix", Times, "Times New Roman", Sans-Serif;
+$headline-font: "Rauschen", Arial, Helvetica, Sans-Serif;
+$headline-font-medium: "Rauschen-Medium", Arial, Helvetica, Sans-Serif;
+
+@font-face {
+    font-family: "Remix";
+    src: url("../../public/fonts/RemixA-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Remix";
+    src: url("../../public/fonts/RemixA-Italic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Rauschen";
+    src: url("../../public/fonts/Rauschen-ABold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Rauschen";
+    src: url("../../public/fonts/RauschenA-BoldItalic.woff2") format("woff2");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Rauschen";
+    src: url("../../public/fonts/RauschenA-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Rauschen";
+    src: url("../../public/fonts/Rauschen-ARegular-Italic-Web.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Rauschen-Medium";
+    src: url("../../public/fonts/Rauschen-AMedium.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Rauschen-Medium";
+    src: url("../../public/fonts/RauschenA-MediumItalic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+}

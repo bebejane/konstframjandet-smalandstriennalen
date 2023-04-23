@@ -1,0 +1,40 @@
+.news {
+  padding-top: 0rem;
+
+  strong {
+    padding-right: 1em;
+  }
+
+  h3 {
+    font-weight: normal;
+    text-transform: uppercase;
+    padding-bottom: var(--small-space);
+  }
+
+  > ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+      margin-top: var(--space);
+      .intro {
+        p {
+          padding: 0;
+
+          > strong {
+            font-family: $headline-font;
+            font-size: 0.75rem;
+            font-weight: bold !important;
+          }
+        }
+      }
+
+      button {
+        margin-top: var(--small-space);
+        margin-left: calc(var(--grid-unit) * 3);
+        margin-right: calc(var(--grid-unit) * 3);
+        width: calc(100% - (var(--grid-unit) * 6));
+      }
+    }
+  }
+}

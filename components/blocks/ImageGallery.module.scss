@@ -1,0 +1,108 @@
+.gallery {
+  position: relative;
+  max-width: 100vw;
+  min-width: 100%;
+
+  margin-top: calc(1.2 * var(--space));
+  margin-bottom: var(--space);
+
+
+  .fade {
+    @include mq($from: tablet) {
+      display: none;
+    }
+
+    height: 100%;
+    width: calc(2 * var(--outer-margin));
+    background: linear-gradient(270deg, rgba(252, 252, 252, 1) 0%, rgba(252, 252, 252, 0) 100%);
+    position: absolute;
+    right: 0;
+    z-index: 100;
+  }
+
+  .next,
+  .prev {
+    @include mq($until: tablet) {
+      display: none;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    user-select: none;
+    width: var(--total-outer-margin);
+    //
+    top: 0;
+    right: 0;
+    z-index: 2;
+    margin: 0;
+    margin-right: calc(-1 * var(--total-outer-margin));
+    cursor: pointer;
+  }
+
+  .prev {
+    left: 0;
+    margin-left: calc(-1 * var(--total-outer-margin));
+  }
+
+  .swiper {
+    position: relative;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    overflow: hidden;
+    user-select: none;
+    cursor: pointer;
+
+    >div {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+
+      .slide {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: calc((100% - (var(--gutter) * 2)) / 3);
+        padding-right: var(--gutter);
+
+        @include mq($until: desktop) {
+          width: 100%;
+        }
+
+        >figure {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          cursor: pointer;
+
+          figcaption {
+            flex: 0 0;
+            padding: 0;
+            margin-top: 1em;
+
+            @include mq($until: tablet) {
+              padding-left: var(--outer-margin);
+              padding-right: var(--outer-margin);
+
+            }
+
+            >p {
+              text-align: left;
+              margin: 0;
+              padding: 0;
+            }
+          }
+
+          .image {
+            //min-height: 20vw;
+            //max-height: 20vw;
+          }
+        }
+      }
+    }
+  }
+}

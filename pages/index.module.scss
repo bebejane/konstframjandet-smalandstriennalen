@@ -1,0 +1,52 @@
+.container {
+  section {
+    padding-top: var(--space);
+    padding-bottom: var(--space);
+    border-bottom: 1px solid var(--black);
+
+    @include mq($until: tablet) {
+      margin-left: var(--outer-margin);
+      margin-right: var(--outer-margin);
+    }
+
+    &:first-child {
+      padding-top: 0;
+
+      @include mq($until: tablet) {
+        padding-top: 0.8rem;
+      }
+    }
+
+    &:last-child {
+      //padding-bottom: 0;
+    }
+
+    &:first-child,
+    &:last-child {
+      border-width: 0;
+    }
+
+    &.noborder {
+      border-width: 0 !important;
+      @include mq($until: tablet) {
+        //padding-bottom: 0;
+        padding-top: 1.5rem;
+      }
+    }
+
+    header {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      position: relative;
+      margin-bottom: var(--space);
+
+      a {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
+}

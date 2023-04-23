@@ -1,0 +1,45 @@
+query Menu($locale: SiteLocale, $altLocale: SiteLocale, $yearId: ItemId) {
+	abouts: allAbouts(
+		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
+		locale: $locale
+		first: 100
+	) {
+		id
+		title
+		slug
+		altSlug: slug(locale: $altLocale)
+		year {
+			title
+		}
+	}
+	years: allYears(
+		filter: { id: { neq: $yearId } }
+		locale: $locale
+		first: 100
+		orderBy: title_DESC
+	) {
+		...YearFragment
+	}
+	year(filter: { id: { eq: $yearId } }, locale: $locale, orderBy: title_DESC) {
+		title
+		participantName
+	}
+	aboutMeta: _allAboutsMeta(filter: { year: { eq: $yearId } }) {
+		count
+	}
+	programMeta: _allProgramsMeta(filter: { year: { eq: $yearId } }) {
+		count
+	}
+	participantsMeta: _allParticipantsMeta(filter: { year: { eq: $yearId } }) {
+		count
+	}
+	partnersMeta: _allPartnersMeta(filter: { year: { eq: $yearId } }) {
+		count
+	}
+	exhibitionsMeta: _allExhibitionsMeta(filter: { year: { eq: $yearId } }) {
+		count
+	}
+	locationsMeta: _allLocationsMeta(filter: { year: { eq: $yearId } }) {
+		count
+	}
+}

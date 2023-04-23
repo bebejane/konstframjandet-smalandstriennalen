@@ -1,0 +1,337 @@
+query Start($locale: SiteLocale) {
+	start(locale: $locale) {
+		id
+		content {
+			__typename
+			... on StartTextRecord {
+				__typename
+				id
+				headline
+				text
+				link {
+					__typename
+					... on ExternalLinkRecord {
+						__typename
+						id
+						title
+						url
+					}
+					... on InternalLinkRecord {
+						__typename
+						id
+						internalTitle: title
+						record {
+							... on AboutRecord {
+								id
+								slug
+								title
+							}
+							... on ExhibitionRecord {
+								id
+								slug
+								title
+							}
+							... on LocationRecord {
+								id
+								slug
+								title
+							}
+							... on NewsRecord {
+								id
+								slug
+								title
+							}
+							... on ParticipantRecord {
+								id
+								slug
+								name
+							}
+							... on ProgramRecord {
+								id
+								slug
+								title
+							}
+						}
+					}
+				}
+			}
+			... on StartNewsRecord {
+				__typename
+				id
+				amount
+			}
+			... on StartVideoRecord {
+				__typename
+				id
+				title
+				video {
+					provider
+					providerUid
+					thumbnailUrl
+					url
+				}
+			}
+			... on StartProgramRecord {
+				__typename
+				id
+				amount
+			}
+			... on StartFullscreenImageRecord {
+				__typename
+				id
+				image {
+					...ImageFragment
+				}
+				headline
+				text
+				link {
+					__typename
+					... on ExternalLinkRecord {
+						__typename
+						id
+						title
+						url
+					}
+					... on InternalLinkRecord {
+						__typename
+						id
+						record {
+							... on AboutRecord {
+								id
+								slug
+								title
+							}
+							... on ExhibitionRecord {
+								id
+								slug
+								title
+							}
+							... on LocationRecord {
+								id
+								slug
+								title
+							}
+							... on NewsRecord {
+								id
+								slug
+								title
+							}
+							... on ParticipantRecord {
+								id
+								slug
+								name
+							}
+							... on ProgramRecord {
+								id
+								slug
+								title
+							}
+						}
+					}
+				}
+			}
+			... on StartFullscreenVideoRecord {
+				__typename
+				id
+				headline
+				text(markdown: false)
+				video {
+					...VideoFragment
+				}
+				link {
+					__typename
+					... on ExternalLinkRecord {
+						__typename
+						id
+						title
+						url
+					}
+					... on InternalLinkRecord {
+						__typename
+						id
+						internalTitle: title
+						record {
+							... on AboutRecord {
+								id
+								slug
+								title
+							}
+							... on ExhibitionRecord {
+								id
+								slug
+								title
+							}
+							... on LocationRecord {
+								id
+								slug
+								title
+							}
+							... on NewsRecord {
+								id
+								slug
+								title
+							}
+							... on ParticipantRecord {
+								id
+								slug
+								name
+							}
+							... on ProgramRecord {
+								id
+								slug
+								title
+							}
+						}
+					}
+				}
+			}
+
+			... on StartRandomParticipantRecord {
+				__typename
+				id
+				amount
+			}
+			... on StartFullscreenImageRecord {
+				id
+				image {
+					...ImageFragment
+				}
+			}
+			... on StartFullBleedImageRecord {
+				id
+				image {
+					...ImageFragment
+				}
+				headline
+				text
+				link {
+					__typename
+					... on ExternalLinkRecord {
+						__typename
+						id
+						title
+						url
+					}
+					... on InternalLinkRecord {
+						__typename
+						id
+						record {
+							... on AboutRecord {
+								id
+								slug
+								title
+							}
+							... on ExhibitionRecord {
+								id
+								slug
+								title
+							}
+							... on LocationRecord {
+								id
+								slug
+								title
+							}
+							... on NewsRecord {
+								id
+								slug
+								title
+							}
+							... on ParticipantRecord {
+								id
+								slug
+								name
+							}
+							... on ProgramRecord {
+								id
+								slug
+								title
+							}
+						}
+					}
+				}
+			}
+
+			... on StartGalleryRecord {
+				__typename
+				id
+				headline
+				images {
+					...ImageFragment
+				}
+				link {
+					__typename
+					... on ExternalLinkRecord {
+						__typename
+						id
+						title
+						url
+					}
+					... on InternalLinkRecord {
+						__typename
+						id
+						record {
+							... on AboutRecord {
+								id
+								slug
+								title
+							}
+							... on ExhibitionRecord {
+								id
+								slug
+								title
+							}
+							... on LocationRecord {
+								id
+								slug
+								title
+							}
+							... on NewsRecord {
+								id
+								slug
+								title
+							}
+							... on ParticipantRecord {
+								id
+								slug
+								name
+							}
+							... on ProgramRecord {
+								id
+								slug
+								title
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+query StartData(
+	$newsItems: IntType
+	$programItems: IntType
+	$date: Date
+	$yearId: ItemId
+	$locale: SiteLocale
+) {
+	news: allNews(locale: $locale, first: $newsItems, orderBy: _createdAt_DESC) {
+		...NewsFragmentLight
+	}
+	programs: allPrograms(
+		filter: { startDate: { gte: $date }, year: { eq: $yearId } }
+		locale: $locale
+		first: $programItems
+		orderBy: startDate_DESC
+	) {
+		...ProgramFragmentLight
+	}
+	participants: allParticipants(
+		filter: { year: { eq: $yearId } }
+		first: 100
+		orderBy: _createdAt_DESC
+		locale: $locale
+	) {
+		...ParticipantFragmentLight
+	}
+}

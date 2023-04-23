@@ -1,0 +1,9 @@
+query Footer($locale: SiteLocale) {
+	footer: general(locale: $locale) {
+		id
+		email
+		facebook
+		instagram
+		about
+	}
+}

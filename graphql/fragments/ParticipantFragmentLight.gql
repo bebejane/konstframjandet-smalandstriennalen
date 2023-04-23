@@ -1,0 +1,13 @@
+fragment ParticipantFragmentLight on ParticipantRecord {
+	id
+	name
+	intro(markdown: false)
+	image {
+		...ImageThumbnailFragment
+	}
+	year {
+		...YearFragment
+	}
+	slug
+	_createdAt
+}

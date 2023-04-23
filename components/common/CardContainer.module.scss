@@ -1,0 +1,84 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @include mq($until: tablet) {
+    //margin-left: calc(-1 * var(--outer-margin));
+  }
+
+  @include mq($from: tablet) {
+    margin-left: calc(-1 * var(--gutter));
+    width: calc(100% + (var(--gutter)));
+  }
+
+  padding: 0;
+  list-style: none;
+
+  li a:hover {
+    color: var(--black) !important;
+  }
+
+  > li {
+    border-right: 1px solid var(--beige-mid);
+  }
+
+  &.two > li {
+    p {
+      text-align: center;
+    }
+
+    @include mq($from: tablet) {
+      width: 50%;
+
+      &:nth-of-type(2n) {
+        border-right: none;
+      }
+    }
+
+    @include mq($until: tablet) {
+      width: 100%;
+      border-right: none;
+      a:last-of-type {
+        //margin-bottom: 2rem;
+        //padding-bottom: 2rem;
+        border-bottom: 1px solid var(--beige-mid);
+      }
+
+      &:last-of-type a:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.two {
+    @include mq($until: tablet) {
+      hr {
+        display: none;
+      }
+    }
+  }
+
+  &.three > li {
+    width: 33.333%;
+
+    @include mq($from: tablet) {
+      &:nth-of-type(3n) {
+        border-right: none;
+      }
+    }
+
+    @include mq($until: tablet) {
+      width: 50%;
+
+      &:nth-of-type(odd) {
+        padding-right: calc(0.5 * var(--outer-margin));
+      }
+
+      &:nth-of-type(even) {
+        padding-left: calc(0.5 * var(--outer-margin));
+      }
+    }
+  }
+}

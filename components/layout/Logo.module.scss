@@ -1,0 +1,37 @@
+.container {
+  position: fixed;
+  max-width: 0;
+  z-index: var(--z-logo);
+  left: var(--outer-margin);
+  padding-bottom: 0 !important;
+
+  @include mq($until: tablet) {
+    top: var(--outer-margin);
+    transform: scale(0.9);
+  }
+
+  @include mq($from: tablet) {
+    bottom: var(--outer-margin);
+  }
+
+  a {
+    display: block;
+  }
+
+  &.home {
+
+    @include mq($from: desktop) {
+      position: absolute;
+      top: var(--outer-margin);
+      left: 0;
+    }
+  }
+
+  svg,
+  g,
+  path {
+    @include mq($from: tablet) {
+      fill: inherit;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+.filter {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-top: -0.5 rem;
+  margin-bottom: var(--small-space);
+
+  @include mq($until: desktop) {
+    overflow: hidden;
+  }
+
+  > ul {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    @include mq($until: tablet) {
+      scrollbar-width: 0px;
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        height: 0px;
+      }
+
+      &::-webkit-scrollbar-thumb,
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      margin-right: calc(-1 * var(--outer-margin));
+    }
+
+    li {
+      padding-right: 1em;
+      cursor: pointer;
+
+      &.selected {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .description {
+    font-family: $body-font;
+    font-size: 1rem;
+    padding-top: 1em;
+    line-height: var(--line-height);
+  }
+
+  &.multi-row {
+    li {
+      padding-bottom: 1em;
+    }
+  }
+}

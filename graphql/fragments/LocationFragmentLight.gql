@@ -1,0 +1,16 @@
+fragment LocationFragmentLight on LocationRecord {
+	id
+	title
+	city
+	address
+	intro(markdown: false)
+	webpage
+	slug
+	image {
+		...ImageThumbnailFragment
+	}
+	year {
+		id
+		title
+	}
+}

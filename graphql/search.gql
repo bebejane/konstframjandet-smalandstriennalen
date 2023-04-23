@@ -1,0 +1,126 @@
+#import "./fragments/ImageThumbnailFragment"
+
+query SiteSearch(
+	$aboutIds: [ItemId]
+	$newsIds: [ItemId]
+	$programIds: [ItemId]
+	$exhibitionIds: [ItemId]
+	$participantIds: [ItemId]
+	$locationIds: [ItemId]
+	$partnerIds: [ItemId]
+	$first: IntType = 100
+	$skip: IntType = 0
+	$locale: SiteLocale
+) {
+	abouts: allAbouts(
+		first: $first
+		skip: $skip
+		locale: $locale
+		filter: { id: { in: $aboutIds } }
+	) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+		year {
+			title
+		}
+	}
+	news: allNews(first: $first, skip: $skip, locale: $locale, filter: { id: { in: $newsIds } }) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+	}
+	programs: allPrograms(
+		first: $first
+		skip: $skip
+		locale: $locale
+		filter: { id: { in: $programIds } }
+	) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+		year {
+			title
+		}
+	}
+	exhibitions: allExhibitions(
+		first: $first
+		skip: $skip
+		locale: $locale
+		filter: { id: { in: $exhibitionIds } }
+	) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+		year {
+			title
+		}
+	}
+	exhibitions: allExhibitions(
+		first: $first
+		skip: $skip
+		locale: $locale
+		filter: { id: { in: $exhibitionIds } }
+	) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+		year {
+			title
+		}
+	}
+	participants: allParticipants(
+		first: $first
+		skip: $skip
+		filter: { id: { in: $participantIds } }
+	) {
+		__typename
+		_modelApiKey
+		title: name
+		text: intro(markdown: false)
+		slug
+		year {
+			title
+		}
+	}
+	locations: allLocations(
+		first: $first
+		skip: $skip
+		locale: $locale
+		filter: { id: { in: $locationIds } }
+	) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+		year {
+			title
+		}
+	}
+	partners: allPartners(
+		first: $first
+		skip: $skip
+		locale: $locale
+		filter: { id: { in: $partnerIds } }
+	) {
+		__typename
+		_modelApiKey
+		title
+		text: intro(markdown: false)
+		slug
+		year {
+			title
+		}
+	}
+}

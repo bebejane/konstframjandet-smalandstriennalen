@@ -1,0 +1,10 @@
+fragment NewsFragmentLight on NewsRecord {
+	id
+	title
+	intro(markdown: false)
+	slug
+	image {
+		...ImageThumbnailFragment
+	}
+	_createdAt
+}

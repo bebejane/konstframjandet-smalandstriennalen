@@ -1,0 +1,36 @@
+fragment YearFragment on YearRecord {
+	id
+	title
+	participantName
+	introExhibitions(markdown: false)
+	slug
+	theme
+	image {
+		...ImageFragment
+	}
+	color {
+		hex
+		red
+		green
+		red
+	}
+	backgroundColor {
+		hex
+		red
+		green
+		red
+	}
+	background {
+		...ImageFragment
+	}
+	loadingImage {
+		...ImageThumbnailFragment
+	}
+	fundedBy {
+		id
+		logo {
+			...ImageMediumFragment
+		}
+		url
+	}
+}

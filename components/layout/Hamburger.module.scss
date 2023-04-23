@@ -1,0 +1,124 @@
+.hamburger {
+  --line-height: 3px;
+  --line-height-half: calc(var(--line-height) / 2);
+  --height: 28px;
+  --width: 30px;
+  mix-blend-mode: difference;
+
+  position: fixed;
+  z-index: var(--z-hamburger);
+  top: 0.5rem;
+  right: 0;
+  margin: var(--outer-margin);
+  width: var(--width);
+  max-width: var(--width);
+  min-height: var(--height);
+  cursor: pointer;
+  pointer-events: all;
+
+  @include mq($from: tablet) {
+    top: 0;
+  }
+
+  .wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    >div {
+      position: absolute;
+      width: 100%;
+      height: var(--line-height);
+      background-color: var(--white);
+      animation-duration: 0.2s;
+      animation-timing-function: steps(2, end);
+      animation-iteration-count: 1;
+      animation-direction: reverse;
+      animation-fill-mode: forwards;
+
+      &.closed {
+        animation-direction: normal;
+      }
+
+      &.opened {
+        animation-direction: reverse;
+      }
+
+      //animation-name: line1;
+      &:nth-child(1) {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      &:nth-child(2) {
+        transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half)));
+      }
+
+      &:nth-child(3) {
+        transform: translateY(calc(calc(var(--height) * 1) - var(--line-height-half))) rotate(0deg);
+      }
+
+      &.init {
+        &:nth-child(1) {
+          animation-name: line1;
+        }
+
+        &:nth-child(2) {
+          animation-name: line2;
+        }
+
+        &:nth-child(3) {
+          animation-name: line3;
+        }
+      }
+
+    }
+  }
+}
+
+@keyframes line1 {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half))) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half))) rotate(45deg);
+  }
+}
+
+@keyframes line2 {
+  0% {
+    transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half)));
+    width: 100%;
+    left: 0;
+  }
+
+  50% {
+    transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half)));
+    width: 0%;
+    left: 50%;
+  }
+
+  100% {
+    transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half)));
+    width: 0%;
+    left: 50%;
+  }
+}
+
+@keyframes line3 {
+  0% {
+    transform: translateY(calc(calc(var(--height) * 1) - var(--line-height-half))) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half))) rotate(0deg);
+  }
+
+  100% {
+    transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half))) rotate(-45deg);
+  }
+}

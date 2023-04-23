@@ -1,0 +1,13 @@
+fragment AboutFragmentLight on AboutRecord {
+	__typename
+	id
+	title
+	intro
+	slug
+	image {
+		...ImageThumbnailFragment
+	}
+	year {
+		...YearFragment
+	}
+}

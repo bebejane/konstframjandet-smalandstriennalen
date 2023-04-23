@@ -1,0 +1,118 @@
+.gallery {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(2rem);
+  //background-color: var(--black);
+  z-index: var(--z-fullscreen-gallery);
+
+  .images {
+    //--height: calc(100vh - calc(2 * var(--outer-margin)) - 1em);
+    --height: 100vh;
+    //--width: calc(100vw - calc(2 * var(--outer-margin)) - calc(2 * var(--gutter)));
+    --width: 100vw;
+    max-height: var(--height);
+    min-height: var(--height);
+    //margin-bottom: 2rem;
+    max-width: var(--width);
+    min-width: var(--width);
+
+    @include mq($until: desktop) {
+      max-width: 100vw;
+      min-width: 100vw;
+    }
+
+    .slide {
+      position: relative;
+      max-height: var(--height);
+      min-height: var(--height);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .image {
+        position: relative;
+        margin: 0;
+        object-fit: contain;
+        max-height: var(--height);
+        cursor: pointer;
+
+        &.portrait {
+          object-fit: contain;
+        }
+      }
+
+      .loading {
+        position: absolute;
+        background-color: var(--black);
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+
+  .caption .text,
+  .close {
+    padding: 1em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    border-radius: 2em;
+    background-color: var(--white);
+    z-index: var(--z-fullscreen-gallery-close);
+    color: var(--black) !important;
+  }
+
+  .caption {
+    position: absolute;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    font-weight: normal;
+    color: var(--black) !important;
+    padding-right: var(--outer-margin);
+    padding-left: var(--outer-margin);
+
+    .text {
+      background-color: var(--white);
+
+      p {
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    margin: var(--outer-margin);
+
+    //writing-mode: vertical-lr;
+    &:hover {
+      background: var(--black);
+      color: var(--white) !important;
+    }
+  }
+
+  @include mq($until: tablet) {
+  }
+}

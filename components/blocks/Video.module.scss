@@ -1,0 +1,23 @@
+.video {
+  display: block;
+  height: auto;
+  margin-top: var(--space);
+  margin-bottom: var(--space);
+  min-width: 100%;
+
+  .player {
+    width: 100%;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .caption {
+    @include mq($until: tablet) {
+      margin-left: var(--outer-margin);
+      margin-right: var(--outer-margin);
+    }
+  }
+}
