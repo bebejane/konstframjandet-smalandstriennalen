@@ -24,9 +24,9 @@ export const buildMenu = async (locale: string) => {
   const years = await allYears()
   const year = years[0]
   const res: MenuQueryResponse = await apiQuery(MenuDocument, { variables: { yearId: year.id, locale, altLocale } });
-  const archive: MenuQueryResponse[] = await Promise.all(years.filter(({ id }) => id !== year.id).map(({ id }) => apiQuery(MenuDocument, { variables: { yearId: id, locale, altLocale } })))
   const menu = buildYearMenu(res, { locale, altLocale, isArchive: false, messages });
-  const archiveIndex = menu.findIndex(el => el.id === 'archive')
+  //const archive: MenuQueryResponse[] = await Promise.all(years.filter(({ id }) => id !== year.id).map(({ id }) => apiQuery(MenuDocument, { variables: { yearId: id, locale, altLocale } })))
+  //const archiveIndex = menu.findIndex(el => el.id === 'archive')
 
   /*
 
@@ -77,12 +77,12 @@ export const buildYearMenu = (res: MenuQueryResponse, { locale, altLocale, isArc
         sub = res.abouts.filter(({ year }) => isArchive ? year : true).map(el => ({
           id: `about-${el.slug}`,
           label: el.title,
-          slug: `/${year}/${i18nPaths.about[locale]}/${el.slug}`,
-          altSlug: `/${year}/${i18nPaths.about[altLocale]}/${el.altSlug}`
+          slug: `/${i18nPaths.about[locale]}/${el.slug}`,
+          altSlug: `/${i18nPaths.about[altLocale]}/${el.altSlug}`
         }))
         if (res.abouts.length) {
-          item.slug = `/${year}/${i18nPaths.about[locale]}/${res.abouts[0].slug}`
-          item.altSlug = `/${year}/${i18nPaths.about[altLocale]}/${res.abouts[0].altSlug}`
+          item.slug = `/${i18nPaths.about[locale]}/${res.abouts[0].slug}`
+          item.altSlug = `/${i18nPaths.about[altLocale]}/${res.abouts[0].altSlug}`
         }
         break;
       default:

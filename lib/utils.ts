@@ -211,62 +211,8 @@ export async function getStaticYearPaths(doc: TypedDocumentNode, segment: string
   };
 }
 
-export const pathToParentMenuItem2 = (path: string, locale: string, items: MenuItem[]): MenuItem => {
-  path = path.split('?')[0]
-
-  let item = items.filter(el => el.slug).find(({ slug, sub }, idx) => {
-    const baseSlug = !isNaN(parseInt(slug.split('/')[1])) ? `/${slug.split('/').slice(2, 3).join('/')}` : undefined
-
-    if ([`/${locale}${slug}`, slug, baseSlug].filter(el => el).includes(path)) return true
-    const p = path.split('/'); p.pop()
-    return p.join('/') === slug && !sub
-  })
-
-  if (item) return item
-
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].sub) {
-      item = pathToParentMenuItem(path, locale, items[i].sub)
-      if (item) return item
-    }
-  }
-}
-
-export const pathToParentMenuItem = (path: string, locale: string, items: MenuItem[], parent?: MenuItem): MenuItem => {
-  path = path.split('?')[0]
-
-  let item = items.filter(el => el.slug).find(({ slug, sub }, idx) => {
-    return [slug, `/${locale}${slug}`].filter(el => el).includes(path)
-  })
-
-  if (item) return parent
-
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].sub) {
-      item = pathToParentMenuItem(path, locale, items[i].sub, items[i])
-      if (item) return items[i]
-    }
-  }
-}
-
-export const pathToMenuItem = (path: string, locale: string, items: MenuItem[]): MenuItem => {
-  path = path.split('?')[0]
-
-  let item = items.filter(el => el.slug).find(({ slug, sub }, idx) => {
-    return [slug, `/${locale}${slug}`].filter(el => el).includes(path)
-  })
-
-  if (item) return item
-
-  for (let i = 0; i < items.length; i++) {
-    if (items[i].sub) {
-      item = pathToMenuItem(path, locale, items[i].sub)
-      if (item) return item
-    }
-  }
-}
-
 export const translatePath = (href: string, locale: string, defaultLocale: string, year?: string): string => {
+  return href;
 
   const basePath = href.split('/')[1]
   const slug = href.split('/').slice(2).join('/')
