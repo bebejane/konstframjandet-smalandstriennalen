@@ -24,8 +24,6 @@ export type Props = {
 export default function Thumbnail({ image, slug, intro, title, titleLength, titleRows = 3, meta, transformHref = true }: Props) {
 
   const strippedIntro = truncateWords(remark().use(strip).processSync(intro).value as string, 500)
-  const { year: { loadingImage, isArchive } } = usePage()
-  const [loadingImageIndex] = useState(loadingImage.length ? randomInt(0, loadingImage.length - 1) : 0)
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -42,19 +40,9 @@ export default function Thumbnail({ image, slug, intro, title, titleLength, titl
               data={image.responsiveImage}
               className={s.image}
               pictureClassName={s.picture}
-              style={!isArchive ? { opacity: loaded ? 1 : 0.000001 } : {}}
               onLoad={() => setLoaded(true)}
             /><div className={s.border}></div>
           </>
-          {loadingImage.length > 0 && !isArchive &&
-            <Image
-              data={loadingImage[loadingImageIndex].responsiveImage}
-              className={cn(s.loader)}
-              pictureClassName={cn(s.picture, s.loader, loaded && s.hide)}
-              lazyLoad={false}
-              objectFit={'contain'}
-            />
-          }
         </div>
       }
       {strippedIntro &&

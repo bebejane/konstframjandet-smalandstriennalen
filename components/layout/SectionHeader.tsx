@@ -26,17 +26,14 @@ export default function SectionHeader() {
   const [showMenu] = useStore((state) => [state.showMenu])
   const { section, parent, year, isHome, slugs } = usePage()
 
-  const locationsParentPath = `${translatePath('/partners', locale, defaultLocale, year?.title)}#locations`
-  const isLocation = section === 'locations'
-  const parentPath = isLocation ? locationsParentPath : slugs.find((slug) => slug.locale === locale)?.parent
+  const parentPath = slugs.find((slug) => slug.locale === locale)?.parent
 
   const isSearch = section === 'search'
-  const isArchiveOverview = section === 'archive'
   const isOverview = !parent
   const showLine = !isHome
 
   const yearLabel = `${PROJECT_ABBR}°${year.title.substring(2)}`
-  const label = !isSearch ? `${yearLabel}${!isHome ? ` — ${t(isLocation ? 'partners' : section)}` : ''}` : t('search')
+  const label = !isSearch ? `${yearLabel}${!isHome ? ` — ${t(section)}` : ''}` : t('search')
 
   const header = (
     <h2>

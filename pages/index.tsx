@@ -13,7 +13,7 @@ export type Props = {
 const fullBlocks = ['StartFullscreenImageRecord', 'StartFullBleedImageRecord', 'StartFullscreenVideoRecord']
 
 export default function Home({ start }: Props) {
-	console.log(start)
+
 	return (
 		<div className={s.container}>
 			{start.content.map((block, idx) =>
