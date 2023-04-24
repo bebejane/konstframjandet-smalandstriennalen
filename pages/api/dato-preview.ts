@@ -1,18 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { allYears } from '/lib/utils';
-import { translatePath } from '/lib/utils';
-import { defaultLocale } from '/lib/i18n'
 
-const generatePreviewUrl = async ({ item, itemType, locale }) => {
+const generatePreviewUrl = async ({ item }) => {
 
   let path = null;
 
-  const { slug: baseSlug, year: yearId, title } = item.attributes
-  const years = await allYears()
-  const year = yearId ? years.find(({ id }) => id === yearId) : undefined
-  const slug = typeof baseSlug === 'object' ? baseSlug[locale] : baseSlug
+  const { slug, api_key } = item.attributes
 
-  switch (itemType.attributes.api_key) {
+  switch (api_key) {
     case 'start':
       path = `/`
       break;
@@ -43,14 +37,11 @@ const generatePreviewUrl = async ({ item, itemType, locale }) => {
     case 'contact':
       path = `/kontakt`
       break;
-    case 'year':
-      path = `/${title}`
-      break;
     default:
       break;
   }
 
-  return path ? translatePath(path, locale, defaultLocale, year?.title) : null
+  return path
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -75,40 +66,3 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log(previewLinks)
   return res.status(200).json({ previewLinks });
 };
-
-
-
-
-/*
-export const config = {
-  runtime: 'edge',
-}
-
-export default async function handler(req: NextRequest, res: NextResponse) {
-
-  const body = await req.json();
-
-  res.headers.set('Access-Control-Allow-Origin', '*');
-  res.headers.set('Access-Control-Allow-Methods', 'POST,OPTIONS');
-  res.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.headers.set('Content-Type', 'application/json');
-
-  // This will allow OPTIONS request
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { status: 200 })
-  }
-
-  const url = generatePreviewUrl(body);
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : process.env.URL;
-  const previewLinks = !url ? [] : [{
-    label: 'Live',
-    url: `${baseUrl}${url}`
-  }, {
-    label: 'Utkast',
-    url: `${baseUrl}/api/preview?slug=${url}&secret=${process.env.DATOCMS_PREVIEW_SECRET}`,
-  }]
-  console.log(previewLinks)
-  return new Response(JSON.stringify({ previewLinks }), { status: 200, headers: { 'content-type': 'application/json' } })
-};
-
-*/
