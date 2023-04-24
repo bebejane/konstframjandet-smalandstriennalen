@@ -20,9 +20,6 @@ export type Props = {
 
 export default function Location({ location: { id, image, title, intro, content, exhibitions, programs, _seoMetaTags } }: Props) {
   const t = useTranslations()
-  const { locale, defaultLocale } = useRouter()
-  const { year } = usePage()
-  const href = `${translatePath('/partners', locale, defaultLocale, year?.title)}#locations`
 
   return (
     <>
@@ -38,7 +35,7 @@ export default function Location({ location: { id, image, title, intro, content,
         onClick={(imageId) => { }}
       />
       <Related header={t('Related.related')} items={[...exhibitions, ...programs]} />
-      <BackButton href={href}>{t('BackButton.showAllLocations')}</BackButton>
+      <BackButton href={'/platser'}>{t('BackButton.showAllLocations')}</BackButton>
     </>
   );
 }

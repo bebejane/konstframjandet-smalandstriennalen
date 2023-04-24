@@ -11,6 +11,7 @@ const base: Menu = [
   { id: 'program', label: 'Program', slug: '/program' },
   { id: 'participants', label: 'Medverkande', slug: '/medverkande' },
   { id: 'partners', label: 'Partners', slug: '/partners', general: false },
+  { id: 'locations', label: 'Platser', slug: '/platser', general: false },
   { id: 'about', label: 'Om', slug: '/om', virtual: true, sub: [] },
   { id: 'contact', label: 'Kontakt', slug: '/kontakt', general: true },
   //{ id: 'archive', label: 'Arkiv', slug: '/arkiv', general: true, sub: [] },
@@ -67,8 +68,8 @@ export const buildYearMenu = (res: MenuQueryResponse, { locale, altLocale, isArc
     const year = res.year.title
 
     if (item.slug) {
-      item.slug = `/${!item.general ? year + '/' : ''}${i18nPaths[item.id][locale]}`
-      item.altSlug = `/${!item.general ? year + '/' : ''}${i18nPaths[item.id][altLocale]}`
+      item.slug = `/${i18nPaths[item.id][locale]}`
+      item.altSlug = `/${i18nPaths[item.id][altLocale]}`
     }
 
     switch (item.id) {
