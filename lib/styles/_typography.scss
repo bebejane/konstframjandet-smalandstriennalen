@@ -24,11 +24,11 @@ h5 {
 }
 
 h1 {
-  font-size: 1.1rem;
+  font-size: 1.7rem;
   font-weight: bold;
   padding-bottom: var(--space);
   line-height: 1.25;
-  font-family: $headline-font;
+  font-family: $body-font;
   text-align: center;
   @include mq($until: tablet) {
     padding-left: var(--outer-margin);
@@ -42,10 +42,11 @@ h2 {
 }
 
 h3 {
-  font-size: 0.85rem;
-  font-family: $headline-font;
+  font-size: 1rem;
+  font-family: $body-font;
   text-align: center;
   padding-bottom: 1em;
+  line-height: 1.2;
 }
 
 p {

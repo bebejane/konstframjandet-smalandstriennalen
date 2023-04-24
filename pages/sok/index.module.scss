@@ -16,6 +16,10 @@
     }
   }
 
+  a {
+    color: var(--green);
+  }
+
   h2 {
     text-align: center;
   }
@@ -25,7 +29,7 @@
     text-transform: uppercase;
   }
 
-  >ul {
+  > ul {
     list-style: none;
     padding-left: 0;
 
@@ -36,7 +40,7 @@
         p {
           padding: 0;
 
-          >strong {
+          > strong {
             font-family: $headline-font;
             font-size: 0.75rem;
             font-weight: bold !important;
@@ -59,5 +63,6 @@
     margin-top: calc(var(--space) * 1);
   }
 
-  .nohits {}
+  .nohits {
+  }
 }

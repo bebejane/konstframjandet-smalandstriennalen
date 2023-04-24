@@ -52,13 +52,12 @@ export default function SectionHeader() {
   return (
     <>
       <header className={cn(s.header, !showMenu && s.full)}>
-        {isHome ? <Logo />
-          :
-          !isOverview ?
-            <Link href={parentPath} transformHref={false}>
-              {header}
-            </Link>
-            : <>{header}</>
+        <Logo />
+        {isOverview ?
+          <Link href={parentPath} transformHref={false}>
+            {header}
+          </Link>
+          : <>{header}</>
         }
       </header>
       {!isHome && <div className={s.spacer}></div>}

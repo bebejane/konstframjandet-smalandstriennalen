@@ -28,11 +28,6 @@ export default function Thumbnail({ image, slug, intro, title, titleLength, titl
 
   return (
     <Link href={slug} transformHref={transformHref} className={s.thumbnail}>
-      <h3 className={cn(s[`rows-${titleRows}`])}>
-        <span>
-          {titleLength ? truncateWords(title, titleLength) : title}
-        </span>
-      </h3>
       {image &&
         <div className={s.imageWrap}>
           <>
@@ -45,6 +40,11 @@ export default function Thumbnail({ image, slug, intro, title, titleLength, titl
           </>
         </div>
       }
+      <h3 className={cn(s[`rows-${titleRows}`])}>
+        <span>
+          {titleLength ? truncateWords(title, titleLength) : title}
+        </span>
+      </h3>
       {strippedIntro &&
         <div className="thumb-intro">
           <p>

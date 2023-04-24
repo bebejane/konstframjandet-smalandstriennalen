@@ -84,7 +84,7 @@ export default function Search({ query }: Props) {
         <>
           {Object.keys(results).map((type, idx) =>
             <ul key={idx}>
-              <li><h3>{results[type][0].category}</h3></li>
+              <li><h2>{results[type][0].category}</h2></li>
               {results[type]?.map(({ category, title, text, slug }, i) =>
                 <li key={i}>
                   <h1>

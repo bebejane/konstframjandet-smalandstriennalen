@@ -36,14 +36,15 @@
     padding-bottom: var(--header-height);
   }
 
-  a {
-    font-weight: normal;
+  a:hover {
+    color: var(--black) !important;
   }
 
   ul {
     list-style: none;
     font-weight: bold;
     padding-left: 0.62rem;
+    margin-top: calc(var(--big-space) - var(--outer-margin));
 
     @include mq($until: tablet) {
       margin-left: 0.62em;
@@ -83,7 +84,7 @@
 
     li {
       cursor: pointer;
-      padding-bottom: 0.5em;
+      padding-bottom: 0.8em;
       line-height: 1.4;
       overflow-x: visible !important;
       overflow-y: visible !important;
@@ -97,10 +98,10 @@
       }
 
       &:first-of-type {
-        padding-top: 0.5em;
+        //padding-top: 0.5em;
 
         @include mq($from: tablet) {
-          padding-bottom: 0.5em;
+          //padding-bottom: 0.5em;
         }
       }
     }
@@ -118,14 +119,14 @@
     margin: 0;
     font-family: inherit;
     font-size: inherit;
+    font-weight: 600;
     padding: var(--padding);
     margin-top: calc(var(--padding) * -1);
     margin-left: calc(var(--padding) * -1);
     padding-bottom: 0.3rem;
 
     &::placeholder {
-      color: var(--black);
-      font-weight: bold;
+      color: var(--white);
     }
 
     &:focus {

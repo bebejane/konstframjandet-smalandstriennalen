@@ -1,11 +1,12 @@
 :root {
-	--black: #161616;
+	--black: #1d1d1d;
 	--white: #fcfcfc;
 	--red: #bf0000;
 	--green: #097832;
+	--pink: #ff57ff;
 	--archive: #ececec;
 	--outer-margin: 4vw;
-	--logo-size-optical: 2.8rem;
+	--logo-size-optical: 0rem;
 	--total-outer-margin: calc((var(--outer-margin) * 2) + var(--logo-size-optical));
 	--grid-unit: calc(((100vw - (2 * var(--total-outer-margin))) / 12));
 	--body-width: calc(100% - (2 * var(--outer-margin)));
@@ -17,7 +18,7 @@
 	--line-height: 1.4em;
 	--gutter: 4vw;
 	--gutter-half: 4vw;
-	--header-height: calc((var(--outer-margin) * 2) + 0.75rem); //snygga upp sen
+	--header-height: calc((var(--outer-margin) * 2) + 2.75rem); //snygga upp sen
 	--menu-transition: 0.3s ease-in-out;
 
 	--background: var(--white);
@@ -99,9 +100,12 @@ a {
 	&:hover {
 		color: var(--beige-dark);
 	}
+}
 
-	&:visited {
-		//color: var(--foreground);
+.structured a {
+	color: var(--green);
+	&:hover {
+		color: var(--pink) !important;
 	}
 }
 
@@ -129,12 +133,10 @@ button {
 	padding-right: 1.5em;
 	padding-bottom: 1.5em;
 	padding-top: 1.5em;
-	background-color: transparent;
+	background-color: green;
 
-	color: var(--foreground);
+	color: var(--white);
 	border: 0;
-	border-top: 1px solid var(--foreground);
-	border-bottom: 1px solid var(--foreground);
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	font-weight: bold;
