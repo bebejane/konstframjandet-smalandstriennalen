@@ -19,7 +19,6 @@ export default function Footer({ menu, footer: { email, facebook, instagram, abo
 	return (
 		<footer className={cn(s.footer)} id="footer">
 			<section>
-				<Logo className={s.logo} />
 				<div>
 					Copyright {PROJECT_NAME}, 2023 <br />
 					<a href={`mailto:${email}`}>{email}</a> · Cookies & GDPR

@@ -2,6 +2,7 @@
 	--black: #161616;
 	--white: #fcfcfc;
 	--red: #bf0000;
+	--green: #097832;
 	--archive: #ececec;
 	--outer-margin: 4vw;
 	--logo-size-optical: 2.8rem;
@@ -146,8 +147,7 @@ button {
 		padding-top: 1em;
 	}
 
-	transition: color 0.2s ease-in-out,
-	background-color 0.3s ease-in-out;
+	transition: color 0.2s ease-in-out, background-color 0.3s ease-in-out;
 
 	&.back {
 		width: var(--body-width);

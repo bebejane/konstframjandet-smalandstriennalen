@@ -1,12 +1,18 @@
 .footer {
-  width: calc(100% - (var(--outer-margin) * 2));
-  margin-left: var(--outer-margin);
-  margin-right: var(--outer-margin);
+  width: 100%;
+  //margin-left: var(--outer-margin);
+  //margin-right: var(--outer-margin);
   padding-bottom: var(--outer-margin);
   border-top: 1px solid var(--black);
   position: relative;
   text-align: left;
   z-index: var(--z-footer);
+  background-color: var(--black);
+  color: var(--white);
+
+  a {
+    color: var(--white);
+  }
 
   section {
     position: relative;
@@ -46,6 +52,8 @@
   }
 
   .kf {
+    margin-right: var(--outer-margin);
+    filter: invert(1);
     @include mq($until: tablet) {
       transform: scale(0.7);
     }

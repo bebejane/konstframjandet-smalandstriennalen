@@ -5,6 +5,7 @@
   z-index: var(--z-menu);
   padding: var(--outer-margin);
   overflow: hidden;
+  background: var(--green);
   transition: transform var(--menu-transition);
   min-width: 20%;
   max-width: 20%;
@@ -47,7 +48,6 @@
     @include mq($until: tablet) {
       margin-left: 0.62em;
       font-size: 1.1rem;
-
     }
 
     &[data-level="0"] {
@@ -69,13 +69,14 @@
         background: transparent;
       }
 
-      >li>a {
+      > li > a {
         font-weight: bold;
+        color: var(--white);
       }
     }
 
     &[data-level="2"] {
-      li>a {
+      li > a {
         font-weight: normal !important;
       }
     }
@@ -91,18 +92,8 @@
         line-height: initial;
       }
 
-      &.bold>a {
+      &.bold > a {
         font-weight: bold;
-      }
-
-      &.active,
-      &:hover:not(.search) {
-        &::before {
-          content: "°  ";
-          position: relative;
-          top: 0.2em;
-          margin-left: -0.625em;
-        }
       }
 
       &:first-of-type {
