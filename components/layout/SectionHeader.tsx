@@ -49,11 +49,13 @@ export default function SectionHeader() {
       </span>
     </h2>
   )
+
+
   return (
     <>
       <header className={cn(s.header, !showMenu && s.full)}>
         <Logo />
-        {isOverview ?
+        {isOverview && parentPath ?
           <Link href={parentPath} transformHref={false}>
             {header}
           </Link>

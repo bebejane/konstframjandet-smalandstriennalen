@@ -62,6 +62,7 @@ export default function Menu({ items }: MenuProps) {
 
 	}, [menuRef, selected, scrolledPosition, documentHeight, viewportHeight, width, height, isMobile])
 
+
 	return (
 		<>
 			<Hamburger />

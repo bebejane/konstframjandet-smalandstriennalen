@@ -17,7 +17,7 @@ export default function Content({ children, menu }: ContentProps) {
 	return (
 		<main id="content" className={cn(s.content, !showMenu && s.full)}>
 			<article>
-				<SectionHeader menu={menu} />
+				<SectionHeader />
 				{children}
 			</article>
 		</main>
