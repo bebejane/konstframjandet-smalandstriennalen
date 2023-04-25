@@ -103,7 +103,7 @@ export default function Search({ query }: Props) {
         loading ?
           <div className={s.loading}><Loader /></div>
           :
-          results && <p className={cn(s.nohits, "small")}>{t('Search.noHitsFor')}: &quot;{searchQuery}&quot;</p>
+          results && searchQuery && <p className={cn(s.nohits, "small")}>{t('Search.noHitsFor')}: &quot;{searchQuery}&quot;</p>
       }
       {error &&
         <div className={s.error}>

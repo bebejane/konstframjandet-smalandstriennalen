@@ -24,7 +24,7 @@ export default function News({ news }: Props) {
           {news.map(({ id, image, thumb, title, intro, _createdAt, slug }) =>
             <li key={id}>
               <h3 className="small">
-                {format(new Date(_createdAt), 'dd MMM, yyyy')}
+                {format(new Date(_createdAt), 'dd MMMM, yyyy')}
               </h3>
               <h1>{title}</h1>
               <div className="intro">

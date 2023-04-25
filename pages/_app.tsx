@@ -1,13 +1,13 @@
 import '/lib/styles/index.scss'
 import { Layout } from '/components';
-import { PageProvider, usePage } from '/lib/context/page'
+import { PageProvider } from '/lib/context/page'
 import { NextIntlProvider } from 'next-intl';
 import { DefaultDatoSEO } from 'dato-nextjs-utils/components';
-import { sv, enGB as en } from 'date-fns/locale'
-import setDefaultOptions from 'date-fns/setDefaultOptions';
 import { useRouter } from 'next/router';
 import { locales } from '/lib/i18n'
 import { PROJECT_NAME } from '/lib/constant';
+import { sv, enGB as en } from 'date-fns/locale'
+import setDefaultOptions from 'date-fns/setDefaultOptions';
 
 setDefaultOptions({ locale: sv })
 
@@ -15,8 +15,6 @@ function onMessageError() { }
 function getMessageFallback({ namespace, key, error }) { return '' }
 
 function App({ Component, pageProps, router }) {
-
-  setDefaultOptions({ locale: router.locale === 'sv' ? sv : en })
 
   const page = pageProps.page || {} as PageProps
   const { asPath } = useRouter()
