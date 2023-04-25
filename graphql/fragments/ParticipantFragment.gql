@@ -39,7 +39,7 @@ fragment ParticipantFragment on ParticipantRecord {
 					...ImageThumbnailFragment
 				}
 			}
-			... on ButtonRecord {
+			... on LinkButtonRecord {
 				__typename
 				id
 				link {

@@ -50,7 +50,7 @@ fragment ExhibitionFragment on ExhibitionRecord {
 					...ImageThumbnailFragment
 				}
 			}
-			... on ButtonRecord {
+			... on LinkButtonRecord {
 				__typename
 				id
 				link {

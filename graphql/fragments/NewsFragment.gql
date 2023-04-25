@@ -31,7 +31,7 @@ fragment NewsFragment on NewsRecord {
 					...ImageThumbnailFragment
 				}
 			}
-			... on ButtonRecord {
+			... on LinkButtonRecord {
 				__typename
 				id
 				link {

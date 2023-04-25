@@ -40,7 +40,7 @@ fragment AboutFragment on AboutRecord {
 					...ImageThumbnailFragment
 				}
 			}
-			... on ButtonRecord {
+			... on LinkButtonRecord {
 				__typename
 				id
 				link {

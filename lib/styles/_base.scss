@@ -104,6 +104,7 @@ a {
 
 .structured a {
 	color: var(--green);
+
 	&:hover {
 		color: var(--pink) !important;
 	}
@@ -149,7 +150,8 @@ button {
 		padding-top: 1em;
 	}
 
-	transition: color 0.2s ease-in-out, background-color 0.3s ease-in-out;
+	transition: color 0.2s ease-in-out,
+	background-color 0.3s ease-in-out;
 
 	&.back {
 		width: var(--body-width);
@@ -163,6 +165,7 @@ button {
 		background-color: var(--foreground);
 		color: var(--white);
 	}
+
 }
 
 figcaption {
