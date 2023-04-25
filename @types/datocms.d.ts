@@ -2619,6 +2619,14 @@ type InverseRelationshipFieldFilterBetweenProgramAndYear = {
   notIn?: InputMaybe<Array<ProgramModelFieldsReferencingYearModel>>;
 };
 
+/** Specifies how to filter by linking fields */
+type InverseRelationshipFieldFilterBetweenStartAndLocation = {
+  /** Filter linking records that reference current record in at least one of the specified fields */
+  anyIn?: InputMaybe<Array<StartModelFieldsReferencingLocationModel>>;
+  /** Filter linking records that do not reference current record in any of the specified fields */
+  notIn?: InputMaybe<Array<StartModelFieldsReferencingLocationModel>>;
+};
+
 /** Specifies how to filter linking records */
 type InverseRelationshipFilterBetweenAboutAndYear = {
   /** Specifies how to filter by linking fields */
@@ -2719,6 +2727,14 @@ type InverseRelationshipFilterBetweenProgramAndParticipant = {
 type InverseRelationshipFilterBetweenProgramAndYear = {
   /** Specifies how to filter by linking fields */
   fields?: InputMaybe<InverseRelationshipFieldFilterBetweenProgramAndYear>;
+  /** Specifies how to filter by linking locales */
+  locales?: InputMaybe<LinkingLocalesFilter>;
+};
+
+/** Specifies how to filter linking records */
+type InverseRelationshipFilterBetweenStartAndLocation = {
+  /** Specifies how to filter by linking fields */
+  fields?: InputMaybe<InverseRelationshipFieldFilterBetweenStartAndLocation>;
   /** Specifies how to filter by linking locales */
   locales?: InputMaybe<LinkingLocalesFilter>;
 };
@@ -2869,6 +2885,9 @@ type LocationRecord = RecordInterface & {
   _allReferencingPrograms: Array<ProgramRecord>;
   /** Returns meta information regarding a record collection */
   _allReferencingProgramsMeta: CollectionMetadata;
+  _allReferencingStarts: Array<StartRecord>;
+  /** Returns meta information regarding a record collection */
+  _allReferencingStartsMeta: CollectionMetadata;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
@@ -2956,6 +2975,23 @@ type LocationRecord_allReferencingProgramsArgs = {
 /** Record of type Plats (location) */
 type LocationRecord_allReferencingProgramsMetaArgs = {
   through?: InputMaybe<InverseRelationshipFilterBetweenProgramAndLocation>;
+};
+
+
+/** Record of type Plats (location) */
+type LocationRecord_allReferencingStartsArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  first?: InputMaybe<Scalars['IntType']>;
+  locale?: InputMaybe<SiteLocale>;
+  orderBy?: InputMaybe<Array<InputMaybe<StartModelOrderBy>>>;
+  skip?: InputMaybe<Scalars['IntType']>;
+  through?: InputMaybe<InverseRelationshipFilterBetweenStartAndLocation>;
+};
+
+
+/** Record of type Plats (location) */
+type LocationRecord_allReferencingStartsMetaArgs = {
+  through?: InputMaybe<InverseRelationshipFilterBetweenStartAndLocation>;
 };
 
 
@@ -4527,13 +4563,40 @@ type StartGalleryRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
-type StartModelContentField = StartFullBleedImageRecord | StartFullscreenImageRecord | StartFullscreenVideoRecord | StartGalleryRecord | StartNewsRecord | StartProgramRecord | StartRandomParticipantRecord | StartTextRecord | StartVideoRecord;
+type StartModelContentField = StartFullBleedImageRecord | StartFullscreenImageRecord | StartFullscreenVideoRecord | StartGalleryRecord | StartNewsRecord | StartProgramRecord | StartRandomParticipantRecord | StartSelectedLocationRecord | StartTextRecord | StartVideoRecord;
 
 type StartModelContentFieldListListNonNullMultiLocaleField = {
   __typename?: 'StartModelContentFieldListListNonNullMultiLocaleField';
   locale?: Maybe<SiteLocale>;
   value: Array<StartModelContentField>;
 };
+
+/** Linking fields */
+enum StartModelFieldsReferencingLocationModel {
+  start_content = 'start_content',
+  start_content__startSelectedLocation_locations = 'start_content__startSelectedLocation_locations'
+}
+
+enum StartModelOrderBy {
+  _createdAt_ASC = '_createdAt_ASC',
+  _createdAt_DESC = '_createdAt_DESC',
+  _firstPublishedAt_ASC = '_firstPublishedAt_ASC',
+  _firstPublishedAt_DESC = '_firstPublishedAt_DESC',
+  _isValid_ASC = '_isValid_ASC',
+  _isValid_DESC = '_isValid_DESC',
+  _publicationScheduledAt_ASC = '_publicationScheduledAt_ASC',
+  _publicationScheduledAt_DESC = '_publicationScheduledAt_DESC',
+  _publishedAt_ASC = '_publishedAt_ASC',
+  _publishedAt_DESC = '_publishedAt_DESC',
+  _status_ASC = '_status_ASC',
+  _status_DESC = '_status_DESC',
+  _unpublishingScheduledAt_ASC = '_unpublishingScheduledAt_ASC',
+  _unpublishingScheduledAt_DESC = '_unpublishingScheduledAt_DESC',
+  _updatedAt_ASC = '_updatedAt_ASC',
+  _updatedAt_DESC = '_updatedAt_DESC',
+  id_ASC = 'id_ASC',
+  id_DESC = 'id_DESC'
+}
 
 /** Block of type Senaste nyheter (start_news) */
 type StartNewsRecord = RecordInterface & {
@@ -4643,6 +4706,30 @@ type StartRecord_seoMetaTagsArgs = {
 /** Record of type Startsida (start) */
 type StartRecordcontentArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+/** Block of type Utvalda platser (start_selected_location) */
+type StartSelectedLocationRecord = RecordInterface & {
+  __typename?: 'StartSelectedLocationRecord';
+  _createdAt: Scalars['DateTime'];
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  id: Scalars['ItemId'];
+  locations: Array<LocationRecord>;
+};
+
+
+/** Block of type Utvalda platser (start_selected_location) */
+type StartSelectedLocationRecord_seoMetaTagsArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -5664,7 +5751,7 @@ type SiteSearchQuery = { __typename?: 'Query', abouts: Array<{ __typename: 'Abou
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, content: Array<{ __typename: 'StartFullBleedImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartFullscreenImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartFullscreenVideoRecord', id: any, headline: string, text: string, video: { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartGalleryRecord', id: any, headline: string, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }>, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartNewsRecord', id: any, amount: string } | { __typename: 'StartProgramRecord', id: any, amount: string } | { __typename: 'StartRandomParticipantRecord', id: any, amount: string } | { __typename: 'StartTextRecord', id: any, headline: string, text: string, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartVideoRecord', id: any, title: string, video: { __typename?: 'VideoField', provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null };
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, content: Array<{ __typename: 'StartFullBleedImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartFullscreenImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartFullscreenVideoRecord', id: any, headline: string, text: string, video: { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartGalleryRecord', id: any, headline: string, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }>, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartNewsRecord', id: any, amount: string } | { __typename: 'StartProgramRecord', id: any, amount: string } | { __typename: 'StartRandomParticipantRecord', id: any, amount: string } | { __typename: 'StartSelectedLocationRecord', id: any, locations: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }> } | { __typename: 'StartTextRecord', id: any, headline: string, text: string, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record?: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } | null } } | { __typename: 'StartVideoRecord', id: any, title: string, video: { __typename?: 'VideoField', provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null };
 
 type StartDataQueryVariables = Exact<{
   newsItems?: InputMaybe<Scalars['IntType']>;

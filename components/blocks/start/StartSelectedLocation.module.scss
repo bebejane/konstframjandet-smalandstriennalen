@@ -1,0 +1,10 @@
+.container {
+  @include mq($until: tablet) {
+    ul {
+      margin-left: calc(-1 * var(--outer-margin));
+      margin-right: calc(-1 * var(--outer-margin));
+      width: calc(100% + (2 * var(--outer-margin)));
+    }
+  }
+  margin-bottom: calc(-1 * var(--small-space));
+}
