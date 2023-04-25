@@ -34,12 +34,8 @@ export default function Article({ id, children, title, content, image, imageSize
   const { asPath } = useRouter()
   const t = useTranslations()
   const [setImageId, setImages] = useStore((state) => [state.setImageId, state.setImages])
-  const { scrolledPosition, viewportHeight } = useScrollInfo()
   const captionRef = useRef<HTMLElement | null>(null)
   const figureRef = useRef<HTMLElement | null>(null)
-  const [offset, setOffset] = useState(0)
-  const { isDesktop } = useDevice()
-  const ratio = !isDesktop ? 0 : offset ? Math.max(0, Math.min(1, ((scrolledPosition - (offset > viewportHeight ? offset - viewportHeight + 100 : 0)) / viewportHeight))) : 0
 
   useEffect(() => {
     const images = [image]
@@ -49,10 +45,6 @@ export default function Article({ id, children, title, content, image, imageSize
     })
     setImages(images.filter(el => el))
   }, [])
-
-  useEffect(() => {
-    setOffset(captionRef?.current?.offsetTop ?? 0)
-  }, [asPath, viewportHeight])
 
   return (
     <>
@@ -68,9 +60,8 @@ export default function Article({ id, children, title, content, image, imageSize
             <Image
               data={image.responsiveImage}
               pictureClassName={s.picture}
-              style={{ transform: `scale(${1 - (ratio * 0.3)})` }}
             />
-            <figcaption ref={captionRef} style={{ opacity: 1 - ratio }}>
+            <figcaption ref={captionRef}>
               {image.title}
             </figcaption>
           </figure>

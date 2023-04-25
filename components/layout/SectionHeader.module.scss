@@ -12,20 +12,23 @@
     line-height: 1;
   }
 
-  svg {
+
+  .logo {
     position: fixed;
     margin-top: -1.8rem;
     left: calc(var(--outer-margin) * 1.2);
-    path {
-      transform: scale(0.4);
 
-      @include mq($from: tablet) {
+    svg {
+      path {
         transform: scale(0.8);
       }
     }
   }
 
+
+
   @include mq($from: tablet) {
+
     a,
     span {
       color: var(--black);
@@ -33,6 +36,7 @@
   }
 
   &:hover {
+
     // mix-blend-mode: normal !important;
     a,
     span {
@@ -94,7 +98,7 @@
       margin: 0;
       width: 100%;
 
-      > span {
+      >span {
         /*
         &:hover {
           padding-left: 1em;

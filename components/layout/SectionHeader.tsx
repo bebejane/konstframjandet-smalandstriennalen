@@ -21,19 +21,15 @@ export default function SectionHeader() {
 
   const t = useTranslations('Menu')
   const router = useRouter()
-  const { locale, defaultLocale } = router
+  const { locale, asPath } = router
 
   const [showMenu] = useStore((state) => [state.showMenu])
-  const { section, parent, year, isHome, slugs } = usePage()
+  const { section, parent, isHome, slugs } = usePage()
 
   const parentPath = slugs.find((slug) => slug.locale === locale)?.parent
 
   const isSearch = section === 'search'
-  const isOverview = !parent
-  const showLine = !isHome
-
-  const yearLabel = `${PROJECT_ABBR}°${year.title.substring(2)}`
-  const label = !isSearch ? `${yearLabel}${!isHome ? ` — ${t(section)}` : ''}` : t('search')
+  const label = !isSearch ? `${!isHome ? `${t(section)}` : ''}` : t('search')
 
   const header = (
     <h2>
@@ -54,16 +50,20 @@ export default function SectionHeader() {
   return (
     <>
       <header className={cn(s.header, !showMenu && s.full)}>
-        <Logo />
-        {isOverview && parentPath ?
+        <Link href="/" className={s.logo}><Logo /></Link>
+        {parentPath && asPath !== parentPath && parent ?
           <Link href={parentPath} transformHref={false}>
             {header}
           </Link>
           : <>{header}</>
         }
       </header>
-      {!isHome && <div className={s.spacer}></div>}
-      {showLine && <div className={s.line}></div>}
+      {!isHome &&
+        <>
+          <div className={s.spacer}></div>
+          <div className={s.line}></div>
+        </>
+      }
     </>
   )
 }

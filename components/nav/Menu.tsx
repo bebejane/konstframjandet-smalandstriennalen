@@ -123,6 +123,7 @@ export type MenuTreeProps = {
 export function MenuTree({ item, level, selected, setSelected, path, locale, }: MenuTreeProps) {
 
 	const expand = () => setSelected(item)
+
 	const itemIncludesPath = (item: MenuItem) => {
 		if (!item) return false
 		const slugs = [item.slug, item.altSlug].map(s => s.startsWith(`/${locale}`) ? s.replace(`/${locale}`, '') : s)
@@ -143,7 +144,7 @@ export function MenuTree({ item, level, selected, setSelected, path, locale, }: 
 		return false
 	}
 
-	const isSelected = itemIncludesPath(item) && !item.virtual
+	const isSelected = item.slug === selected?.slug && !item.virtual
 	const isLink = item.slug
 	const isBold = level === 0 || item.sub?.length > 0
 	const label = item.label

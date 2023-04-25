@@ -40,11 +40,14 @@
     color: var(--black) !important;
   }
 
+  >ul {
+    margin-top: calc(var(--big-space) - var(--outer-margin));
+  }
+
   ul {
     list-style: none;
     font-weight: bold;
     padding-left: 0.62rem;
-    margin-top: calc(var(--big-space) - var(--outer-margin));
 
     @include mq($until: tablet) {
       margin-left: 0.62em;
@@ -70,14 +73,14 @@
         background: transparent;
       }
 
-      > li > a {
+      >li>a {
         font-weight: bold;
         color: var(--white);
       }
     }
 
     &[data-level="2"] {
-      li > a {
+      li>a {
         font-weight: normal !important;
       }
     }
@@ -93,8 +96,14 @@
         line-height: initial;
       }
 
-      &.bold > a {
+      &.bold>a {
         font-weight: bold;
+      }
+
+      &.active {
+        a {
+          color: var(--black) !important;
+        }
       }
 
       &:first-of-type {
@@ -133,7 +142,7 @@
       border-bottom: 1px solid lightgray;
 
       &::placeholder {
-        color: lightgray;
+        color: rgba(255, 255, 255, 0.2);
       }
     }
   }
