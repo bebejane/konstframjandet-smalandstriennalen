@@ -45,6 +45,10 @@
 
       @include mq($from: tablet) {
         width: 33.33%;
+
+        &:last-of-type {
+          padding-right: 2rem;
+        }
       }
 
       text-align: center;

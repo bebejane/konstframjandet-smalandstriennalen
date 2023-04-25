@@ -21,7 +21,7 @@ export default function Footer({ menu, footer: { email, facebook, instagram, abo
 			<section>
 				<div>
 					Copyright {PROJECT_NAME}, 2023 <br />
-					<a href={`mailto:${email}`}>{email}</a> · Cookies & GDPR
+					<a href={`mailto:${email}`}>{email}</a>Cookies & GDPR
 				</div>
 				<div>
 					{t('subscribe')} <br />

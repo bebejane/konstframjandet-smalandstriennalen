@@ -16,6 +16,8 @@
     display: flex;
     align-items: flex-end;
     width: 100%;
+    padding-top: 0.2em;
+    padding-bottom: 0.5em;
 
     span {
       display: -webkit-box;
@@ -83,8 +85,8 @@
     .image {
       // margin-left: 1rem;
       // margin-right: 1rem;
-      width: calc(100% - 2em) !important;
-      min-width: calc(100% - 2em) !important;
+      //width: calc(100% - 2em) !important;
+      //min-width: calc(100% - 2em) !important;
 
       margin-bottom: 0.8em;
       aspect-ratio: 8 / 5;
