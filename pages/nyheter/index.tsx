@@ -1,13 +1,13 @@
 import s from "./index.module.scss";
 import withGlobalProps from "/lib/withGlobalProps";
 import { AllNewsDocument } from "/graphql";
-//import Link from '/components/nav/Link'
 import Link from '/components/nav/Link'
 import { DatoMarkdown as Markdown } from "dato-nextjs-utils/components";
 import format from "date-fns/format";
 import { useTranslations } from "next-intl";
 import { DatoSEO } from "dato-nextjs-utils/components";
 import { pageSlugs } from "/lib/i18n";
+import { Button } from "/components";
 
 export type Props = {
   news: (NewsRecord & ThumbnailImage)[]
@@ -33,7 +33,7 @@ export default function News({ news }: Props) {
                 </Markdown>
               </div>
               <Link href={`/nyheter/${slug}`} transformHref={false}>
-                <button>{t('General.readMore')}</button>
+                <Button>{t('General.readMore')}</Button>
               </Link>
             </li>
           )}

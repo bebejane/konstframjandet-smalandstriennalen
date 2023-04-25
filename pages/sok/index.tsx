@@ -1,7 +1,7 @@
 import s from "./index.module.scss";
 import cn from 'classnames'
 import withGlobalProps from "/lib/withGlobalProps";
-import { Loader } from "/components";
+import { Loader, Button } from "/components";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { DatoMarkdown as Markdown } from "dato-nextjs-utils/components";
@@ -93,7 +93,7 @@ export default function Search({ query }: Props) {
                   <div className={s.intro}>
                     <Markdown>{text}</Markdown>
                   </div>
-                  <Link href={slug}><button>{t('General.readMore')}</button></Link>
+                  <Link href={slug}><Button>{t('General.readMore')}</Button></Link>
                 </li>
               )}
             </ul>
