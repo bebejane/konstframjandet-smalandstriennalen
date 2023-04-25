@@ -9,7 +9,7 @@ export default function Logo() {
 
   return (
     <div className={cn(s.container, isHome && s.home)}>
-      <Link href={'/'}><LogoIcon /></Link>
+      <Link href={'/'}><img src="/public/images/logo.svg"></img></Link>
     </div>
   )
 }

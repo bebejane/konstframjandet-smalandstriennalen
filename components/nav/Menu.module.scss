@@ -40,14 +40,11 @@
     color: var(--black) !important;
   }
 
-  >ul {
-    margin-top: calc(var(--big-space) - var(--outer-margin));
-  }
-
   ul {
     list-style: none;
     font-weight: bold;
     padding-left: 0.62rem;
+    margin-top: 0.5em;
 
     @include mq($until: tablet) {
       margin-left: 0.62em;
@@ -73,14 +70,14 @@
         background: transparent;
       }
 
-      >li>a {
+      > li > a {
         font-weight: bold;
         color: var(--white);
       }
     }
 
     &[data-level="2"] {
-      li>a {
+      li > a {
         font-weight: normal !important;
       }
     }
@@ -96,7 +93,7 @@
         line-height: initial;
       }
 
-      &.bold>a {
+      &.bold > a {
         font-weight: bold;
       }
 
@@ -104,6 +101,10 @@
         a {
           color: var(--black) !important;
         }
+      }
+
+      &:last-of-type {
+        padding-bottom: 0;
       }
 
       &:first-of-type {
@@ -114,6 +115,10 @@
         }
       }
     }
+  }
+
+  > ul {
+    margin-top: calc(var(--big-space) - var(--outer-margin));
   }
 }
 
