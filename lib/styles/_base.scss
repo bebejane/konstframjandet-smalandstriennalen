@@ -11,7 +11,7 @@
 	--grid-unit: calc(((100vw - (2 * var(--total-outer-margin))) / 12));
 	--body-width: calc(100% - (2 * var(--outer-margin)));
 	--full-margin: calc(-1 * (2 * var(--grid-unit)));
-	--wide-margin: calc(var(--total-outer-margin) + (1.5 * var(--grid-unit)));
+	--wide-margin: calc(var(--total-outer-margin) + (1.2 * var(--grid-unit)));
 	--small-space: 1rem;
 	--space: 2rem;
 	--big-space: 3rem;
@@ -150,8 +150,7 @@ button {
 		padding-top: 1em;
 	}
 
-	transition: color 0.2s ease-in-out,
-	background-color 0.3s ease-in-out;
+	transition: color 0.2s ease-in-out, background-color 0.3s ease-in-out;
 
 	&.back {
 		width: var(--body-width);
@@ -165,7 +164,6 @@ button {
 		background-color: var(--foreground);
 		color: var(--white);
 	}
-
 }
 
 figcaption {
