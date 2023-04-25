@@ -250,7 +250,13 @@ query Start {
 					}
 				}
 			}
-
+			... on StartSelectedLocationRecord {
+				__typename
+				id
+				locations {
+					...LocationFragmentLight
+				}
+			}
 			... on StartGalleryRecord {
 				__typename
 				id
