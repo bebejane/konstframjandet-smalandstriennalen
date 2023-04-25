@@ -1,0 +1,22 @@
+.button {
+  position: relative;
+
+  .left,
+  .right {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: var(--white);
+    fill: var(--green);
+  }
+
+  .left {
+    left: 0px;
+    border-right: 1pxx solid var(--green);
+  }
+
+  .right {
+    right: 0px;
+    transform: rotate(180deg);
+  }
+}
