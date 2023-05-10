@@ -4,8 +4,8 @@ export default withWebPreviews(async ({ item, itemType }) => {
 
   let path = null;
 
-  const { slug } = item.attributes
   const { api_key } = itemType.attributes
+  const slug = typeof item.attributes.slug === 'object' ? item.attributes.slug.sv : item.attributes.slug
 
   switch (api_key) {
     case 'start':
