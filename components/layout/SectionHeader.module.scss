@@ -10,24 +10,16 @@
 
   h2 {
     line-height: 1;
+
     @include mq($until: tablet) {
       margin-top: -0.8em;
     }
   }
 
-  .logo {
-    position: fixed;
-    margin-top: -1.8rem;
-    left: calc(var(--outer-margin) * 1);
-    img {
-      width: 7rem;
-      @include mq($from: tablet) {
-        width: 9.5rem;
-      }
-    }
-  }
+
 
   @include mq($from: tablet) {
+
     a,
     span {
       color: var(--black);
@@ -35,6 +27,7 @@
   }
 
   &:hover {
+
     // mix-blend-mode: normal !important;
     a,
     span {
@@ -96,7 +89,7 @@
       margin: 0;
       width: 100%;
 
-      > span {
+      >span {
         /*
         &:hover {
           padding-left: 1em;
@@ -126,10 +119,25 @@
   }
 }
 
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: var(--outer-margin);
+  z-index: var(--z-menu);
+
+  img {
+    width: 7rem;
+
+    @include mq($from: tablet) {
+      width: 9.5rem;
+    }
+  }
+}
+
 .line {
   margin-bottom: var(--space);
   width: 100%;
-  //border-bottom: 1px solid var(--black);
 
   @include mq($until: tablet) {
     margin-left: var(--outer-margin);
