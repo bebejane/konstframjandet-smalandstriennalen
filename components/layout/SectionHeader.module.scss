@@ -1,5 +1,5 @@
 .header {
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: baseline;
   justify-content: center;
@@ -10,28 +10,13 @@
 
   h2 {
     line-height: 1;
-
-    @include mq($until: tablet) {
-      margin-top: -0.8em;
-    }
   }
-
-
 
   @include mq($from: tablet) {
 
     a,
     span {
       color: var(--black);
-    }
-  }
-
-  &:hover {
-
-    // mix-blend-mode: normal !important;
-    a,
-    span {
-      //color: var(--black);
     }
   }
 
@@ -52,8 +37,7 @@
   }
 
   @include mq($from: tablet) {
-    width: calc(80% - var(--total-outer-margin));
-    padding-right: var(--total-outer-margin);
+    width: 100%;
   }
 
   .archive {
@@ -120,17 +104,19 @@
 }
 
 .logo {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
   margin: var(--outer-margin);
+  left: 0;
+  top: 0;
   z-index: var(--z-menu);
 
-  img {
-    width: 7rem;
+  svg {
+    path {
+      transform: scale(0.8);
 
-    @include mq($from: tablet) {
-      width: 9.5rem;
+      @include mq($until: tablet) {
+        transform: scale(0.4);
+      }
     }
   }
 }
@@ -138,6 +124,7 @@
 .line {
   margin-bottom: var(--space);
   width: 100%;
+  //border-bottom: 1px solid var(--black);
 
   @include mq($until: tablet) {
     margin-left: var(--outer-margin);

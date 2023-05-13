@@ -49,7 +49,7 @@ export default function SectionHeader() {
 
   return (
     <>
-      <Link href="/" className={s.logo}><img src="/images/logo-text.svg"></img></Link>
+      <Link href="/" className={s.logo}><Logo /></Link>
       <header className={cn(s.header, !showMenu && s.full)}>
 
         {parentPath && asPath !== parentPath && parent ?
