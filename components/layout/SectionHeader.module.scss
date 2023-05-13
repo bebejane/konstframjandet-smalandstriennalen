@@ -3,7 +3,7 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
-  margin-top: var(--big-space);
+
   z-index: var(--z-section-header);
   transition: width 0.3s ease-in-out;
   width: 100%;
@@ -32,12 +32,18 @@
     }
   }
 
+  margin-top: var(--big-space);
+
   @include mq($until: tablet) {
-    margin-top: -0.7em;
+    margin-top: -1.5em;
   }
 
   @include mq($from: tablet) {
     width: 100%;
+  }
+
+  &.home {
+    margin-top: 0;
   }
 
   .archive {
@@ -115,7 +121,7 @@
       transform: scale(0.8);
 
       @include mq($until: tablet) {
-        transform: scale(0.4);
+        transform: scale(0.3);
       }
     }
   }

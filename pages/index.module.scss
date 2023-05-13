@@ -28,6 +28,7 @@
 
     &.noborder {
       border-width: 0 !important;
+
       @include mq($until: tablet) {
         //padding-bottom: 0;
         padding-top: 1.5rem;
