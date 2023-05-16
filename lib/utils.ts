@@ -68,7 +68,7 @@ export const recordToSlug = (record: any): string => {
         url = `/program/${slug}`
         break;
       case 'ExhibitionRecord':
-        url = `/utstallningar/${slug}`
+        url = `/utstallningar-och-projekt/${slug}`
         break;
       case 'NewsRecord':
         url = `/nyheter/${slug}`

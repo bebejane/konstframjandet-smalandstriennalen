@@ -17,7 +17,7 @@ export default function StartExhibition({ data: { exhibitions } }: Props) {
     <div className={s.container}>
       <header>
         <h2>{t('Menu.exhibitions')}</h2>
-        <Link href={'/utstallningar'} className="small">
+        <Link href={'/utstallningar-och-projekt'} className="small">
           {t('General.showAll')}
         </Link>
       </header>
@@ -28,7 +28,7 @@ export default function StartExhibition({ data: { exhibitions } }: Props) {
               image={image}
               title={title}
               intro={intro}
-              slug={`/${year.title}/utstallningar/${slug}`}
+              slug={`/${year.title}/utstallningar-och-projekt/${slug}`}
               transformHref={false}
               titleLength={50}
               titleRows={1}

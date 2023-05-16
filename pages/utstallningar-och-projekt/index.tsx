@@ -18,14 +18,10 @@ export default function Exhibition({ exhibitions }: Props) {
 
   const t = useTranslations()
   const { asPath } = useRouter()
-  const { year } = usePage()
-
-
 
   return (
     <>
       <DatoSEO title={t('Menu.exhibitions')} />
-      <DatoMarkdown className={s.intro}>{year.introExhibitions}</DatoMarkdown>
       <CardContainer key={asPath} columns={3}>
         {exhibitions.map(({ id, image, title, startDate, endDate, intro, slug }) =>
           <Card key={id}>
@@ -35,7 +31,7 @@ export default function Exhibition({ exhibitions }: Props) {
               image={image}
               intro={intro}
               meta={`${formatDate(startDate, endDate)}`}
-              slug={`/utstallningar/${slug}`}
+              slug={`/utstallningar-och-projekt/${slug}`}
             />
           </Card>
         )}

@@ -27,10 +27,10 @@ export default withWebPreviews(async ({ item, itemType }) => {
       path = `/platser/${slug}`
       break;
     case 'exhibition':
-      path = `/utstallningar/${slug}`
+      path = `/utstallningar-och-projekt/${slug}`
       break;
     case 'exhibition':
-      path = `/utstallningar/${slug}`
+      path = `/utstallningar-och-projekt/${slug}`
       break;
     case 'partner':
       path = `/partners/${slug}`
