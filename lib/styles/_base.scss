@@ -41,6 +41,7 @@
 		--outer-margin: 2vw;
 		--gutter: 3vw;
 		--gutter-half: 1.25vw;
+		--header-height: calc((var(--outer-margin) * 2) + 2rem); //snygga upp sen
 	}
 
 	@include mq($until: tablet) {
