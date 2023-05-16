@@ -15,5 +15,9 @@ fragment ExhibitionFragmentLight on ExhibitionRecord {
 		id
 		title
 	}
+	location {
+		id
+		title
+	}
 	slug
 }
