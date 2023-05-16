@@ -14,6 +14,17 @@
   cursor: pointer;
   pointer-events: all;
 
+  &.home {
+    mix-blend-mode: difference;
+
+    .wrap>div {
+      background-color: var(--white);
+    }
+  }
+
+
+
+
   @include mq($from: tablet) {
     --line-height: 7px;
     top: 0;
@@ -24,7 +35,9 @@
     width: 100%;
     height: 100%;
 
-    > div {
+
+
+    >div {
       position: absolute;
       width: 100%;
       height: var(--line-height);
@@ -34,6 +47,7 @@
       animation-iteration-count: 1;
       animation-direction: reverse;
       animation-fill-mode: forwards;
+
 
       &.closed {
         animation-direction: normal;
