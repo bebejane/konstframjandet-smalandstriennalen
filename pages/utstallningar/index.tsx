@@ -26,12 +26,12 @@ export default function Exhibition({ exhibitions }: Props) {
     <>
       <DatoSEO title={t('Menu.exhibitions')} />
       <DatoMarkdown className={s.intro}>{year.introExhibitions}</DatoMarkdown>
-      <CardContainer key={asPath} columns={2}>
+      <CardContainer key={asPath} columns={3}>
         {exhibitions.map(({ id, image, title, startDate, endDate, intro, slug }) =>
           <Card key={id}>
             <Thumbnail
               title={title}
-              titleRows={1}
+              titleRows={2}
               image={image}
               intro={intro}
               meta={`${formatDate(startDate, endDate)}`}
