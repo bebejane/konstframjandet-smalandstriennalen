@@ -191,6 +191,12 @@ query Start {
 				id
 				amount
 			}
+			... on StartExhibitionRecord {
+				__typename
+				id
+				amount
+			}
+
 			... on StartFullscreenImageRecord {
 				id
 				image {
@@ -332,5 +338,12 @@ query StartData($newsItems: IntType, $programItems: IntType, $date: Date, $yearI
 		orderBy: _createdAt_DESC
 	) {
 		...ParticipantFragmentLight
+	}
+	exhibitions: allExhibitions(
+		filter: { year: { eq: $yearId }, startDate: { exists: true } }
+		first: 100
+		orderBy: [startDate_ASC]
+	) {
+		...ExhibitionFragmentLight
 	}
 }

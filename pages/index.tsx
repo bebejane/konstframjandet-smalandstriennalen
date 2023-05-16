@@ -36,7 +36,8 @@ export const getStaticProps = withGlobalProps({ queries: [StartDocument] }, asyn
 	const count = {
 		participants: parseInt((start?.content.find(el => el.__typename === 'StartRandomParticipantRecord') as StartRandomParticipantRecord)?.amount ?? '6'),
 		news: parseInt((start?.content.find(el => el.__typename === 'StartNewsRecord') as StartNewsRecord)?.amount ?? '6'),
-		programs: parseInt((start?.content.find(el => el.__typename === 'StartProgramRecord') as StartProgramRecord)?.amount ?? '6')
+		programs: parseInt((start?.content.find(el => el.__typename === 'StartProgramRecord') as StartProgramRecord)?.amount ?? '6'),
+		exhibitions: parseInt((start?.content.find(el => el.__typename === 'StartExhibitionRecord') as StartExhibitionRecord)?.amount ?? '6')
 	}
 
 	// Add extra items to make sure we have enough to fill the grid
@@ -50,10 +51,11 @@ export const getStaticProps = withGlobalProps({ queries: [StartDocument] }, asyn
 		date
 	}
 
-	const { news, programs, participants }: {
+	const { news, programs, participants, exhibitions }: {
 		news: NewsRecord[],
 		programs: ProgramRecord[],
-		participants: ParticipantRecord[]
+		participants: ParticipantRecord[],
+		exhibitions: ExhibitionRecord[]
 	} = await apiQuery(StartDataDocument, { variables })
 
 	return {
@@ -64,7 +66,8 @@ export const getStaticProps = withGlobalProps({ queries: [StartDocument] }, asyn
 				content: start.content.map(block => ({
 					...block,
 					news: block.__typename === 'StartNewsRecord' ? news : null,
-					programs: block.__typename === 'StartProgramRecord' ? programs : null,
+					programs: block.__typename === 'StartProgramRecord' ? programs.slice(0, count.programs) : null,
+					exhibitions: block.__typename === 'StartExhibitionRecord' ? exhibitions.slice(0, count.exhibitions) : null,
 					participants: block.__typename === 'StartRandomParticipantRecord' ? participants.sort(() => Math.random() > 0.5 ? 1 : -1).slice(0, count.participants) : null,
 				}))
 			},
