@@ -11,5 +11,9 @@ fragment ExhibitionFragmentLight on ExhibitionRecord {
 	image {
 		...ImageThumbnailFragment
 	}
+	year {
+		id
+		title
+	}
 	slug
 }
