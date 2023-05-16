@@ -13,7 +13,6 @@
   }
 
   @include mq($from: tablet) {
-
     a,
     span {
       color: var(--black);
@@ -28,7 +27,7 @@
     }
 
     @include mq($from: wide) {
-      width: calc(100% - (2 * var(--wide-margin)));
+      //width: calc(100% - (2 * var(--wide-margin)));
     }
   }
 
@@ -79,7 +78,7 @@
       margin: 0;
       width: 100%;
 
-      >span {
+      > span {
         /*
         &:hover {
           padding-left: 1em;
@@ -144,6 +143,6 @@
   height: 0;
 
   @include mq($from: tablet) {
-    height: var(--header-height);
+    height: var(--space);
   }
 }

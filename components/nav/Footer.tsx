@@ -24,8 +24,7 @@ export default function Footer({ menu, footer: { email, facebook, instagram, abo
 					<a href={`mailto:${email}`}>{email}</a>Cookies & GDPR
 				</div>
 				<div>
-					{t('subscribe')} <br />
-					{t('followUs')}  <a href={facebook}>Facebook</a> {t('and')} <a href={instagram}>Instagram</a>
+					{t('followUs')} <a href={instagram}>Instagram</a>
 				</div>
 				<div>
 					{about}

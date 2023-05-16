@@ -40,7 +40,7 @@ export default function Program({ programs, programCategories }: Props) {
                 titleRows={2}
                 image={image}
                 intro={intro}
-                meta={`${formatDate(startDate, endDate)} — ${programCategory.title}`}
+                meta={`${formatDate(startDate, endDate)} • ${programCategory.title}`}
                 slug={`/program/${slug}`}
               />
             </Card>
