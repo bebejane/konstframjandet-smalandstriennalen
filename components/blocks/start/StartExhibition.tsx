@@ -21,7 +21,7 @@ export default function StartExhibition({ data: { exhibitions } }: Props) {
           {t('General.showAll')}
         </Link>
       </header>
-      <CardContainer>
+      <CardContainer hideLastOnDesktop={true}>
         {exhibitions.map(({ id, image, intro, title, slug, year }) =>
           <Card key={id}>
             <Thumbnail
