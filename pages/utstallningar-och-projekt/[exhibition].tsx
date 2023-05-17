@@ -29,7 +29,7 @@ export default function Exhibition({ exhibition: {
 } }: Props) {
 
   const t = useTranslations()
-  console.log(content)
+
   return (
     <>
       <DatoSEO title={title} description={intro} seo={_seoMetaTags} />

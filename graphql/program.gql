@@ -1,8 +1,7 @@
 query AllPrograms($yearId: ItemId) {
 	programs: allPrograms(
 		filter: { year: { eq: $yearId } }
-
-		orderBy: [startDate_DESC, startTime_ASC]
+		orderBy: [startDate_ASC, startTime_ASC]
 		first: 100
 	) {
 		...ProgramFragmentLight

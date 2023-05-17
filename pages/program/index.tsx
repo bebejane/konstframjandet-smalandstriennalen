@@ -21,7 +21,10 @@ export default function Program({ programs, programCategories }: Props) {
   const options = programCategories.map(({ id, title: label, desc }) => ({ id, label, description: desc }))
   const [category, setCategory] = useState<string>()
   const categoryFilter = ({ programCategory: { id } }: ProgramRecord) => !category || category === id
+
   const haveProgramItems = programs.filter(categoryFilter).length > 0
+  const pastPrograms = programs.filter(({ startDate, endDate }) => new Date(startDate) < new Date() && endDate);
+  const comingPrograms = programs.filter(({ startDate, endDate }) => new Date(startDate) >= new Date());
 
   return (
     <>
@@ -33,7 +36,7 @@ export default function Program({ programs, programCategories }: Props) {
       />
       {haveProgramItems ?
         <CardContainer key={`${category}-${asPath}`}>
-          {programs.filter(categoryFilter).map(({ id, image, title, intro, slug, startDate, endDate, programCategory }) =>
+          {comingPrograms.filter(categoryFilter).map(({ id, image, title, intro, slug, startDate, endDate, programCategory }) =>
             <Card key={id}>
               <Thumbnail
                 title={title}
@@ -48,6 +51,25 @@ export default function Program({ programs, programCategories }: Props) {
         </CardContainer>
         :
         <p className={s.nomatch}>{t('Program.noProgramItems')}</p>
+      }
+      {pastPrograms.filter(categoryFilter).length > 0 &&
+        <>
+          <h2 className={s.subheader}>{t('Program.finished')}</h2>
+          <CardContainer key={`${category}-${asPath}`}>
+            {pastPrograms.filter(categoryFilter).map(({ id, image, title, intro, slug, startDate, endDate, programCategory }) =>
+              <Card key={id}>
+                <Thumbnail
+                  title={title}
+                  titleRows={2}
+                  image={image}
+                  intro={intro}
+                  meta={`${formatDate(startDate, endDate)} • ${programCategory.title}`}
+                  slug={`/program/${slug}`}
+                />
+              </Card>
+            )}
+          </CardContainer>
+        </>
       }
     </>
   )
