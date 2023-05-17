@@ -45,7 +45,7 @@ export default function Thumbnail({ image, slug, intro, title, titleLength, titl
           {titleLength ? truncateWords(title, titleLength) : title}
         </span>
       </h3>
-      {strippedIntro &&
+      {(strippedIntro || meta) &&
         <div className="thumb-intro">
           <p>
             {meta && <strong>{meta}</strong>}
