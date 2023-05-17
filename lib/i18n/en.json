@@ -57,6 +57,7 @@
 		"supportedBy": "Financed by"
 	},
 	"Program": {
-		"noProgramItems": "There are no events in this category"
+		"noProgramItems": "There are no events in this category",
+		"finished": "Finished"
 	}
 }

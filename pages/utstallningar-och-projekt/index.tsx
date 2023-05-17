@@ -33,11 +33,14 @@ export default function Exhibition({ exhibitions }: Props) {
           </Card>
         )}
       </CardContainer>
+
     </>
   );
 }
 
 export const getStaticProps = withGlobalProps({ queries: [AllExhibitionsDocument] }, async ({ props, revalidate }: any) => {
+
+  const { exhibitions } = props;
 
   return {
     props: {

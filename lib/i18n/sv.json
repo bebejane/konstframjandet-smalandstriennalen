@@ -57,6 +57,7 @@
 		"supportedBy": "Finansiärer"
 	},
 	"Program": {
-		"noProgramItems": "Det finns inga program i den här kategorin"
+		"noProgramItems": "Det finns inga program i den här kategorin",
+		"finished": "Avslutade"
 	}
 }
