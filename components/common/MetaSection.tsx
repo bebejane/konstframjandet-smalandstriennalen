@@ -11,10 +11,14 @@ export type Props = {
 
 export default function MetaSection({ items = [] }: Props) {
 
+  items = items.filter(({ value, title }) => value && title)
+
+  if (!items.length) return null
+
   return (
     <section className={s.meta}>
       <ul className="small">
-        {items.filter(({ value, title }) => value && title).map(({ title, value, link }, idx) =>
+        {items.map(({ title, value, link }, idx) =>
           <li key={idx}>
             {title}:&nbsp;
             <strong>
