@@ -23,7 +23,7 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
 
     if (path) {
       previewLinks.push({ label: 'Live', url: `${baseUrl}${path}` })
-      const item = payload.get('item') as any
+      const item = payload.item
       console.log(item)
       if (process.env.DATOCMS_PREVIEW_SECRET && item?.meta?.status !== 'published')
         previewLinks.push({ label: 'Preview', url: `${baseUrl}/api/preview?slug=${path}&secret=${process.env.DATOCMS_PREVIEW_SECRET}` })
