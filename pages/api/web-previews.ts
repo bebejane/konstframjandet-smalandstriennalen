@@ -5,6 +5,13 @@ export const config = {
   runtime: 'edge',
 }
 
+const corsOptions = {
+  origin: '*',
+  methods: ['POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  preflightContinue: true,
+}
+
 export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<string>): (req: NextRequest, res: NextResponse) => void {
 
   return async (req: NextRequest, res: NextResponse) => {
@@ -12,20 +19,21 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
     if (!process.env.NEXT_PUBLIC_SITE_URL && !process.env.SITE_URL)
       throw new Error('NEXT_PUBLIC_SITE_URL is not set in .env')
 
-    if (!req.body)
-      throw new Error('No body found in request')
+    if (req.method === 'OPTIONS')
+      return cors(req, new Response('ok', { status: 200 }), corsOptions)
 
     const payload = await req.json()
+
+    if (!payload)
+      throw new Error('No form data in request body')
+
     const path = await generatePreviewUrl(payload);
     const previewLinks = []
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL
-    console.log(process.env.NEXT_PUBLIC_SITE_URL)
 
     if (path) {
       previewLinks.push({ label: 'Live', url: `${baseUrl}${path}` })
-      const item = payload.item
-      console.log(item)
-      if (process.env.DATOCMS_PREVIEW_SECRET && item?.meta?.status !== 'published')
+      if (process.env.DATOCMS_PREVIEW_SECRET && payload?.item?.meta?.status !== 'published')
         previewLinks.push({ label: 'Preview', url: `${baseUrl}/api/preview?slug=${path}&secret=${process.env.DATOCMS_PREVIEW_SECRET}` })
     }
 
@@ -34,14 +42,7 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
       new Response(JSON.stringify({ previewLinks }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      }),
-      {
-        origin: '*',
-        methods: ['POST', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        preflightContinue: true,
-      }
-    )
+      }), corsOptions)
   }
 }
 
