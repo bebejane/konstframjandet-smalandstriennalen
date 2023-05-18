@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { apiQuery } from "dato-nextjs-utils/api";
+import { GlobalDocument } from "/graphql";
+
 import cors from '/lib/cors'
 
 export const config = {
@@ -19,13 +22,13 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
     if (!process.env.NEXT_PUBLIC_SITE_URL && !process.env.SITE_URL)
       throw new Error('NEXT_PUBLIC_SITE_URL is not set in .env')
 
-    if (req.method === 'OPTIONS') {
-      console.log('OPTIONS req')
+    if (req.method === 'OPTIONS')
       return cors(req, new Response('ok', { status: 200 }), corsOptions)
-    }
 
     const payload = await req.json()
 
+    const { site } = await apiQuery(GlobalDocument)
+    console.log(site)
     if (!payload)
       throw new Error('No form data in request body')
 
