@@ -9,7 +9,7 @@ const corsOptions = {
   origin: '*',
   methods: ['POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  preflightContinue: true,
+  preflightContinue: false,
 }
 
 export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<string>): (req: NextRequest, res: NextResponse) => void {
