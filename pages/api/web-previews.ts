@@ -12,16 +12,6 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
     if (!process.env.NEXT_PUBLIC_SITE_URL && !process.env.SITE_URL)
       throw new Error('NEXT_PUBLIC_SITE_URL is not set in .env')
 
-    /* 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.setHeader('Content-Type', 'application/json');
-
-    if (req.method === 'OPTIONS')
-      return res.status(200).send('ok');
-*/
-
     if (!req.body)
       throw new Error('No body found in request')
 
@@ -29,10 +19,12 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
     const path = await generatePreviewUrl(payload);
     const previewLinks = []
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL
+    console.log(process.env.NEXT_PUBLIC_SITE_URL)
 
     if (path) {
       previewLinks.push({ label: 'Live', url: `${baseUrl}${path}` })
       const item = payload.get('item') as any
+      console.log(item)
       if (process.env.DATOCMS_PREVIEW_SECRET && item?.meta?.status !== 'published')
         previewLinks.push({ label: 'Preview', url: `${baseUrl}/api/preview?slug=${path}&secret=${process.env.DATOCMS_PREVIEW_SECRET}` })
     }
@@ -42,7 +34,13 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
       new Response(JSON.stringify({ previewLinks }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      })
+      }),
+      {
+        origin: '*',
+        methods: ['POST', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        preflightContinue: true,
+      }
     )
   }
 }
