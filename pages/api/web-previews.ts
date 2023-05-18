@@ -15,7 +15,7 @@ export function withWebPreviews(generatePreviewUrl: (record: any) => Promise<str
     if (!req.body)
       throw new Error('No body found in request')
 
-    const payload = await req.formData()
+    const payload = await req.json()
     const path = await generatePreviewUrl(payload);
     const previewLinks = []
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL
