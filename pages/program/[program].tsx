@@ -57,7 +57,6 @@ export default function Program({ program: {
           { title: t('MetaSection.where'), value: address || location.length ? location.map(({ title }) => title) : null, link: (location.length && !address) ? location.map(({ slug }) => `/platser/${slug}`) : null },
           { title: t('MetaSection.when'), value: formatDate(startDate, endDate) },
           { title: t('MetaSection.times'), value: time },
-          { title: t('MetaSection.where'), value: location.map(({ address }) => address).join('') ? location.map(({ address }) => address) : null },
           { title: t('MetaSection.link'), value: externalLink ? t('MetaSection.webpage') : undefined, link: externalLink }
         ]}
       />
