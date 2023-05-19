@@ -34,6 +34,7 @@ export default function Program({ program: {
 
   const t = useTranslations();
 
+
   return (
     <>
       <DatoSEO title={title} description={intro} seo={_seoMetaTags} />
@@ -53,10 +54,10 @@ export default function Program({ program: {
         key={`${id}-meta`}
         items={[
           { title: t('MetaSection.what'), value: programCategory?.title },
-          { title: t('MetaSection.where'), value: address || location?.title, link: (location && !address) && `/platser/${location?.slug}` },
+          { title: t('MetaSection.where'), value: address || location.length ? location.map(({ title }) => title) : null, link: (location.length && !address) ? location.map(({ slug }) => `/platser/${slug}`) : null },
           { title: t('MetaSection.when'), value: formatDate(startDate, endDate) },
           { title: t('MetaSection.times'), value: time },
-          { title: t('MetaSection.where'), value: location?.address },
+          { title: t('MetaSection.where'), value: location.map(({ address }) => address).join('') ? location.map(({ address }) => address) : null },
           { title: t('MetaSection.link'), value: externalLink ? t('MetaSection.webpage') : undefined, link: externalLink }
         ]}
       />

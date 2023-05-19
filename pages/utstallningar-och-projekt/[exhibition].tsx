@@ -48,7 +48,7 @@ export default function Exhibition({ exhibition: {
         items={[
           { title: t('MetaSection.when'), value: formatDate(startDate, endDate) },
           { title: t('MetaSection.times'), value: time },
-          { title: t('MetaSection.where'), value: location?.title, link: `/platser/${location?.slug}` },
+          { title: t('MetaSection.where'), value: location.length ? location.map(({ title }) => title) : null, link: location.length ? location.map(({ slug }) => `/platser/${slug}`) : null },
           { title: t('MetaSection.link'), value: externalLink ? t('MetaSection.webpage') : undefined, link: externalLink }
         ]}
       />
