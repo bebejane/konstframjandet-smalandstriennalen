@@ -43,7 +43,7 @@ export default function Partner({ partner: {
         items={[
           { title: t('MetaSection.city'), value: city },
           { title: t('MetaSection.address'), value: address },
-          { title: t('MetaSection.link'), value: t('MetaSection.webpage'), link: webpage }
+          { title: t('MetaSection.link'), value: webpage ? t('MetaSection.webpage') : undefined, link: webpage }
         ]}
       />
       {/*

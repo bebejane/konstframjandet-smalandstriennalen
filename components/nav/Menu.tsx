@@ -19,7 +19,7 @@ export default function Menu({ items }: MenuProps) {
 
 	const t = useTranslations('Menu')
 	const router = useRouter()
-	const { locale, defaultLocale } = router
+	const { locale, defaultLocale, asPath } = router
 	const menuRef = useRef<HTMLUListElement | null>(null);
 	const [showMenu, setShowMenu, searchQuery, setSearchQuery] = useStore((state) => [state.showMenu, state.setShowMenu, state.searchQuery, state.setSearchQuery])
 	const [selected, setSelected] = useState<MenuItem | undefined>()
@@ -62,6 +62,28 @@ export default function Menu({ items }: MenuProps) {
 
 	}, [menuRef, selected, scrolledPosition, documentHeight, viewportHeight, width, height, isMobile])
 
+
+
+	useEffect(() => {
+
+		// Find selected item from asPath recursively
+		const findSelected = (path: string, item: MenuItem): MenuItem | undefined => {
+			if (item.slug === path || item.altSlug === path) return item
+			if (item.sub?.length) {
+				for (let i = 0; i < item.sub.length; i++) {
+					const selected = findSelected(path, item.sub[i])
+					if (selected) return selected
+				}
+			}
+		}
+		for (let i = 0; i < items.length; i++) {
+			const selected = findSelected(asPath, items[i]);
+			if (selected) {
+				return setSelected(selected)
+			}
+		}
+
+	}, [asPath])
 
 	return (
 		<>

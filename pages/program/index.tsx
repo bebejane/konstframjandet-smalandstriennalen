@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { DatoSEO } from "dato-nextjs-utils/components";
 import { useTranslations } from "next-intl";
 import { pageSlugs } from "/lib/i18n";
+import { isAfter } from 'date-fns';
 
 export type Props = {
   programs: ProgramRecord[]
@@ -23,8 +24,10 @@ export default function Program({ programs, programCategories }: Props) {
   const categoryFilter = ({ programCategory: { id } }: ProgramRecord) => !category || category === id
 
   const haveProgramItems = programs.filter(categoryFilter).length > 0
-  const pastPrograms = programs.filter(({ startDate, endDate }) => new Date(startDate) < new Date() && endDate);
-  const comingPrograms = programs.filter(({ startDate, endDate }) => new Date(startDate) >= new Date());
+  const today = new Date()
+  const pastPrograms = programs.filter(({ startDate, endDate }) => isAfter(today, new Date(startDate)) && (!endDate || isAfter(today, new Date(endDate))));
+  const comingPrograms = programs.filter(({ id }) => pastPrograms.find(({ id: pastId }) => pastId === id) === undefined);
+
 
   return (
     <>
