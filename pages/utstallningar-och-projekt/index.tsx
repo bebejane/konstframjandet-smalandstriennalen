@@ -27,7 +27,7 @@ export default function Exhibition({ exhibitions }: Props) {
               title={title}
               titleRows={2}
               image={image}
-              meta={`${formatDate(startDate, endDate)} ${location ? location.title : ''}`}
+              meta={`${formatDate(startDate, endDate)} ${location.map(l => l.title).join(', ')}`}
               slug={`/utstallningar-och-projekt/${slug}`}
             />
           </Card>

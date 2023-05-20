@@ -46,8 +46,8 @@ export default function Program({ programs, programCategories }: Props) {
                 titleRows={2}
                 image={image}
                 intro={intro}
-                meta={`${formatDate(startDate, endDate)} • ${programCategory.title}`}
-                slug={`/program/${slug}`}
+                meta={`${formatDate(startDate, endDate)}${programCategory.title ? ` • ${programCategory.title}` : ''}`}
+                slug={`/ program / ${slug}`}
               />
             </Card>
           )}
