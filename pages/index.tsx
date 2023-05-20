@@ -5,6 +5,7 @@ import { StartDataDocument, StartDocument } from "/graphql";
 import { apiQuery } from "dato-nextjs-utils/api";
 import { Block } from "/components";
 import { pageSlugs } from "/lib/i18n";
+import { format } from "date-fns";
 
 export type Props = {
 	start: StartRecord
@@ -32,7 +33,7 @@ export default function Home({ start }: Props) {
 export const getStaticProps = withGlobalProps({ queries: [StartDocument] }, async ({ props, revalidate, context }: any) => {
 
 	let { start }: { start: StartRecord } = props;
-	const date = '2022-01-01' //format(new Date(), 'yyyy-MM-dd')
+	const date = format(new Date(), 'yyyy-MM-dd')
 	const count = {
 		participants: parseInt((start?.content.find(el => el.__typename === 'StartRandomParticipantRecord') as StartRandomParticipantRecord)?.amount ?? '6'),
 		news: parseInt((start?.content.find(el => el.__typename === 'StartNewsRecord') as StartNewsRecord)?.amount ?? '6'),
@@ -40,10 +41,9 @@ export const getStaticProps = withGlobalProps({ queries: [StartDocument] }, asyn
 		exhibitions: parseInt((start?.content.find(el => el.__typename === 'StartExhibitionRecord') as StartExhibitionRecord)?.amount ?? '6')
 	}
 
-
 	// Add extra items to make sure we have enough to fill the grid
 	Object.keys(count).forEach(k => count[k] += count[k] % 2 === 0 ? 0 : 1)
-	console.log(count)
+
 	const variables = {
 		newsItems: count.news || 0,
 		programItems: count.participants || 0,
