@@ -10,12 +10,13 @@ export type Props = {
   columns?: 2 | 3,
   className?: string
   hideLastOnDesktop?: boolean
+  hideLastOnMobile?: boolean
 }
 
-export default function CardContainer({ children, columns = 3, className, hideLastOnDesktop = false }: Props) {
+export default function CardContainer({ children, columns = 3, className, hideLastOnDesktop = false, hideLastOnMobile = false }: Props) {
 
   const buildCards = () => {
-    return chunkArray((Array.isArray(children) ? children : [children]).map(el => React.cloneElement(el as ReactElement, { hideLastOnDesktop })), !isDesktop ? 2 : columns) as [React.ReactNode[]]
+    return chunkArray((Array.isArray(children) ? children : [children]).map(el => React.cloneElement(el as ReactElement, { hideLastOnDesktop, hideLastOnMobile })), !isDesktop ? 2 : columns) as [React.ReactNode[]]
   }
 
   const ref = useRef<HTMLUListElement | null>(null)

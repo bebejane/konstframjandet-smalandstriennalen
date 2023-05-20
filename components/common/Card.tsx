@@ -6,12 +6,13 @@ export type CardProps = {
   children: React.ReactNode | React.ReactNode[],
   className?: string
   hideLastOnDesktop?: boolean
+  hideLastOnMobile?: boolean
 }
 
-export default function Card({ children, className, hideLastOnDesktop = false }: CardProps) {
+export default function Card({ children, className, hideLastOnDesktop = false, hideLastOnMobile = false }: CardProps) {
 
   return (
-    <li className={cn(s.card, className, hideLastOnDesktop && s.hideLastOnDesktop)}>
+    <li className={cn(s.card, className, hideLastOnDesktop && s.hideLastOnDesktop, hideLastOnMobile && s.hideLastOnMobile)}>
       {children}
     </li>
   )

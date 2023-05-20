@@ -21,7 +21,7 @@ export default function StartNews({ data: { news } }: Props) {
           {t('General.showAll')}
         </Link>
       </header>
-      <CardContainer hideLastOnDesktop={news.length < 3 ? false : true}>
+      <CardContainer hideLastOnDesktop={news.length % 3 !== 0}>
         {news.map(({ id, intro, title, slug }) =>
           <Card key={id}>
             <Thumbnail

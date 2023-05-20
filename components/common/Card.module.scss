@@ -21,4 +21,12 @@
       }
     }
   }
+
+  &.hideLastOnMobile {
+    @include mq($until: tablet) {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
 }

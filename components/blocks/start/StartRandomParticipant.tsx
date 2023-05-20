@@ -21,7 +21,7 @@ export default function StartRandomParticipant({ data: { participants } }: Props
           {t('General.showAll')}
         </Link>
       </header>
-      <CardContainer hideLastOnDesktop={true}>
+      <CardContainer hideLastOnDesktop={participants.length % 3 !== 0}>
         {participants.map(({ id, image, intro, name, slug, year }) =>
           <Card key={id}>
             <Thumbnail

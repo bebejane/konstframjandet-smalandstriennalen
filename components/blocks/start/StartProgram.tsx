@@ -22,7 +22,7 @@ export default function StartProgram({ data: { programs } }: Props) {
           {t('General.showAll')}
         </Link>
       </header>
-      <CardContainer>
+      <CardContainer hideLastOnDesktop={programs.length % 3 !== 0}>
         {programs.map(({ id, image, intro, title, slug, year, startDate, endDate, programCategory }) =>
           <Card key={id}>
             <Thumbnail

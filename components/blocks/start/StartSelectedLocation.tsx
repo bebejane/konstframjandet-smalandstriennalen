@@ -19,7 +19,7 @@ export default function StartSelectedLocation({ data: { locations } }: Props) {
           {t('General.showAll')}
         </Link>
       </header>
-      <CardContainer>
+      <CardContainer hideLastOnDesktop={locations.length % 3 !== 0}>
         {locations.map(({ id, image, intro, title, slug }) =>
           <Card key={id}>
             <Thumbnail
