@@ -172,8 +172,8 @@ export function MenuTree({ item, level, selected, setSelected, path, locale, }: 
 	const label = item.label
 
 	return (
-		<li onClick={expand} data-parent={item.id} className={cn(isSelected && s.active, isBold && s.bold)}>
-			{isLink ? <Link href={item.slug}>{label}</Link> : <>{label}</>}
+		<li data-parent={item.id} className={cn(isSelected && s.active, isBold && s.bold)}>
+			{isLink ? <Link onClick={expand} href={item.slug}>{label}</Link> : <span onClick={expand}>{label}</span>}
 			{item?.sub && isVisible(path, item) &&
 				<ul data-level={++level} onClick={e => e.stopPropagation()}>
 					{item.sub.map((item, idx) =>

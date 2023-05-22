@@ -70,30 +70,34 @@
         background: transparent;
       }
 
-      > li > a {
+      >li>a {
         font-weight: bold;
         color: var(--white);
       }
     }
 
     &[data-level="2"] {
-      li > a {
+      li>a {
         font-weight: normal !important;
       }
     }
 
     li {
-      cursor: pointer;
+
       padding-bottom: 0.8em;
       line-height: 1.4;
       overflow-x: visible !important;
       overflow-y: visible !important;
 
+      span {
+        cursor: pointer;
+      }
+
       a {
         line-height: initial;
       }
 
-      &.bold > a {
+      &.bold>a {
         font-weight: bold;
       }
 
@@ -117,7 +121,7 @@
     }
   }
 
-  > ul {
+  >ul {
     margin-top: calc(var(--big-space) - var(--outer-margin));
   }
 }
@@ -143,7 +147,10 @@
       color: var(--white);
     }
 
+    cursor: pointer;
+
     &:focus {
+      cursor: text;
       border-bottom: 1px solid lightgray;
 
       &::placeholder {
@@ -164,6 +171,7 @@
     width: 1rem;
     opacity: 0.5;
     transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
 
     &:hover {
       opacity: 1;
