@@ -86,6 +86,7 @@ export const getStaticProps = withGlobalProps({ queries: [] }, async ({ props, r
         title: exhibition.title,
         slugs: pageSlugs('exhibitions', props.year.title, exhibition._allSlugLocales),
       } as PageProps
-    }
+    },
+    revalidate
   };
 });
