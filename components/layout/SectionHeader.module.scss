@@ -13,6 +13,7 @@
   }
 
   @include mq($from: tablet) {
+
     a,
     span {
       color: var(--black);
@@ -78,7 +79,7 @@
       margin: 0;
       width: 100%;
 
-      > span {
+      >span {
         /*
         &:hover {
           padding-left: 1em;
@@ -116,6 +117,9 @@
   z-index: var(--z-menu);
 
   svg {
+    width: 100px;
+    height: 40px;
+
     path {
       transform: scale(0.8);
 

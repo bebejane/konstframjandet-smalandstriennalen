@@ -46,7 +46,6 @@ export default function SectionHeader() {
     </h2>
   )
 
-
   return (
     <>
       <Link href="/" className={s.logo}><Logo /></Link>

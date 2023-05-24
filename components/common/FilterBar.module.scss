@@ -9,7 +9,7 @@
     overflow: hidden;
   }
 
-  > ul {
+  >ul {
     list-style: none;
     display: flex;
     width: 100%;
@@ -37,6 +37,45 @@
 
       &.selected {
         font-weight: bold;
+      }
+    }
+  }
+
+  .arrow {
+    display: none;
+    transform: rotate(90deg);
+    margin-left: 0.3em;
+  }
+
+  @include mq($until: tablet) {
+    overflow: visible;
+
+    >ul {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      flex-direction: column;
+      background-color: var(--white);
+      padding-bottom: 1.5em;
+
+      li {
+        display: inline-flex;
+        align-self: center;
+        padding-right: 0;
+
+      }
+    }
+
+    &.open {
+      .arrow {
+        display: inline-block;
+      }
+
+      >ul {
+        li:not(.selected) {
+          display: none;
+        }
       }
     }
   }
