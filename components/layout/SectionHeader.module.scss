@@ -117,8 +117,12 @@
   z-index: var(--z-menu);
 
   svg {
-    width: 100px;
-    height: 40px;
+
+    @include mq($until: tablet) {
+      width: 100px;
+      height: 40px;
+
+    }
 
     path {
       transform: scale(0.8);
