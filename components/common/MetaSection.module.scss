@@ -5,7 +5,7 @@
   padding-top: var(--space);
   border-top: 1px solid var(--black);
   margin-left: var(--outer-margin);
-  columns: 2;
+  //columns: 2;
   text-align: center;
 
   @include mq($from: tablet) {
@@ -27,6 +27,9 @@
     li {
       padding-bottom: 0.5em;
       text-align: center;
+      @include mq($until: tablet) {
+        display: block;
+      }
 
       a:hover {
         border-bottom: 1px solid var(--black);
