@@ -11,7 +11,7 @@ export type Props = {
 }
 
 export default function Program({ contact: { id, title, image, intro, content, _seoMetaTags } }: Props) {
-
+  console.log(content)
   return (
     <>
       <DatoSEO title={title} description={intro} seo={_seoMetaTags} />

@@ -9,7 +9,7 @@
     overflow: hidden;
   }
 
-  > ul {
+  >ul {
     list-style: none;
     display: flex;
     width: 100%;
@@ -51,7 +51,7 @@
   @include mq($until: tablet) {
     overflow: visible;
 
-    > ul {
+    >ul {
       position: absolute;
       top: 0;
       left: 0;
@@ -72,7 +72,7 @@
         display: inline-block;
       }
 
-      > ul {
+      >ul {
         li:not(.selected) {
           display: none;
         }
