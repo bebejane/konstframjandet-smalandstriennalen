@@ -9,7 +9,7 @@
     overflow: hidden;
   }
 
-  >ul {
+  > ul {
     list-style: none;
     display: flex;
     width: 100%;
@@ -18,6 +18,7 @@
     @include mq($until: tablet) {
       scrollbar-width: 0px;
       overflow-x: scroll;
+      line-height: 2rem;
 
       &::-webkit-scrollbar {
         height: 0px;
@@ -50,7 +51,7 @@
   @include mq($until: tablet) {
     overflow: visible;
 
-    >ul {
+    > ul {
       position: absolute;
       top: 0;
       left: 0;
@@ -63,7 +64,6 @@
         display: inline-flex;
         align-self: center;
         padding-right: 0;
-
       }
     }
 
@@ -72,7 +72,7 @@
         display: inline-block;
       }
 
-      >ul {
+      > ul {
         li:not(.selected) {
           display: none;
         }

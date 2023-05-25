@@ -9,11 +9,16 @@
   width: 100%;
 
   h2 {
+    @include mq($until: tablet) {
+      max-width: 150px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
     line-height: 1;
   }
 
   @include mq($from: tablet) {
-
     a,
     span {
       color: var(--black);
@@ -79,7 +84,7 @@
       margin: 0;
       width: 100%;
 
-      >span {
+      > span {
         /*
         &:hover {
           padding-left: 1em;
@@ -117,18 +122,16 @@
   z-index: var(--z-menu);
 
   svg {
-
     @include mq($until: tablet) {
-      width: 100px;
-      height: 40px;
-
+      width: 120px;
+      height: 50px;
     }
 
     path {
       transform: scale(0.8);
 
       @include mq($until: tablet) {
-        transform: scale(0.3);
+        transform: scale(0.38);
       }
     }
   }
