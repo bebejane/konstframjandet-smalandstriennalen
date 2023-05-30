@@ -4,10 +4,6 @@ fragment ParticipantFragment on ParticipantRecord {
 	name
 	intro(markdown: false)
 	slug
-	_allSlugLocales {
-		locale
-		value
-	}
 	image {
 		...ImageFragment
 	}

@@ -4,10 +4,6 @@ fragment PartnerFragment on PartnerRecord {
 	title
 	intro(markdown: false)
 	slug
-	_allSlugLocales {
-		locale
-		value
-	}
 	image {
 		...ImageFragment
 	}

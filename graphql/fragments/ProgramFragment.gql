@@ -32,10 +32,6 @@ fragment ProgramFragment on ProgramRecord {
 		title
 	}
 	slug
-	_allSlugLocales {
-		locale
-		value
-	}
 	externalLink
 	content {
 		value
