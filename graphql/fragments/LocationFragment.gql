@@ -104,8 +104,6 @@ fragment LocationFragment on LocationRecord {
 		}
 	}
 	_seoMetaTags {
-		attributes
-		content
-		tag
+		...SeoMetaTagsFragment
 	}
 }

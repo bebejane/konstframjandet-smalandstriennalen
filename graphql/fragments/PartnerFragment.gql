@@ -103,8 +103,6 @@ fragment PartnerFragment on PartnerRecord {
 		}
 	}
 	_seoMetaTags {
-		attributes
-		content
-		tag
+		...SeoMetaTagsFragment
 	}
 }

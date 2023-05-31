@@ -105,8 +105,6 @@ fragment ParticipantFragment on ParticipantRecord {
 		}
 	}
 	_seoMetaTags {
-		attributes
-		content
-		tag
+		...SeoMetaTagsFragment
 	}
 }
