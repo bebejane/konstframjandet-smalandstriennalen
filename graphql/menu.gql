@@ -1,7 +1,6 @@
 query Menu($yearId: ItemId) {
 	abouts: allAbouts(
 		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
-
 		first: 100
 	) {
 		id
@@ -23,7 +22,9 @@ query Menu($yearId: ItemId) {
 		id
 		title
 	}
-	aboutMeta: _allAboutsMeta(filter: { year: { eq: $yearId } }) {
+	aboutMeta: _allAboutsMeta(
+		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
+	) {
 		count
 	}
 	programMeta: _allProgramsMeta(filter: { year: { eq: $yearId } }) {
