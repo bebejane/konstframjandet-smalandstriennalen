@@ -21,7 +21,7 @@ type YearExtendedRecord = YearRecord & {
   isArchive: boolean
 }
 
-type SectionId = 'home' | 'contact' | 'participants' | 'news' | 'about' | 'locations' | 'program' | 'exhibitions' | 'partners' | 'archive' | 'search'
+type SectionId = 'home' | 'contact' | 'participants' | 'news' | 'about' | 'locations' | 'program' | 'exhibitions' | 'partners' | 'archive' | 'search' | 'in-english'
 
 type ThumbnailImage = {
   thumb: FileField

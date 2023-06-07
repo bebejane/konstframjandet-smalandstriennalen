@@ -43,6 +43,9 @@ export default withRevalidate(async (record, revalidate) => {
     case 'contact':
       paths.push(`/kontakt`)
       break;
+    case 'in_english':
+      paths.push(`/in-english`)
+      break;
     default:
       break;
   }

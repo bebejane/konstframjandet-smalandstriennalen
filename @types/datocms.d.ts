@@ -86,6 +86,8 @@ enum AboutModelOrderBy {
 type AboutRecord = RecordInterface & {
   __typename?: 'AboutRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -167,6 +169,8 @@ type ContactModelContentField = {
 type ContactRecord = RecordInterface & {
   __typename?: 'ContactRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -343,6 +347,8 @@ type ExhibitionRecord = RecordInterface & {
   /** Returns meta information regarding a record collection */
   _allReferencingInternalLinksMeta: CollectionMetadata;
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -447,6 +453,8 @@ enum ExternalLinkModelOrderBy {
 type ExternalLinkRecord = RecordInterface & {
   __typename?: 'ExternalLinkRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -645,6 +653,8 @@ type FileFilter = {
 type FunderRecord = RecordInterface & {
   __typename?: 'FunderRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -670,6 +680,8 @@ type FunderRecord_seoMetaTagsArgs = {
 type GeneralRecord = RecordInterface & {
   __typename?: 'GeneralRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -706,6 +718,8 @@ type GlobalSeoField = {
 type ImageGalleryRecord = RecordInterface & {
   __typename?: 'ImageGalleryRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -730,6 +744,8 @@ type ImageGalleryRecord_seoMetaTagsArgs = {
 type ImageRecord = RecordInterface & {
   __typename?: 'ImageRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -2165,6 +2181,50 @@ enum ImgixParamsTxtFit {
   max = 'max'
 }
 
+type InEnglishModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButtonRecord | VideoRecord;
+
+type InEnglishModelContentField = {
+  __typename?: 'InEnglishModelContentField';
+  blocks: Array<InEnglishModelContentBlocksField>;
+  links: Array<Scalars['String']>;
+  value: Scalars['JsonField'];
+};
+
+/** Record of type In English (in_english) */
+type InEnglishRecord = RecordInterface & {
+  __typename?: 'InEnglishRecord';
+  _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
+  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
+  _isValid: Scalars['BooleanType'];
+  _modelApiKey: Scalars['String'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
+  _publishedAt?: Maybe<Scalars['DateTime']>;
+  /** SEO meta tags */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
+  _updatedAt: Scalars['DateTime'];
+  content?: Maybe<InEnglishModelContentField>;
+  id: Scalars['ItemId'];
+  image: FileField;
+  intro: Scalars['String'];
+  title: Scalars['String'];
+};
+
+
+/** Record of type In English (in_english) */
+type InEnglishRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type In English (in_english) */
+type InEnglishRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']>;
+};
+
 /** Specifies how to filter by usage */
 type InUseFilter = {
   /** Search uploads that are currently used by some record or not */
@@ -2231,6 +2291,8 @@ type InternalLinkModelRecordField = AboutRecord | ExhibitionRecord | LocationRec
 type InternalLinkRecord = RecordInterface & {
   __typename?: 'InternalLinkRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -2500,6 +2562,8 @@ type LinkButtonModelLinkField = ExternalLinkRecord | InternalLinkRecord;
 type LinkButtonRecord = RecordInterface & {
   __typename?: 'LinkButtonRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -2644,6 +2708,8 @@ type LocationRecord = RecordInterface & {
   /** Returns meta information regarding a record collection */
   _allReferencingStartsMeta: CollectionMetadata;
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -2819,6 +2885,8 @@ enum NewsModelOrderBy {
 type NewsRecord = RecordInterface & {
   __typename?: 'NewsRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -2927,6 +2995,8 @@ type ParticipantRecord = RecordInterface & {
   /** Returns meta information regarding a record collection */
   _allReferencingProgramsMeta: CollectionMetadata;
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -3088,6 +3158,8 @@ enum PartnerModelOrderBy {
 type PartnerRecord = RecordInterface & {
   __typename?: 'PartnerRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -3183,6 +3255,8 @@ enum ProgramCategoryModelOrderBy {
 type ProgramCategoryRecord = RecordInterface & {
   __typename?: 'ProgramCategoryRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -3211,12 +3285,6 @@ type ProgramModelContentField = {
   blocks: Array<ProgramModelContentBlocksField>;
   links: Array<Scalars['String']>;
   value: Scalars['JsonField'];
-};
-
-type ProgramModelContentFieldMultiLocaleField = {
-  __typename?: 'ProgramModelContentFieldMultiLocaleField';
-  locale?: Maybe<SiteLocale>;
-  value?: Maybe<ProgramModelContentField>;
 };
 
 /** Linking fields */
@@ -3305,8 +3373,9 @@ enum ProgramModelOrderBy {
 /** Record of type Program (program) */
 type ProgramRecord = RecordInterface & {
   __typename?: 'ProgramRecord';
-  _allContentLocales?: Maybe<Array<ProgramModelContentFieldMultiLocaleField>>;
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -3339,21 +3408,7 @@ type ProgramRecord = RecordInterface & {
 
 
 /** Record of type Program (program) */
-type ProgramRecord_allContentLocalesArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** Record of type Program (program) */
 type ProgramRecord_seoMetaTagsArgs = {
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** Record of type Program (program) */
-type ProgramRecordcontentArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
 
@@ -3444,6 +3499,8 @@ type Query = {
   externalLink?: Maybe<ExternalLinkRecord>;
   /** Returns the single instance record */
   general?: Maybe<GeneralRecord>;
+  /** Returns the single instance record */
+  inEnglish?: Maybe<InEnglishRecord>;
   /** Returns a specific record */
   internalLink?: Maybe<InternalLinkRecord>;
   /** Returns a specific record */
@@ -3743,6 +3800,13 @@ type QuerygeneralArgs = {
 
 
 /** The query root for this schema */
+type QueryinEnglishArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
 type QueryinternalLinkArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<InternalLinkModelFilter>;
@@ -3831,6 +3895,8 @@ type QueryyearArgs = {
 
 type RecordInterface = {
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -3930,6 +3996,8 @@ type SlugFilter = {
 type StartExhibitionRecord = RecordInterface & {
   __typename?: 'StartExhibitionRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -3956,6 +4024,8 @@ type StartFullBleedImageModelLinkField = ExternalLinkRecord | InternalLinkRecord
 type StartFullBleedImageRecord = RecordInterface & {
   __typename?: 'StartFullBleedImageRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -3991,6 +4061,8 @@ type StartFullscreenImageModelLinkField = ExternalLinkRecord | InternalLinkRecor
 type StartFullscreenImageRecord = RecordInterface & {
   __typename?: 'StartFullscreenImageRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4020,6 +4092,8 @@ type StartFullscreenVideoModelLinkField = ExternalLinkRecord | InternalLinkRecor
 type StartFullscreenVideoRecord = RecordInterface & {
   __typename?: 'StartFullscreenVideoRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4055,6 +4129,8 @@ type StartGalleryModelLinkField = ExternalLinkRecord | InternalLinkRecord;
 type StartGalleryRecord = RecordInterface & {
   __typename?: 'StartGalleryRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4124,6 +4200,8 @@ enum StartModelOrderBy {
 type StartNewsRecord = RecordInterface & {
   __typename?: 'StartNewsRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4148,6 +4226,8 @@ type StartNewsRecord_seoMetaTagsArgs = {
 type StartProgramRecord = RecordInterface & {
   __typename?: 'StartProgramRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4172,6 +4252,8 @@ type StartProgramRecord_seoMetaTagsArgs = {
 type StartRandomParticipantRecord = RecordInterface & {
   __typename?: 'StartRandomParticipantRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4196,6 +4278,8 @@ type StartRandomParticipantRecord_seoMetaTagsArgs = {
 type StartRecord = RecordInterface & {
   __typename?: 'StartRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4220,6 +4304,8 @@ type StartRecord_seoMetaTagsArgs = {
 type StartSelectedLocationRecord = RecordInterface & {
   __typename?: 'StartSelectedLocationRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4246,6 +4332,8 @@ type StartTextModelLinkField = ExternalLinkRecord | InternalLinkRecord;
 type StartTextRecord = RecordInterface & {
   __typename?: 'StartTextRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4278,6 +4366,8 @@ type StartTextRecordtextArgs = {
 type StartVideoRecord = RecordInterface & {
   __typename?: 'StartVideoRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4832,6 +4922,8 @@ enum VideoMp4Res {
 type VideoRecord = RecordInterface & {
   __typename?: 'VideoRecord';
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -4914,6 +5006,8 @@ type YearRecord = RecordInterface & {
   /** Returns meta information regarding a record collection */
   _allReferencingProgramsMeta: CollectionMetadata;
   _createdAt: Scalars['DateTime'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']>;
   _firstPublishedAt?: Maybe<Scalars['DateTime']>;
   _isValid: Scalars['BooleanType'];
   _modelApiKey: Scalars['String'];
@@ -5147,6 +5241,8 @@ type ProgramFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: 
 
 type ProgramFragmentLightFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } };
 
+type SeoMetaTagsFragment = { __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string };
+
 type SiteFragment = { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null };
 
 type VideoFragment = { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } };
@@ -5159,6 +5255,11 @@ type GlobalQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null } };
+
+type InEnglishQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type InEnglishQuery = { __typename?: 'Query', inEnglish?: { __typename?: 'InEnglishRecord', id: any, title: string, intro: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, content?: { __typename?: 'InEnglishModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type AllLocationsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']>;

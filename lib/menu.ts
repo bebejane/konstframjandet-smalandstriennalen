@@ -14,8 +14,8 @@ const base: Menu = [
   { id: 'locations', label: 'Platser', slug: '/platser', general: false },
   { id: 'about', label: 'Om', slug: '/om', virtual: true, sub: [] },
   { id: 'contact', label: 'Kontakt', slug: '/kontakt', general: true },
-  //{ id: 'archive', label: 'Arkiv', slug: '/arkiv', general: true, sub: [] },
-  { id: 'search', label: 'Sök', slug: '/sok', general: true }
+  { id: 'search', label: 'Sök', slug: '/sok', general: true },
+  { id: 'in-english', label: 'In English', slug: '/in-english', general: true }
 ]
 
 export const buildMenu = async (locale: string) => {

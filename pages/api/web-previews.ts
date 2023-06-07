@@ -42,6 +42,9 @@ export default withWebPreviewsEdge(async ({ item, itemType }) => {
     case 'contact':
       path = `/kontakt`
       break;
+    case 'in_english':
+      path = `/in-english`
+      break;
     default:
       break;
   }
