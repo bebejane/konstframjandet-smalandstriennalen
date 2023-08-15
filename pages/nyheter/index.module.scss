@@ -5,23 +5,28 @@
     padding-right: 1em;
   }
 
+  h1>a {
+    color: var(--green);
+  }
+
   h3 {
     font-weight: normal;
     text-transform: uppercase;
     padding-bottom: var(--small-space);
   }
 
-  > ul {
+  >ul {
     list-style: none;
     padding-left: 0;
 
     li {
       margin-top: var(--space);
+
       .intro {
         p {
           padding: 0;
 
-          > strong {
+          >strong {
             font-family: $headline-font;
             font-size: 0.75rem;
             font-weight: bold !important;
