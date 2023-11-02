@@ -19,6 +19,9 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
 
   return async (context: GetStaticPropsContext) => {
 
+    if (context.params?.year && isNaN(parseInt(context.params?.year as string)))
+      return { notFound: true };
+
     const years = await allYears()
     let year = years.find(({ title }) => context.params?.year ? title === context.params?.year : title === years[0].title)
 
