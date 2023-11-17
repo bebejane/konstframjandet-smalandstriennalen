@@ -43,7 +43,7 @@ dependencies:
     version: 2.30.0
   dato-nextjs-utils:
     specifier: github:bebejane/dato-nextjs-utils
-    version: github.com/bebejane/dato-nextjs-utils/e8e9f2cac8645e45a95c09f946672de175ec86a8(@apollo/client@3.8.6)(@datocms/cma-client-browser@3.0.1)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.0.1)(@types/node@18.18.7)(@types/react-dom@18.2.14)(@types/react@18.2.33)(datocms-listen@0.1.15)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0)
+    version: github.com/bebejane/dato-nextjs-utils/bc8e5c031d315d6933757d12e6825fd2260ccf33(@apollo/client@3.8.6)(@datocms/cma-client-browser@3.0.1)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.0.1)(@types/node@18.18.7)(@types/react-dom@18.2.15)(@types/react@18.2.33)(datocms-listen@0.1.14)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0)
   datocms-structured-text-utils:
     specifier: ^2.0.4
     version: 2.0.4
@@ -210,17 +210,6 @@ devDependencies:
     version: 1.0.2
 
 packages:
-
-  /@0no-co/graphql.web@1.0.4(graphql@16.8.1):
-    resolution: {integrity: sha512-W3ezhHGfO0MS1PtGloaTpg0PbaT8aZSmmaerL7idtU5F7oCI+uu25k+MsMS31BVFlp4aMkHSrNRxiD72IlK8TA==}
-    peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
-    peerDependenciesMeta:
-      graphql:
-        optional: true
-    dependencies:
-      graphql: 16.8.1
-    dev: false
 
   /@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
@@ -4163,10 +4152,10 @@ packages:
   /@types/prop-types@15.7.9:
     resolution: {integrity: sha512-n1yyPsugYNSmHgxDFjicaI2+gCNjsBck8UX9kuofAKlc0h1bL+20oSF72KeNaW2DUlesbEVCFgyV2dPGTiY42g==}
 
-  /@types/react-dom@18.2.14:
-    resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
+  /@types/react-dom@18.2.15:
+    resolution: {integrity: sha512-HWMdW+7r7MR5+PZqJF6YFNSCtjz1T0dsvo/f1BV6HkV+6erD/nA7wd9NM00KVG83zf2nJ7uATPO9ttdIPvi3gg==}
     dependencies:
-      '@types/react': 18.2.34
+      '@types/react': 18.2.33
     dev: false
 
   /@types/react@18.2.33:
@@ -4175,14 +4164,6 @@ packages:
       '@types/prop-types': 15.7.9
       '@types/scheduler': 0.16.5
       csstype: 3.1.2
-
-  /@types/react@18.2.34:
-    resolution: {integrity: sha512-U6eW/alrRk37FU/MS2RYMjx0Va2JGIVXELTODaTIYgvWGCV4Y4TfTUzG8DdmpDNIT0Xpj/R7GfyHOJJrDttcvg==}
-    dependencies:
-      '@types/prop-types': 15.7.9
-      '@types/scheduler': 0.16.5
-      csstype: 3.1.2
-    dev: false
 
   /@types/responselike@1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -5665,14 +5646,6 @@ packages:
 
   /datocms-listen@0.1.14:
     resolution: {integrity: sha512-Ijd5fzQ1Y1EUiSwduvaPRN7a6Edh//c500/2MjDhgaKd+N+zGEy7rpJ/SVXX0TdYDhX0ssoC4FDms6sbR7k+eA==}
-    dev: false
-
-  /datocms-listen@0.1.15(graphql@16.8.1):
-    resolution: {integrity: sha512-0LcdKYW/ilWdyrRzQ+YbkAk4r2dge63vzHtfv19L8pfbfYurQgXP9/ck703QZL//YqBoc0OKBS4BP4WUQ6JDKA==}
-    dependencies:
-      '@0no-co/graphql.web': 1.0.4(graphql@16.8.1)
-    transitivePeerDependencies:
-      - graphql
     dev: false
 
   /datocms-structured-text-generic-html-renderer@2.0.4:
@@ -11596,11 +11569,11 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/bebejane/dato-nextjs-utils/e8e9f2cac8645e45a95c09f946672de175ec86a8(@apollo/client@3.8.6)(@datocms/cma-client-browser@3.0.1)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.0.1)(@types/node@18.18.7)(@types/react-dom@18.2.14)(@types/react@18.2.33)(datocms-listen@0.1.15)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/e8e9f2cac8645e45a95c09f946672de175ec86a8}
-    id: github.com/bebejane/dato-nextjs-utils/e8e9f2cac8645e45a95c09f946672de175ec86a8
+  github.com/bebejane/dato-nextjs-utils/bc8e5c031d315d6933757d12e6825fd2260ccf33(@apollo/client@3.8.6)(@datocms/cma-client-browser@3.0.1)(@datocms/cma-client-node@3.0.2)(@datocms/cma-client@3.0.1)(@types/node@18.18.7)(@types/react-dom@18.2.15)(@types/react@18.2.33)(datocms-listen@0.1.14)(next-seo@5.15.0)(next@13.5.6)(react-datocms@4.1.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {tarball: https://codeload.github.com/bebejane/dato-nextjs-utils/tar.gz/bc8e5c031d315d6933757d12e6825fd2260ccf33}
+    id: github.com/bebejane/dato-nextjs-utils/bc8e5c031d315d6933757d12e6825fd2260ccf33
     name: dato-nextjs-utils
-    version: 1.0.421
+    version: 1.0.424
     engines: {node: '>=0.16'}
     peerDependencies:
       '@apollo/client': '>=3'
@@ -11624,8 +11597,8 @@ packages:
       '@next/env': 13.5.6
       '@types/node': 18.18.7
       '@types/react': 18.2.33
-      '@types/react-dom': 18.2.14
-      datocms-listen: 0.1.15(graphql@16.8.1)
+      '@types/react-dom': 18.2.15
+      datocms-listen: 0.1.14
       markdown-truncate: 1.1.0
       next: 13.5.6(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       next-seo: 5.15.0(next@13.5.6)(react-dom@18.2.0)(react@18.2.0)
