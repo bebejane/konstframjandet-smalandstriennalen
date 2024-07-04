@@ -4,10 +4,6 @@
 	},
 	"crons": [
 		{
-			"path": "/api/revalidate?ping=1",
-			"schedule": "* * * * *"
-		},
-		{
 			"path": "/api/backup?max=3",
 			"schedule": "0 22 * * *"
 		}
