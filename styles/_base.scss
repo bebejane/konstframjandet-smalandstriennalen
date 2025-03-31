@@ -1,0 +1,225 @@
+:root {
+	--black: #1d1d1d;
+	--white: #fcfcfc;
+	--red: #bf0000;
+	--green: #097832;
+	--pink: #ff57ff;
+	--archive: #ececec;
+	--outer-margin: 4vw;
+	--logo-size-optical: 0rem;
+	--total-outer-margin: calc((var(--outer-margin) * 2) + var(--logo-size-optical));
+	--grid-unit: calc(((100vw - (2 * var(--total-outer-margin))) / 12));
+	--body-width: calc(100% - (2 * var(--outer-margin)));
+	--full-margin: calc(-1 * (2 * var(--grid-unit)));
+	--wide-margin: calc(var(--total-outer-margin) + (1.2 * var(--grid-unit)));
+	--small-space: 1rem;
+	--space: 2rem;
+	--big-space: 3rem;
+	--line-height: 1.5em;
+	--gutter: 4vw;
+	--gutter-half: 4vw;
+	--header-height: calc((var(--outer-margin) * 2) + 2.75rem); //snygga upp sen
+	--menu-transition: 0.3s ease-in-out;
+
+	--background: var(--white);
+	--foreground: var(--black);
+
+	--z-background-image: 0;
+	--z-section-header: 100;
+
+	--z-language: 300;
+	--z-menu: 400;
+	--z-footer: 500;
+	--z-logo: 600;
+	--z-hamburger: 700;
+	--z-fullscreen-gallery: 800;
+	--z-fullscreen-gallery-close: 801;
+
+	@include mq($from: tablet) {
+		--body-width: calc(100% - (2 * var(--grid-unit)));
+		--space: 2rem;
+		--outer-margin: 2vw;
+		--gutter: 3vw;
+		--gutter-half: 1.25vw;
+		--header-height: calc((var(--outer-margin) * 2) + 2rem); //snygga upp sen
+	}
+
+	@include mq($until: tablet) {
+		--navbar-height: 3.5rem;
+		--logo-size: 1.3rem;
+	}
+}
+
+body {
+	width: 100%;
+	font-size: 100%;
+	line-height: 1em;
+	color: var(--foreground);
+	background-color: var(--background);
+	font-family: $body-font;
+	-webkit-font-smoothing: antialiased;
+	font-feature-settings: "liga", "kern";
+	overflow-x: hidden;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	//height: 100%;
+}
+
+::-webkit-scrollbar {
+	-webkit-appearance: none;
+	background: var(--beige-light);
+}
+
+::-webkit-scrollbar:vertical {
+	width: 10px;
+}
+
+::-webkit-scrollbar:horizontal {
+	height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--black);
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+a {
+	text-decoration: none;
+	color: var(--foreground);
+
+	&:hover {
+		color: var(--beige-dark);
+	}
+}
+
+.structured a {
+	color: var(--green);
+
+	&:hover {
+		color: var(--pink) !important;
+	}
+}
+
+article p a {
+	text-decoration: underline 1px !important;
+	text-underline-offset: 0.15em;
+	text-decoration-thickness: 1px;
+
+	&:hover {
+		color: var(--beige-dark);
+	}
+}
+
+.intro {
+	margin-bottom: var(--small-space);
+	margin-top: -0.2em;
+}
+
+button {
+	margin-top: var(--big-space);
+	margin-bottom: var(--space);
+	margin-left: var(--outer-margin);
+	margin-right: var(--outer-margin);
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+	padding-bottom: 1.5em;
+	padding-top: 1.5em;
+	background-color: var(--green);
+
+	color: var(--white);
+	border: 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	font-weight: bold;
+	cursor: pointer;
+
+	@include mq($from: tablet) {
+		margin-left: var(--grid-unit);
+		margin-right: var(--grid-unit);
+		padding-bottom: 1em;
+		padding-top: 1em;
+	}
+
+	transition: color 0.2s ease-in-out, background-color 0.3s ease-in-out;
+
+	&.back {
+		width: var(--body-width);
+
+		@include mq($from: tablet) {
+			width: var(--body-width);
+		}
+	}
+
+	&:hover {
+		background-color: var(--foreground);
+		color: var(--white);
+	}
+}
+
+figcaption {
+	@include mq($until: tablet) {
+		padding-left: var(--outer-margin);
+		padding-right: var(--outer-margin);
+	}
+
+	line-height: var(--line-height);
+	padding-top: 1em;
+}
+
+hr {
+	width: 100%;
+	height: 1px;
+	border: 0px;
+	background: var(--beige-mid);
+}
+
+input,
+textarea,
+select {
+	background-color: var(--beige-light);
+	margin-bottom: 1em;
+	padding: 0.8em;
+	padding-bottom: 0.9em;
+	padding-left: 1em;
+	font-family: "Jazz";
+	border: none;
+
+	&:focus {
+		outline: 1px solid var(--beige-mid);
+	}
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+	background-repeat: no-repeat;
+	background-position-x: calc(100% - 1em);
+	background-position-y: center;
+	color: var(--black);
+}
+
+.page-error {
+	position: fixed;
+	top: 0;
+	left: 0;
+	min-width: 100vw;
+	min-height: 100vh;
+	z-index: 100000;
+	background-color: var(--white);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

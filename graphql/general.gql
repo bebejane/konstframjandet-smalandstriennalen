@@ -1,0 +1,9 @@
+query General($locale: SiteLocale) {
+	general(locale: $locale) {
+		id
+		facebook
+		instagram
+		about
+		email
+	}
+}

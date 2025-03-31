@@ -1,0 +1,177 @@
+html,
+body {
+  font-size: 15px;
+  font-weight: normal;
+
+  @include mq($from: tablet) {
+    font-size: 20px;
+  }
+
+  @include mq($from: wide) {
+    font-size: 24px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color: var(--green);
+  strong {
+    //font-weight: normal;
+  }
+}
+
+h1 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  padding-bottom: var(--space);
+  line-height: 1.25;
+  font-family: $body-font;
+  text-align: center;
+  @include mq($until: tablet) {
+    padding-left: var(--outer-margin);
+    padding-right: var(--outer-margin);
+  }
+}
+
+h2 {
+  font-size: 0.95rem;
+  @include mq($from: tablet) {
+    font-size: 0.75rem;
+  }
+  font-family: $headline-font;
+}
+
+h3 {
+  font-size: 1rem;
+  font-family: $body-font;
+  text-align: center;
+  padding-bottom: 1em;
+  line-height: 1.2;
+}
+
+p {
+  line-height: var(--line-height);
+}
+
+p.intro,
+.intro p,
+.intro {
+  font-size: 1.2rem;
+  padding-bottom: 0;
+  font-weight: normal;
+  line-height: var(--line-height);
+}
+
+.thumb-intro,
+.small-body {
+  font-size: 0.85rem;
+  @include mq($from: tablet) {
+    font-size: 0.75rem;
+  }
+
+  strong {
+    font-family: $headline-font;
+    font-weight: bold !important;
+    font-size: 0.75rem;
+    display: inline-block;
+
+    @include mq($from: tablet) {
+      font-size: 0.65rem;
+    }
+    padding-right: 0.5em;
+  }
+
+  > p {
+    padding: 0;
+  }
+}
+
+.small,
+.small p,
+footer,
+footer nav,
+figcaption,
+.caption label {
+  font-family: $headline-font;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-align: center;
+  @include mq($from: wide) {
+    font-size: 0.7rem;
+  }
+}
+
+nav,
+.mid,
+button,
+.mid input,
+.mid select {
+  font-size: 0.95rem;
+  font-family: $headline-font;
+  @include mq($from: tablet) {
+    font-size: 0.75rem;
+  }
+}
+
+strong,
+b {
+  font-weight: bold;
+}
+
+// För Article
+article {
+  ul {
+    padding-left: 1em;
+    list-style-type: square;
+
+    p:last-of-type {
+      margin-bottom: 0.7em;
+    }
+
+    & li:last-child p {
+      margin-bottom: 1em;
+    }
+  }
+
+  p,
+  .intro,
+  h2,
+  .structured h3 {
+    padding-left: var(--outer-margin);
+    padding-right: var(--outer-margin);
+    text-align: left;
+    @include mq($from: tablet) {
+      padding-left: var(--grid-unit);
+      padding-right: var(--grid-unit);
+    }
+  }
+
+  p + h3,
+  ul + h3,
+  ul + h2,
+  p + h2 {
+    padding-top: 1rem;
+  }
+
+  p strong,
+  p b {
+    font-weight: normal !important;
+    font-family: $headline-font-medium;
+  }
+
+  p.center {
+    text-align: center;
+  }
+}
+
+button {
+  font-family: $headline-font;
+}
+
+em,
+i {
+  font-style: italic;
+}
