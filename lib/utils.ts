@@ -212,7 +212,7 @@ export async function getStaticYearPaths(doc: TypedDocumentNode, segment: string
 }
 
 export const translatePath = (href: string, locale: string, defaultLocale: string, year?: string): string => {
-  return href;
+  //return href;
 
   const basePath = href.split('/')[1]
   const slug = href.split('/').slice(2).join('/')
