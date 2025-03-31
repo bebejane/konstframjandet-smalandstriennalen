@@ -1,4 +1,4 @@
-query AllPartners($yearId: ItemId) {
+query AllPartners($locale: SiteLocale, $yearId: ItemId) {
 	partners: allPartners(filter: { year: { eq: $yearId } }, first: 100) {
 		...PartnerFragmentLight
 	}
@@ -7,7 +7,7 @@ query AllPartners($yearId: ItemId) {
 	}
 }
 
-query Partner($slug: String!) {
+query Partner($slug: String!, $locale: SiteLocale) {
 	partner(filter: { slug: { eq: $slug } }) {
 		...PartnerFragment
 	}
