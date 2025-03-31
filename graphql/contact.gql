@@ -1,5 +1,5 @@
-query Contact {
-	contact {
+query Contact($locale: SiteLocale) {
+	contact(locale: $locale) {
 		id
 		image {
 			...ImageFragment
@@ -26,55 +26,6 @@ query Contact {
 						...ImageThumbnailFragment
 					}
 				}
-				... on LinkButtonRecord {
-					__typename
-					id
-					link {
-						__typename
-						... on ExternalLinkRecord {
-							__typename
-							id
-							title
-							url
-						}
-						... on InternalLinkRecord {
-							__typename
-							id
-							record {
-								... on AboutRecord {
-									id
-									slug
-									title
-								}
-								... on ExhibitionRecord {
-									id
-									slug
-									title
-								}
-								... on LocationRecord {
-									id
-									slug
-									title
-								}
-								... on NewsRecord {
-									id
-									slug
-									title
-								}
-								... on ParticipantRecord {
-									id
-									slug
-									name
-								}
-								... on ProgramRecord {
-									id
-									slug
-									title
-								}
-							}
-						}
-					}
-				}
 				... on VideoRecord {
 					__typename
 					id
@@ -96,9 +47,7 @@ query Contact {
 			}
 		}
 		_seoMetaTags {
-			attributes
-			content
-			tag
+			...SeoMetaTagsFragment
 		}
 	}
 }

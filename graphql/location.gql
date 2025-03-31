@@ -1,20 +1,26 @@
-query AllLocations($first: IntType = 100, $skip: IntType = 0, $yearId: ItemId) {
+query AllLocations(
+	$first: IntType = 100
+	$skip: IntType = 0
+	$locale: SiteLocale
+	$yearId: ItemId
+) {
 	locations: allLocations(
 		filter: { year: { eq: $yearId } }
 		first: $first
 		skip: $skip
-		orderBy: [_createdAt_DESC]
+		orderBy: [title_ASC]
+		locale: $locale
 	) {
 		...LocationFragmentLight
 	}
 
-	pagination: _allLocationsMeta {
+	pagination: _allLocationsMeta(locale: $locale) {
 		count
 	}
 }
 
-query Location($slug: String!) {
-	location(filter: { slug: { eq: $slug } }) {
+query Location($slug: String!, $locale: SiteLocale) {
+	location(filter: { slug: { eq: $slug } }, locale: $locale) {
 		...LocationFragment
 	}
 }

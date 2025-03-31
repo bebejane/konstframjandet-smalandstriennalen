@@ -1,5 +1,5 @@
-query Start {
-	start {
+query Start($locale: SiteLocale) {
+	start(locale: $locale) {
 		id
 		content {
 			__typename

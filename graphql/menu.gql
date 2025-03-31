@@ -1,4 +1,4 @@
-query Menu($yearId: ItemId) {
+query Menu($locale: SiteLocale, $yearId: ItemId) {
 	abouts: allAbouts(
 		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
 		first: 100
@@ -6,19 +6,20 @@ query Menu($yearId: ItemId) {
 		id
 		title
 		slug
+		#altSlug: slug(locale: $altLocale)
 		year {
 			title
 		}
 	}
 	years: allYears(
 		filter: { id: { neq: $yearId } }
-
+		locale: $locale
 		first: 100
 		orderBy: title_DESC
 	) {
 		...YearFragment
 	}
-	year(filter: { id: { eq: $yearId } }, orderBy: title_DESC) {
+	year(filter: { id: { eq: $yearId } }, locale: $locale, orderBy: title_DESC) {
 		id
 		title
 	}
