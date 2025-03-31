@@ -14,7 +14,6 @@ export type Props = {
 export default function AboutItem({
 	about: { id, image, title, intro, content, _seoMetaTags },
 }: Props) {
-	console.log(title);
 	return (
 		<>
 			<DatoSEO title={title} description={intro} seo={_seoMetaTags} />

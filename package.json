@@ -44,7 +44,7 @@
     "hamburger-react": "^2.5.0",
     "in-view": "^0.6.1",
     "markdown-truncate": "^1.1.0",
-    "next": "13.5.6",
+    "next": "14.2.26",
     "next-compose-plugins": "^2.2.1",
     "next-intl": "^2.21.0",
     "next-plugin-graphql": "^0.0.2",

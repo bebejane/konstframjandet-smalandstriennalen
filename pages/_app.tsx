@@ -37,7 +37,7 @@ function App({ Component, pageProps, router }) {
 				getMessageFallback={getMessageFallback}
 			>
 				<PageProvider value={{ ...page, year: pageProps.year, isHome }}>
-					<Layout title={siteTitle} menu={pageProps.menu || []} footer={pageProps.footer}>
+					<Layout title={siteTitle} menu={pageProps.menu || []} footer={pageProps.general}>
 						<Component {...pageProps} />
 					</Layout>
 				</PageProvider>
