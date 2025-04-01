@@ -16,6 +16,7 @@ query SiteSearch(
 		first: $first
 		skip: $skip
 		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $aboutIds } }
 	) {
 		__typename
@@ -27,7 +28,13 @@ query SiteSearch(
 			title
 		}
 	}
-	news: allNews(first: $first, skip: $skip, locale: $locale, filter: { id: { in: $newsIds } }) {
+	news: allNews(
+		first: $first
+		skip: $skip
+		locale: $locale
+		fallbackLocales: [sv]
+		filter: { id: { in: $newsIds } }
+	) {
 		__typename
 		_modelApiKey
 		title
@@ -38,6 +45,7 @@ query SiteSearch(
 		first: $first
 		skip: $skip
 		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $programIds } }
 	) {
 		__typename
@@ -53,6 +61,7 @@ query SiteSearch(
 		first: $first
 		skip: $skip
 		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $exhibitionIds } }
 	) {
 		__typename
@@ -69,6 +78,7 @@ query SiteSearch(
 		first: $first
 		skip: $skip
 		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $participantIds } }
 	) {
 		__typename
@@ -84,6 +94,7 @@ query SiteSearch(
 		first: $first
 		skip: $skip
 		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $locationIds } }
 	) {
 		__typename
@@ -99,6 +110,7 @@ query SiteSearch(
 		first: $first
 		skip: $skip
 		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $partnerIds } }
 	) {
 		__typename
