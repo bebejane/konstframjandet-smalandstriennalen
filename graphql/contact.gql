@@ -1,5 +1,5 @@
 query Contact($locale: SiteLocale) {
-	contact(locale: $locale) {
+	contact(locale: $locale, fallbackLocales: [sv]) {
 		id
 		image {
 			...ImageFragment
@@ -38,6 +38,55 @@ query Contact($locale: SiteLocale) {
 						providerUid
 						thumbnailUrl
 						url
+					}
+				}
+				... on LinkButtonRecord {
+					__typename
+					id
+					link {
+						__typename
+						... on ExternalLinkRecord {
+							__typename
+							id
+							title
+							url
+						}
+						... on InternalLinkRecord {
+							__typename
+							id
+							record {
+								... on AboutRecord {
+									id
+									slug
+									title
+								}
+								... on ExhibitionRecord {
+									id
+									slug
+									title
+								}
+								... on LocationRecord {
+									id
+									slug
+									title
+								}
+								... on NewsRecord {
+									id
+									slug
+									title
+								}
+								... on ParticipantRecord {
+									id
+									slug
+									name
+								}
+								... on ProgramRecord {
+									id
+									slug
+									title
+								}
+							}
+						}
 					}
 				}
 				... on RecordInterface {

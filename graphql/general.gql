@@ -1,5 +1,5 @@
 query General($locale: SiteLocale) {
-	general(locale: $locale) {
+	general(locale: $locale, fallbackLocales: [sv]) {
 		id
 		facebook
 		instagram

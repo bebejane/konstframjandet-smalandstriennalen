@@ -2,6 +2,7 @@ query AllParticipants($locale: SiteLocale, $yearId: ItemId) {
 	participants: allParticipants(
 		filter: { year: { eq: $yearId } }
 		locale: $locale
+		fallbackLocales: [sv]
 		first: 100
 		orderBy: name_ASC
 	) {
@@ -13,7 +14,7 @@ query AllParticipants($locale: SiteLocale, $yearId: ItemId) {
 }
 
 query Participant($slug: String, $locale: SiteLocale) {
-	participant(filter: { slug: { eq: $slug } }, locale: $locale) {
+	participant(filter: { slug: { eq: $slug } }, locale: $locale, fallbackLocales: [sv]) {
 		...ParticipantFragment
 	}
 }

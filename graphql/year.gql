@@ -2,6 +2,7 @@ query AllYears($locale: SiteLocale, $year: String) {
 	years: allYears(
 		filter: { title: { neq: $year } }
 		locale: $locale
+		fallbackLocales: [sv]
 		first: 100
 		orderBy: title_DESC
 	) {
@@ -10,7 +11,7 @@ query AllYears($locale: SiteLocale, $year: String) {
 }
 
 query Year($title: String!, $locale: SiteLocale) {
-	year(filter: { title: { eq: $title } }, locale: $locale) {
+	year(filter: { title: { eq: $title } }, locale: $locale, fallbackLocales: [sv]) {
 		...YearFragment
 	}
 }

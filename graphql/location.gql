@@ -10,6 +10,7 @@ query AllLocations(
 		skip: $skip
 		orderBy: [title_ASC]
 		locale: $locale
+		fallbackLocales: [sv]
 	) {
 		...LocationFragmentLight
 	}
@@ -20,7 +21,7 @@ query AllLocations(
 }
 
 query Location($slug: String!, $locale: SiteLocale) {
-	location(filter: { slug: { eq: $slug } }, locale: $locale) {
+	location(filter: { slug: { eq: $slug } }, locale: $locale, fallbackLocales: [sv]) {
 		...LocationFragment
 	}
 }

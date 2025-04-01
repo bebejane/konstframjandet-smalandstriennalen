@@ -1,5 +1,5 @@
 query Start($locale: SiteLocale) {
-	start(locale: $locale) {
+	start(locale: $locale, fallbackLocales: [sv]) {
 		id
 		content {
 			__typename
@@ -327,12 +327,18 @@ query StartData(
 	$yearId: ItemId
 	$locale: SiteLocale
 ) {
-	news: allNews(locale: $locale, first: $newsItems, orderBy: _createdAt_DESC) {
+	news: allNews(
+		locale: $locale
+		fallbackLocales: [sv]
+		first: $newsItems
+		orderBy: _createdAt_DESC
+	) {
 		...NewsFragmentLight
 	}
 	programs: allPrograms(
 		filter: { startDate: { gte: $date }, year: { eq: $yearId } }
 		locale: $locale
+		fallbackLocales: [sv]
 		first: $programItems
 		orderBy: startDate_DESC
 	) {
@@ -343,6 +349,7 @@ query StartData(
 		first: 100
 		orderBy: _createdAt_DESC
 		locale: $locale
+		fallbackLocales: [sv]
 	) {
 		...ParticipantFragmentLight
 	}
