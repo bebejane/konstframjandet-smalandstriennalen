@@ -18,7 +18,6 @@ const fullBlocks = [
 ];
 
 export default function Home({ start }: Props) {
-	console.log('start', start);
 	return (
 		<div className={s.container}>
 			{start.content.map((block, idx) => (
@@ -81,7 +80,7 @@ export const getStaticProps = withGlobalProps(
 			programs: ProgramRecord[];
 			participants: ParticipantRecord[];
 			exhibitions: ExhibitionRecord[];
-		} = await apiQuery(StartDataDocument, { variables });
+		} = await apiQuery(StartDataDocument, { variables, excludeInvalid: false });
 
 		return {
 			props: {
