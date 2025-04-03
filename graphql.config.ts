@@ -1,20 +1,21 @@
-require("@next/env").loadEnvConfig(".");
+import "dotenv/config"
+import type { IGraphQLConfig } from 'graphql-config'
 
-const config = {
+const defaultConfig = {
 	dedupeOperationSuffix: true,
 	dedupeFragments: true,
 	pureMagicComment: false,
 	exportFragmentSpreadSubTypes: true,
 	namingConvention: "keep",
 	skipDocumentsValidation: false,
-};
+}
 
-module.exports = {
+const config: IGraphQLConfig = {
 	schema: {
 		"https://graphql.datocms.com": {
 			headers: {
-				Authorization: process.env.GRAPHQL_API_TOKEN,
-				"X-Exclude-Invalid": true,
+				"Authorization": process.env.DATOCMS_API_TOKEN as string,
+				"X-Exclude-Invalid": "true",
 			},
 		},
 	},
@@ -24,18 +25,23 @@ module.exports = {
 			overwrite: true,
 			generates: {
 				"@types/datocms.d.ts": {
-					plugins: ["typescript", "typescript-operations"],
-					config: { ...config, noExport: true },
+					plugins: [
+						"typescript",
+						"typescript-operations",
+					],
+					config: { ...defaultConfig, noExport: true }
 				},
 				"graphql/index.ts": {
 					plugins: ["typed-document-node"],
-					config,
+					config: { ...defaultConfig }
 				},
 				"@types/document-modules.d.ts": {
 					plugins: ["typescript-graphql-files-modules"],
-					config,
+					config: { ...defaultConfig }
 				},
 			},
-		},
+		}
 	},
-};
+}
+
+export default config;

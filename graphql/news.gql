@@ -9,13 +9,13 @@ query AllNews($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale) {
 		...NewsFragmentLight
 	}
 
-	pagination: _allNewsMeta(locale: $locale, fallbackLocales: [sv]) {
+	pagination: _allNewsMeta(locale: $locale) {
 		count
 	}
 }
 
 query News($slug: String!, $locale: SiteLocale) {
-	news(filter: { slug: { eq: $slug } }, locale: $locale, fallbackLocales: [sv]) {
+	news(filter: { slug: { eq: $slug } }, locale: $locale) {
 		...NewsFragment
 	}
 }

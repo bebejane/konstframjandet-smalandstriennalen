@@ -1,15 +1,16 @@
 .language {
-  mix-blend-mode: difference;
-  @include mq($until: tablet) {
-    display: none; //Temp
-  }
-
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 10px;
+  right: 0;
   z-index: var(--z-language);
   margin: var(--outer-margin);
+  margin-right: calc(var(--outer-margin) + 40px);
   line-height: 1;
+  mix-blend-mode: difference;
+
+  @include mq($until: desktop) {
+    top: 15px;
+  }
 
   a {
     margin-right: 0.5em;
