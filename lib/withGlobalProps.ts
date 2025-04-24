@@ -32,9 +32,8 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
     year = { ...year, isArchive: year.title !== years[0].title } as YearExtendedRecord
 
     const variables = queries.map(el => ({ locale: context.locale, yearId: year.id }))
-    const props = await apiQuery(queries, { preview: context.preview, variables, excludeInvalid: false });
-
-    let messages = (await import(`./i18n/${context.locale}.json`)).default
+    const props = await apiQuery(queries, { preview: context.preview, variables });
+    const messages = (await import(`./i18n/${context.locale}.json`)).default
     //if (year.participantName) {
     // Custom translation for participants
     //messages.Menu.participants = year.participantName

@@ -14,7 +14,9 @@ export const getStaticProps = withGlobalProps(
 			preview: context.preview,
 		});
 
-		if (!abouts || !abouts.length) return { notFound: true };
+		if (!abouts || !abouts.length) {
+			return { notFound: true };
+		}
 
 		return {
 			props: {

@@ -1,5 +1,5 @@
 import { GraphQLClient, gql } from 'graphql-request';
-import i18nPaths from './lib/i18n/paths.json' assert { type: 'json' };
+import i18nPaths from './lib/i18n/paths.json' with { type: "json" };
 
 export const locales = ['sv', 'en'];
 export const defaultLocale = 'sv';
@@ -17,6 +17,7 @@ async function allYears() {
 	const graphQLClient = new GraphQLClient('https://graphql.datocms.com', {
 		headers: {
 			Authorization: process.env.GRAPHQL_API_TOKEN,
+			'X-Environment': process.env.NEXT_PUBLIC_DATOCMS_ENVIRONMENT,
 			'X-Exclude-Invalid': true,
 		},
 	});
@@ -44,7 +45,7 @@ const i18Rewrites = async () => {
 			locale: false,
 		})
 	);
-
+	console.log(years)
 	years.forEach(({ title }) =>
 		Object.keys(i18nPaths).forEach((k) =>
 			rewrites.push({
@@ -58,6 +59,8 @@ const i18Rewrites = async () => {
 };
 
 export default async (phase, { defaultConfig }) => {
+	const rewrites = await i18Rewrites();
+	//console.log(rewrites)
 	/**
 	 * @type {import('next').NextConfig}
 	 */
@@ -69,7 +72,7 @@ export default async (phase, { defaultConfig }) => {
 		},
 		async rewrites() {
 			return {
-				beforeFiles: await i18Rewrites(),
+				beforeFiles: rewrites,
 			};
 		},
 		sassOptions,

@@ -15,7 +15,7 @@ const base: Menu = [
   { id: 'about', label: 'Om', slug: '/om', virtual: true, sub: [] },
   { id: 'contact', label: 'Kontakt', slug: '/kontakt', general: true },
   { id: 'search', label: 'Sök', slug: '/sok', general: true },
-  { id: 'in-english', label: 'In English', slug: '/in-english', general: true }
+  //{ id: 'in-english', label: 'In English', slug: '/in-english', general: true }
 ]
 
 export const buildMenu = async (locale: string) => {
@@ -68,8 +68,9 @@ export const buildYearMenu = (res: MenuQueryResponse, { locale, altLocale, isArc
     const year = res.year.title
 
     if (item.slug) {
-      item.slug = `/${i18nPaths[item.id][locale]}`
-      item.altSlug = `/${i18nPaths[item.id][altLocale]}`
+      item.label = messages.Menu[item.id]
+      item.slug = `/${!item.general ? year + '/' : ''}${i18nPaths[item.id][locale]}`
+      item.altSlug = `/${!item.general ? year + '/' : ''}${i18nPaths[item.id][altLocale]}`
     }
 
     switch (item.id) {
@@ -81,9 +82,12 @@ export const buildYearMenu = (res: MenuQueryResponse, { locale, altLocale, isArc
           slug: `/${i18nPaths.about[locale]}/${el.slug}`,
           altSlug: `/${i18nPaths.about[altLocale]}/${el.altSlug}`
         }))
-        if (res.abouts.length) {
-          item.slug = `/${i18nPaths.about[locale]}/${res.abouts[0].slug}`
-          item.altSlug = `/${i18nPaths.about[altLocale]}/${res.abouts[0].altSlug}`
+
+        const mainAbout = res.abouts.filter(({ year }) => year)[0] || res.abouts.filter(({ year }) => !year)[0]
+
+        if (mainAbout) {
+          item.slug = `/${year}/${i18nPaths.about[locale]}/${mainAbout.slug}`
+          item.altSlug = `/${year}/${i18nPaths.about[altLocale]}/${mainAbout.altSlug}`
         }
         break;
       default:
