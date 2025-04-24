@@ -45,7 +45,7 @@ const i18Rewrites = async () => {
 			locale: false,
 		})
 	);
-	console.log(years)
+	
 	years.forEach(({ title }) =>
 		Object.keys(i18nPaths).forEach((k) =>
 			rewrites.push({
