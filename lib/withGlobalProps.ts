@@ -23,7 +23,9 @@ export default function withGlobalProps(opt: any, callback: Function): GetStatic
       return { notFound: true, revalidate };
 
     const years = await allYears(context.locale)
-    let year = years.find(({ title }) => context.params?.year ? title === context.params?.year : title === years[0].title)
+
+    //let year = years.find(({ title }) => context.params?.year ? title === context.params?.year : title === years[0].title)
+    let year = years.find(({ title }) => context.params?.year ? title === context.params?.year : title === '2023')
 
     if (!year) {
       return { notFound: true, revalidate };

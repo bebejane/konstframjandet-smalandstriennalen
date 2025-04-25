@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl';
 import { DatoSEO } from 'dato-nextjs-utils/components';
 import { pageSlugs } from '/lib/i18n';
 import { Button } from '/components';
+import { useRouter } from 'next/router';
+import i18nPaths from '/lib/i18n/paths.json';
 
 export type Props = {
 	news: (NewsRecord & ThumbnailImage)[];
@@ -15,6 +17,7 @@ export type Props = {
 
 export default function News({ news }: Props) {
 	const t = useTranslations();
+	const { locale } = useRouter();
 
 	return (
 		<>
@@ -32,7 +35,7 @@ export default function News({ news }: Props) {
 							<div className='intro'>
 								<Markdown className={s.intro}>{intro}</Markdown>
 							</div>
-							<Link href={`/nyheter/${slug}`} transformHref={false}>
+							<Link href={`/${i18nPaths.news[locale]}/${slug}`} transformHref={false}>
 								<Button>{t('General.readMore')}</Button>
 							</Link>
 						</li>
