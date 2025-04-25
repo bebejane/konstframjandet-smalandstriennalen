@@ -28,7 +28,7 @@ export default function News({ news }: Props) {
 						<li key={id}>
 							<h3 className='small'>{format(new Date(_createdAt), 'dd MMMM, yyyy')}</h3>
 							<h1>
-								<Link href={`/nyheter/${slug}`} transformHref={false}>
+								<Link href={`/${i18nPaths.news[locale]}/${slug}`} transformHref={false}>
 									{title}
 								</Link>
 							</h1>
