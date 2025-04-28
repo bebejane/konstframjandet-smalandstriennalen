@@ -5,6 +5,8 @@ export default class MyDocument extends Document {
 		const { year }: { year: YearExtendedRecord } =
 			this.props?.__NEXT_DATA__?.props?.pageProps || {};
 
+		const bodyStyle = {}; //{ backgroundColor: year?.isArchive ? 'var(--archive)' : 'var(--white)' };
+
 		return (
 			<Html>
 				<Head>
@@ -16,7 +18,7 @@ export default class MyDocument extends Document {
 						rel='stylesheet'
 					/>
 				</Head>
-				<body style={{ backgroundColor: year?.isArchive ? 'var(--archive)' : 'var(--white)' }}>
+				<body style={bodyStyle}>
 					<Main />
 					<NextScript />
 				</body>
