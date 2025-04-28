@@ -32,8 +32,8 @@ export default function Layout({ children, menu: menuFromProps, footer, title }:
 	}, [router.locale]);
 
 	useEffect(() => {
-		document.body.style.backgroundColor =
-			year?.isArchive || section === 'archive' ? 'var(--archive)' : 'var(--white)';
+		//document.body.style.backgroundColor =
+		//year?.isArchive || section === 'archive' ? 'var(--archive)' : 'var(--white)';
 	}, [router.asPath, year, section]);
 
 	if (!menuFromProps || !footer) return null;

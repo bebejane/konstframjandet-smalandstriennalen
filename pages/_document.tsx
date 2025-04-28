@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
 		const { year }: { year: YearExtendedRecord } =
 			this.props?.__NEXT_DATA__?.props?.pageProps || {};
 
-		const bodyStyle = {}; //{ backgroundColor: year?.isArchive ? 'var(--archive)' : 'var(--white)' };
+		const bodyStyle = { backgroundColor: 'var(--white)' }; //{ backgroundColor: year?.isArchive ? 'var(--archive)' : 'var(--white)' };
 
 		return (
 			<Html>
