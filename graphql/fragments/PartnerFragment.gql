@@ -102,6 +102,10 @@ fragment PartnerFragment on PartnerRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
 		...SeoMetaTagsFragment
 	}

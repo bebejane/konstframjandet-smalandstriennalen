@@ -105,6 +105,10 @@ fragment AboutFragment on AboutRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
 		...SeoMetaTagsFragment
 	}
