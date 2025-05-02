@@ -115,6 +115,10 @@ fragment ExhibitionFragment on ExhibitionRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
 		...SeoMetaTagsFragment
 	}

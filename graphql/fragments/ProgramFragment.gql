@@ -121,6 +121,10 @@ fragment ProgramFragment on ProgramRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
 		...SeoMetaTagsFragment
 	}

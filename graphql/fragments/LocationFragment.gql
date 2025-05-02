@@ -103,6 +103,10 @@ fragment LocationFragment on LocationRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
 		...SeoMetaTagsFragment
 	}

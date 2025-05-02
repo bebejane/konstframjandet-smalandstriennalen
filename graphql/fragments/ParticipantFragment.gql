@@ -104,6 +104,10 @@ fragment ParticipantFragment on ParticipantRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
 		...SeoMetaTagsFragment
 	}

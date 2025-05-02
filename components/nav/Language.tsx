@@ -22,7 +22,7 @@ export default function Language({ menu }: Props) {
 			{slugs.map((item, idx) => (
 				<Link
 					key={idx}
-					href={'/'}
+					href={item.value}
 					locale={item.locale}
 					className={cn(locale === item.locale && s.selected)}
 				>
