@@ -1,15 +1,21 @@
-query AllNews($first: IntType = 100, $skip: IntType = 0) {
-	news: allNews(first: $first, skip: $skip, orderBy: [_createdAt_DESC]) {
+query AllNews($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale) {
+	news: allNews(
+		locale: $locale
+		fallbackLocales: [sv]
+		first: $first
+		skip: $skip
+		orderBy: [_createdAt_DESC]
+	) {
 		...NewsFragmentLight
 	}
 
-	pagination: _allNewsMeta {
+	pagination: _allNewsMeta(locale: $locale) {
 		count
 	}
 }
 
-query News($slug: String!) {
-	news(filter: { slug: { eq: $slug } }) {
+query News($slug: String!, $locale: SiteLocale) {
+	news(filter: { slug: { eq: $slug } }, locale: $locale) {
 		...NewsFragment
 	}
 }

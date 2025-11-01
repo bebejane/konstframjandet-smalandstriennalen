@@ -1,14 +1,19 @@
-query AllExhibitions($yearId: ItemId) {
-	exhibitions: allExhibitions(filter: { year: { eq: $yearId } }, first: 100) {
+query AllExhibitions($locale: SiteLocale, $yearId: ItemId) {
+	exhibitions: allExhibitions(
+		filter: { year: { eq: $yearId } }
+		locale: $locale
+		fallbackLocales: [sv]
+		first: 100
+	) {
 		...ExhibitionFragmentLight
 	}
-	pagination: _allExhibitionsMeta {
+	pagination: _allExhibitionsMeta(locale: $locale) {
 		count
 	}
 }
 
-query Exhibition($slug: String!) {
-	exhibition(filter: { slug: { eq: $slug } }) {
+query Exhibition($slug: String!, $locale: SiteLocale) {
+	exhibition(filter: { slug: { eq: $slug } }, locale: $locale, fallbackLocales: [sv]) {
 		...ExhibitionFragment
 	}
 }

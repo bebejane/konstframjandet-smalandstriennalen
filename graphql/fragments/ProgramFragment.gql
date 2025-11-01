@@ -32,10 +32,6 @@ fragment ProgramFragment on ProgramRecord {
 		title
 	}
 	slug
-	_allSlugLocales {
-		locale
-		value
-	}
 	externalLink
 	content {
 		value
@@ -125,9 +121,11 @@ fragment ProgramFragment on ProgramRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
-		attributes
-		content
-		tag
+		...SeoMetaTagsFragment
 	}
 }

@@ -212,8 +212,6 @@ export async function getStaticYearPaths(doc: TypedDocumentNode, segment: string
 }
 
 export const translatePath = (href: string, locale: string, defaultLocale: string, year?: string): string => {
-  return href;
-
   const basePath = href.split('/')[1]
   const slug = href.split('/').slice(2).join('/')
   const key = Object.keys(i18nPaths).find(k => [i18nPaths[k].sv, i18nPaths[k].en].includes(basePath))
@@ -224,8 +222,8 @@ export const translatePath = (href: string, locale: string, defaultLocale: strin
 
 }
 
-export const allYears = async (): Promise<YearRecord[]> => {
-  const { years } = await apiQuery(AllYearsDocument)
+export const allYears = async (locale?: string): Promise<YearRecord[]> => {
+  const { years } = await apiQuery(AllYearsDocument, { variables: { locale } })
   return years;
 }
 

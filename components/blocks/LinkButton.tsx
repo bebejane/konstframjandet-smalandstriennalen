@@ -1,9 +1,20 @@
-import s from './LinkButton.module.scss'
-import React from 'react'
-import DatoLink from '/components/nav/DatoLink'
-
-export type LinkButtonBlockProps = { data: LinkButtonRecord, onClick: Function }
+import s from './LinkButton.module.scss';
+import React from 'react';
+import { Button, Link } from '/components';
+import { recordToSlug } from '/lib/utils';
+export type LinkButtonBlockProps = { data: LinkButtonRecord; onClick: Function };
 
 export default function LinkButton({ data: { link } }: LinkButtonBlockProps) {
-	return <DatoLink link={link} className={s.button} />
+	const slug = link.__typename === 'ExternalLinkRecord' ? link.url : recordToSlug(link.record);
+	const title =
+		link.__typename === 'ExternalLinkRecord'
+			? link.title
+			: link.title ||
+			  (link.record.__typename === 'ParticipantRecord' ? link.record.name : link.record.title);
+
+	return (
+		<Link href={slug} className={s.button} transformHref={false}>
+			<Button>{title}</Button>
+		</Link>
+	);
 }

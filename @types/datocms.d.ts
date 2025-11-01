@@ -3,23 +3,25 @@ type InputMaybe<T> = Maybe<T>;
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  BooleanType: any;
-  CustomData: any;
-  Date: any;
-  DateTime: any;
-  FloatType: any;
-  IntType: any;
-  ItemId: any;
-  JsonField: any;
-  MetaTagAttributes: any;
-  UploadId: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  BooleanType: { input: any; output: any; }
+  CustomData: { input: any; output: any; }
+  Date: { input: any; output: any; }
+  DateTime: { input: any; output: any; }
+  FloatType: { input: any; output: any; }
+  IntType: { input: any; output: any; }
+  ItemId: { input: any; output: any; }
+  JsonField: { input: any; output: any; }
+  MetaTagAttributes: { input: any; output: any; }
+  UploadId: { input: any; output: any; }
 };
 
 type AboutModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButtonRecord | VideoRecord;
@@ -27,8 +29,9 @@ type AboutModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButto
 type AboutModelContentField = {
   __typename?: 'AboutModelContentField';
   blocks: Array<AboutModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type AboutModelContentFieldMultiLocaleField = {
@@ -95,24 +98,26 @@ type AboutRecord = RecordInterface & {
   _allIntroLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allTitleLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   content?: Maybe<AboutModelContentField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  intro: Scalars['String'];
-  position?: Maybe<Scalars['IntType']>;
-  slug: Scalars['String'];
-  title: Scalars['String'];
+  intro: Scalars['String']['output'];
+  position?: Maybe<Scalars['IntType']['output']>;
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
   year?: Maybe<YearRecord>;
 };
 
@@ -120,28 +125,25 @@ type AboutRecord = RecordInterface & {
 /** Record of type Om (about) */
 type AboutRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Om (about) */
 type AboutRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Om (about) */
 type AboutRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Om (about) */
 type AboutRecord_allTitleLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -160,8 +162,9 @@ type AboutRecordcontentArgs = {
 
 /** Record of type Om (about) */
 type AboutRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -181,12 +184,12 @@ type AboutRecordtitleArgs = {
 /** Specifies how to filter Boolean fields */
 type BooleanFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['BooleanType']>;
+  eq?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
 type CollectionMetadata = {
   __typename?: 'CollectionMetadata';
-  count: Scalars['IntType'];
+  count: Scalars['IntType']['output'];
 };
 
 enum ColorBucketType {
@@ -206,12 +209,12 @@ enum ColorBucketType {
 
 type ColorField = {
   __typename?: 'ColorField';
-  alpha: Scalars['IntType'];
-  blue: Scalars['IntType'];
-  cssRgb: Scalars['String'];
-  green: Scalars['IntType'];
-  hex: Scalars['String'];
-  red: Scalars['IntType'];
+  alpha: Scalars['IntType']['output'];
+  blue: Scalars['IntType']['output'];
+  cssRgb: Scalars['String']['output'];
+  green: Scalars['IntType']['output'];
+  hex: Scalars['String']['output'];
+  red: Scalars['IntType']['output'];
 };
 
 type ContactModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButtonRecord | VideoRecord;
@@ -219,8 +222,9 @@ type ContactModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkBut
 type ContactModelContentField = {
   __typename?: 'ContactModelContentField';
   blocks: Array<ContactModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type ContactModelContentFieldMultiLocaleField = {
@@ -236,51 +240,51 @@ type ContactRecord = RecordInterface & {
   _allIntroLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allTitleLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _locales: Array<SiteLocale>;
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   content?: Maybe<ContactModelContentField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  intro?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  title?: Maybe<Scalars['String']>;
+  intro?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** Record of type Kontakt (contact) */
 type ContactRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Kontakt (contact) */
 type ContactRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Kontakt (contact) */
 type ContactRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Kontakt (contact) */
 type ContactRecord_allTitleLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -299,8 +303,9 @@ type ContactRecordcontentArgs = {
 
 /** Record of type Kontakt (contact) */
 type ContactRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -320,55 +325,55 @@ type ContactRecordtitleArgs = {
 /** Specifies how to filter by creation datetime */
 type CreatedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 /** Specifies how to filter Date fields */
 type DateFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['Date']>;
+  eq?: InputMaybe<Scalars['Date']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['Date']>;
+  gt?: InputMaybe<Scalars['Date']['input']>;
   /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['Date']>;
+  gte?: InputMaybe<Scalars['Date']['input']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['Date']>;
+  lt?: InputMaybe<Scalars['Date']['input']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['Date']>;
+  lte?: InputMaybe<Scalars['Date']['input']>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['Date']>;
+  neq?: InputMaybe<Scalars['Date']['input']>;
 };
 
 /** Specifies how to filter DateTime fields */
 type DateTimeFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 type ExhibitionModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButtonRecord | VideoRecord;
@@ -376,8 +381,9 @@ type ExhibitionModelContentBlocksField = ImageGalleryRecord | ImageRecord | Link
 type ExhibitionModelContentField = {
   __typename?: 'ExhibitionModelContentField';
   blocks: Array<ExhibitionModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type ExhibitionModelContentFieldMultiLocaleField = {
@@ -407,6 +413,7 @@ type ExhibitionModelFilter = {
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
   _isValid?: InputMaybe<BooleanFilter>;
+  _locales?: InputMaybe<LocalesFilter>;
   _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
   _publishedAt?: InputMaybe<PublishedAtFilter>;
   _status?: InputMaybe<StatusFilter>;
@@ -472,32 +479,34 @@ type ExhibitionRecord = RecordInterface & {
   /** Returns meta information regarding a record collection */
   _allReferencingInternalLinksMeta: CollectionMetadata;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _allTitleLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _locales: Array<SiteLocale>;
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   content?: Maybe<ExhibitionModelContentField>;
-  endDate?: Maybe<Scalars['Date']>;
-  externalLink?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  endDate?: Maybe<Scalars['Date']['output']>;
+  externalLink?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  intro: Scalars['String'];
+  intro: Scalars['String']['output'];
   location: Array<LocationRecord>;
-  misc?: Maybe<Scalars['String']>;
+  misc?: Maybe<Scalars['String']['output']>;
   participants: Array<ParticipantRecord>;
   partner: Array<PartnerRecord>;
-  slug: Scalars['String'];
-  startDate?: Maybe<Scalars['Date']>;
-  time?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
+  slug: Scalars['String']['output'];
+  startDate?: Maybe<Scalars['Date']['output']>;
+  time?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
   year: YearRecord;
 };
 
@@ -505,21 +514,19 @@ type ExhibitionRecord = RecordInterface & {
 /** Record of type Utställning (exhibition) */
 type ExhibitionRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Utställning (exhibition) */
 type ExhibitionRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Utställning (exhibition) */
 type ExhibitionRecord_allMiscLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -527,10 +534,10 @@ type ExhibitionRecord_allMiscLocalesArgs = {
 type ExhibitionRecord_allReferencingInternalLinksArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<InternalLinkModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<InternalLinkModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenInternalLinkAndExhibition>;
 };
 
@@ -546,14 +553,6 @@ type ExhibitionRecord_allReferencingInternalLinksMetaArgs = {
 /** Record of type Utställning (exhibition) */
 type ExhibitionRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** Record of type Utställning (exhibition) */
-type ExhibitionRecord_allTitleLocalesArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -572,8 +571,9 @@ type ExhibitionRecordcontentArgs = {
 
 /** Record of type Utställning (exhibition) */
 type ExhibitionRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -586,13 +586,6 @@ type ExhibitionRecordmiscArgs = {
 
 /** Record of type Utställning (exhibition) */
 type ExhibitionRecordslugArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
-};
-
-
-/** Record of type Utställning (exhibition) */
-type ExhibitionRecordtitleArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -641,28 +634,29 @@ enum ExternalLinkModelOrderBy {
 /** Record of type Extern länk (external_link) */
 type ExternalLinkRecord = RecordInterface & {
   __typename?: 'ExternalLinkRecord';
-  _allTitleLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _allTitleLocales?: Maybe<Array<StringMultiLocaleField>>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  title: Scalars['String'];
-  url: Scalars['String'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
 };
 
 
 /** Record of type Extern länk (external_link) */
 type ExternalLinkRecord_allTitleLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -686,34 +680,36 @@ enum FaviconType {
 
 type FileField = FileFieldInterface & {
   __typename?: 'FileField';
-  _createdAt: Scalars['DateTime'];
-  _updatedAt: Scalars['DateTime'];
-  alt?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  basename: Scalars['String'];
-  blurUpThumb?: Maybe<Scalars['String']>;
-  blurhash?: Maybe<Scalars['String']>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  alt?: Maybe<Scalars['String']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  basename: Scalars['String']['output'];
+  blurUpThumb?: Maybe<Scalars['String']['output']>;
+  blurhash?: Maybe<Scalars['String']['output']>;
   colors: Array<ColorField>;
-  copyright?: Maybe<Scalars['String']>;
-  customData: Scalars['CustomData'];
-  exifInfo: Scalars['CustomData'];
-  filename: Scalars['String'];
+  copyright?: Maybe<Scalars['String']['output']>;
+  customData: Scalars['CustomData']['output'];
+  exifInfo: Scalars['CustomData']['output'];
+  filename: Scalars['String']['output'];
   focalPoint?: Maybe<focalPoint>;
-  format: Scalars['String'];
-  height?: Maybe<Scalars['IntType']>;
-  id: Scalars['UploadId'];
-  md5: Scalars['String'];
-  mimeType: Scalars['String'];
-  notes?: Maybe<Scalars['String']>;
+  format: Scalars['String']['output'];
+  height?: Maybe<Scalars['IntType']['output']>;
+  id: Scalars['UploadId']['output'];
+  md5: Scalars['String']['output'];
+  mimeType: Scalars['String']['output'];
+  notes?: Maybe<Scalars['String']['output']>;
   responsiveImage?: Maybe<ResponsiveImage>;
-  size: Scalars['IntType'];
-  smartTags: Array<Scalars['String']>;
-  tags: Array<Scalars['String']>;
-  thumbhash?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
+  size: Scalars['IntType']['output'];
+  smartTags: Array<Scalars['String']['output']>;
+  tags: Array<Scalars['String']['output']>;
+  thumbhash?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
   video?: Maybe<UploadVideoField>;
-  width?: Maybe<Scalars['IntType']>;
+  width?: Maybe<Scalars['IntType']['output']>;
 };
 
 
@@ -725,9 +721,9 @@ type FileFieldaltArgs = {
 
 type FileFieldblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: Scalars['Float'];
-  quality?: Scalars['Int'];
-  size?: Scalars['Int'];
+  punch?: Scalars['Float']['input'];
+  quality?: Scalars['Int']['input'];
+  size?: Scalars['Int']['input'];
 };
 
 
@@ -747,7 +743,7 @@ type FileFieldresponsiveImageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   imgixParams?: InputMaybe<ImgixParams>;
   locale?: InputMaybe<SiteLocale>;
-  sizes?: InputMaybe<Scalars['String']>;
+  sizes?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -762,34 +758,36 @@ type FileFieldurlArgs = {
 };
 
 type FileFieldInterface = {
-  _createdAt: Scalars['DateTime'];
-  _updatedAt: Scalars['DateTime'];
-  alt?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  basename: Scalars['String'];
-  blurUpThumb?: Maybe<Scalars['String']>;
-  blurhash?: Maybe<Scalars['String']>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  alt?: Maybe<Scalars['String']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  basename: Scalars['String']['output'];
+  blurUpThumb?: Maybe<Scalars['String']['output']>;
+  blurhash?: Maybe<Scalars['String']['output']>;
   colors: Array<ColorField>;
-  copyright?: Maybe<Scalars['String']>;
-  customData: Scalars['CustomData'];
-  exifInfo: Scalars['CustomData'];
-  filename: Scalars['String'];
+  copyright?: Maybe<Scalars['String']['output']>;
+  customData: Scalars['CustomData']['output'];
+  exifInfo: Scalars['CustomData']['output'];
+  filename: Scalars['String']['output'];
   focalPoint?: Maybe<focalPoint>;
-  format: Scalars['String'];
-  height?: Maybe<Scalars['IntType']>;
-  id: Scalars['UploadId'];
-  md5: Scalars['String'];
-  mimeType: Scalars['String'];
-  notes?: Maybe<Scalars['String']>;
+  format: Scalars['String']['output'];
+  height?: Maybe<Scalars['IntType']['output']>;
+  id: Scalars['UploadId']['output'];
+  md5: Scalars['String']['output'];
+  mimeType: Scalars['String']['output'];
+  notes?: Maybe<Scalars['String']['output']>;
   responsiveImage?: Maybe<ResponsiveImage>;
-  size: Scalars['IntType'];
-  smartTags: Array<Scalars['String']>;
-  tags: Array<Scalars['String']>;
-  thumbhash?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
+  size: Scalars['IntType']['output'];
+  smartTags: Array<Scalars['String']['output']>;
+  tags: Array<Scalars['String']['output']>;
+  thumbhash?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
   video?: Maybe<UploadVideoField>;
-  width?: Maybe<Scalars['IntType']>;
+  width?: Maybe<Scalars['IntType']['output']>;
 };
 
 
@@ -801,9 +799,9 @@ type FileFieldInterfacealtArgs = {
 
 type FileFieldInterfaceblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: Scalars['Float'];
-  quality?: Scalars['Int'];
-  size?: Scalars['Int'];
+  punch?: Scalars['Float']['input'];
+  quality?: Scalars['Int']['input'];
+  size?: Scalars['Int']['input'];
 };
 
 
@@ -823,7 +821,7 @@ type FileFieldInterfaceresponsiveImageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   imgixParams?: InputMaybe<ImgixParams>;
   locale?: InputMaybe<SiteLocale>;
-  sizes?: InputMaybe<Scalars['String']>;
+  sizes?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -840,34 +838,36 @@ type FileFieldInterfaceurlArgs = {
 /** Specifies how to filter Single-file/image fields */
 type FileFilter = {
   /** Search for records with an exact match. The specified value must be an Upload ID */
-  eq?: InputMaybe<Scalars['UploadId']>;
+  eq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records that have one of the specified uploads */
-  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
   /** Exclude records with an exact match. The specified value must be an Upload ID */
-  neq?: InputMaybe<Scalars['UploadId']>;
+  neq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Filter records that do not have one of the specified uploads */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
 };
 
 /** Block of type Financiär (funder) */
 type FunderRecord = RecordInterface & {
   __typename?: 'FunderRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   logo?: Maybe<FileField>;
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -880,29 +880,30 @@ type FunderRecord_seoMetaTagsArgs = {
 type GeneralRecord = RecordInterface & {
   __typename?: 'GeneralRecord';
   _allAboutLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  about?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  facebook?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
-  instagram?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  about?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  facebook?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
+  instagram?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** Record of type Generellt (general) */
 type GeneralRecord_allAboutLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -920,28 +921,30 @@ type GeneralRecordaboutArgs = {
 
 type GlobalSeoField = {
   __typename?: 'GlobalSeoField';
-  facebookPageUrl?: Maybe<Scalars['String']>;
+  facebookPageUrl?: Maybe<Scalars['String']['output']>;
   fallbackSeo?: Maybe<SeoField>;
-  siteName?: Maybe<Scalars['String']>;
-  titleSuffix?: Maybe<Scalars['String']>;
-  twitterAccount?: Maybe<Scalars['String']>;
+  siteName?: Maybe<Scalars['String']['output']>;
+  titleSuffix?: Maybe<Scalars['String']['output']>;
+  twitterAccount?: Maybe<Scalars['String']['output']>;
 };
 
 /** Block of type Bilder (image_gallery) */
 type ImageGalleryRecord = RecordInterface & {
   __typename?: 'ImageGalleryRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   images: Array<FileField>;
 };
 
@@ -954,20 +957,22 @@ type ImageGalleryRecord_seoMetaTagsArgs = {
 /** Block of type Bild (image) */
 type ImageRecord = RecordInterface & {
   __typename?: 'ImageRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   image: FileField;
-  layout: Scalars['String'];
+  layout: Scalars['String']['output'];
 };
 
 
@@ -984,15 +989,15 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/ar)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/aspect-ratio)
    */
-  ar?: InputMaybe<Scalars['String']>;
+  ar?: InputMaybe<Scalars['String']['input']>;
   /**
    * Automatic
    *
    * Applies automatic enhancements to images.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/auto)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/automatic)
    */
   auto?: InputMaybe<Array<ImgixParamsAuto>>;
   /**
@@ -1000,25 +1005,75 @@ type ImgixParams = {
    *
    * Colors the background of padded and partially-transparent images.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/bg)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/background-color)
    */
-  bg?: InputMaybe<Scalars['String']>;
+  bg?: InputMaybe<Scalars['String']['input']>;
   /**
    * Background Removal
    *
    * Removes background from image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background-removal/bg-remove)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal)
    */
-  bgRemove?: InputMaybe<Scalars['BooleanType']>;
+  bgRemove?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * Background Removal Fallback
+   *
+   * Overrides default fallback behavior for bg-remove failures.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-fallback)
+   */
+  bgRemoveFallback?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * Background Removal Foreground Type
+   *
+   * Specifies the image foreground type for background removal.
+   *
+   * Depends on: `bg-remove=true`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-foreground-type)
+   */
+  bgRemoveFgType?: InputMaybe<Array<ImgixParamsBgRemoveFgType>>;
+  /**
+   * Background Removal Semi Transparency
+   *
+   * Enables background removal while retaining semi-transparent areas.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-removal-semi-transparency)
+   */
+  bgRemoveSemiTransparency?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * Background Replacement
+   *
+   * Replaces background from image using a string based prompt.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replacement)
+   */
+  bgReplace?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Background Replace Fallback
+   *
+   * Overrides default fallback behavior for bg-replace failures.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replace-fallback)
+   */
+  bgReplaceFallback?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * Background Replacement Negative Prompt
+   *
+   * Provides a negative text suggestion for background replacement.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/background/background-replacement-negative-prompt)
+   */
+  bgReplaceNegPrompt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Blend
    *
    * Specifies the location of the blend image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend)
    */
-  blend?: InputMaybe<Scalars['String']>;
+  blend?: InputMaybe<Scalars['String']['input']>;
   /**
    * Blend Align
    *
@@ -1026,7 +1081,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-align)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-align)
    */
   blendAlign?: InputMaybe<Array<ImgixParamsBlendAlign>>;
   /**
@@ -1036,17 +1091,17 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-alpha)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-alpha)
    */
-  blendAlpha?: InputMaybe<Scalars['IntType']>;
+  blendAlpha?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Blend Color
    *
    * Specifies a color to use when applying the blend.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-color)
    */
-  blendColor?: InputMaybe<Scalars['String']>;
+  blendColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Blend Crop
    *
@@ -1054,7 +1109,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-crop)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-crop)
    */
   blendCrop?: InputMaybe<Array<ImgixParamsBlendCrop>>;
   /**
@@ -1064,7 +1119,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-fit)
    */
   blendFit?: InputMaybe<ImgixParamsBlendFit>;
   /**
@@ -1074,9 +1129,9 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-h)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-height)
    */
-  blendH?: InputMaybe<Scalars['FloatType']>;
+  blendH?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Blend Mode
    *
@@ -1084,7 +1139,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-mode)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-mode)
    */
   blendMode?: InputMaybe<ImgixParamsBlendMode>;
   /**
@@ -1094,9 +1149,9 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-padding)
    */
-  blendPad?: InputMaybe<Scalars['IntType']>;
+  blendPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Blend Size
    *
@@ -1104,7 +1159,7 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-size)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-size)
    */
   blendSize?: InputMaybe<ImgixParamsBlendSize>;
   /**
@@ -1114,9 +1169,9 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-w)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-width)
    */
-  blendW?: InputMaybe<Scalars['FloatType']>;
+  blendW?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Blend X Position
    *
@@ -1124,9 +1179,9 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-x-position)
    */
-  blendX?: InputMaybe<Scalars['IntType']>;
+  blendX?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Blend Y Position
    *
@@ -1134,25 +1189,25 @@ type ImgixParams = {
    *
    * Depends on: `blend`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/blending/blend-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/blending/blend-y-position)
    */
-  blendY?: InputMaybe<Scalars['IntType']>;
+  blendY?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Gaussian Blur
    *
    * Applies a gaussian blur to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/blur)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/gaussian-blur)
    */
-  blur?: InputMaybe<Scalars['IntType']>;
+  blur?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Border Size & Color
    *
    * Applies a border to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size)
    */
-  border?: InputMaybe<Scalars['String']>;
+  border?: InputMaybe<Scalars['String']['input']>;
   /**
    * Border Bottom
    *
@@ -1160,9 +1215,9 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-bottom)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-bottom)
    */
-  borderBottom?: InputMaybe<Scalars['IntType']>;
+  borderBottom?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Border Left
    *
@@ -1170,9 +1225,9 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-left)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-left)
    */
-  borderLeft?: InputMaybe<Scalars['IntType']>;
+  borderLeft?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Outer Border Radius
    *
@@ -1180,9 +1235,9 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/outer-border-radius)
    */
-  borderRadius?: InputMaybe<Scalars['String']>;
+  borderRadius?: InputMaybe<Scalars['String']['input']>;
   /**
    * Inner Border Radius
    *
@@ -1190,9 +1245,9 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-radius-inner)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/inner-border-radius)
    */
-  borderRadiusInner?: InputMaybe<Scalars['String']>;
+  borderRadiusInner?: InputMaybe<Scalars['String']['input']>;
   /**
    * Border Right
    *
@@ -1200,9 +1255,9 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-right)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-right)
    */
-  borderRight?: InputMaybe<Scalars['IntType']>;
+  borderRight?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Border Top
    *
@@ -1210,23 +1265,23 @@ type ImgixParams = {
    *
    * Depends on: `border`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/border-top)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/border-top)
    */
-  borderTop?: InputMaybe<Scalars['IntType']>;
+  borderTop?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Brightness
    *
    * Adjusts the brightness of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/bri)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/brightness)
    */
-  bri?: InputMaybe<Scalars['IntType']>;
+  bri?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Client Hints
    *
    * Sets one or more Client-Hints headers
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/ch)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/client-hints)
    */
   ch?: InputMaybe<Array<ImgixParamsCh>>;
   /**
@@ -1234,17 +1289,17 @@ type ImgixParams = {
    *
    * Specifies the output chroma subsampling rate.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/chromasub)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/chroma-subsampling)
    */
-  chromasub?: InputMaybe<Scalars['IntType']>;
+  chromasub?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Color Quantization
    *
    * Limits the number of unique colors in an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/colorquant)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/color-quantization)
    */
-  colorquant?: InputMaybe<Scalars['IntType']>;
+  colorquant?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Palette Color Count
    *
@@ -1252,17 +1307,17 @@ type ImgixParams = {
    *
    * Depends on: `palette`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/colors)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/palette-color-count)
    */
-  colors?: InputMaybe<Scalars['IntType']>;
+  colors?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Contrast
    *
    * Adjusts the contrast of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/con)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/contrast)
    */
-  con?: InputMaybe<Scalars['IntType']>;
+  con?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Mask Corner Radius
    *
@@ -1270,9 +1325,9 @@ type ImgixParams = {
    *
    * Depends on: `mask=corners`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/corner-radius)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-corner-radius)
    */
-  cornerRadius?: InputMaybe<Scalars['String']>;
+  cornerRadius?: InputMaybe<Scalars['String']['input']>;
   /**
    * Crop Mode
    *
@@ -1280,7 +1335,7 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/crop)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/crop-mode)
    */
   crop?: InputMaybe<Array<ImgixParamsCrop>>;
   /**
@@ -1288,7 +1343,7 @@ type ImgixParams = {
    *
    * Specifies the color space of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/cs)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/color-space)
    */
   cs?: InputMaybe<ImgixParamsCs>;
   /**
@@ -1296,33 +1351,33 @@ type ImgixParams = {
    *
    * Forces a URL to use send-file in its response.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dl)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/download)
    */
-  dl?: InputMaybe<Scalars['String']>;
+  dl?: InputMaybe<Scalars['String']['input']>;
   /**
    * Dots Per Inch
    *
    * Sets the DPI value in the EXIF header.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/dpi)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/dots-per-inch)
    */
-  dpi?: InputMaybe<Scalars['IntType']>;
+  dpi?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Device Pixel Ratio
    *
    * Adjusts the device-pixel ratio of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/dpr)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/device-pixel-ratio)
    */
-  dpr?: InputMaybe<Scalars['FloatType']>;
+  dpr?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Duotone
    *
    * Applies a duotone effect to the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/duotone)
    */
-  duotone?: InputMaybe<Scalars['String']>;
+  duotone?: InputMaybe<Scalars['String']['input']>;
   /**
    * Duotone Alpha
    *
@@ -1330,25 +1385,41 @@ type ImgixParams = {
    *
    * Depends on: `duotone`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/duotone-alpha)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/duotone-alpha)
    */
-  duotoneAlpha?: InputMaybe<Scalars['IntType']>;
+  duotoneAlpha?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Exposure
    *
    * Adjusts the exposure of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/exp)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/exposure)
    */
-  exp?: InputMaybe<Scalars['IntType']>;
+  exp?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Url Expiration Timestamp
    *
    * A Unix timestamp specifying a UTC time. Requests made to this URL after that time will output a 404 status code.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/expires)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/expiration)
    */
-  expires?: InputMaybe<Scalars['IntType']>;
+  expires?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Face Blur
+   *
+   * Specifies the amount of blur to apply to detected faces. Defaults to 0.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-blur)
+   */
+  faceBlur?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Face Pixelation
+   *
+   * Specifies the pixelation amount of the face.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-pixelation)
+   */
+  facePixel?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Face Index
    *
@@ -1356,9 +1427,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=facearea`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faceindex)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-index)
    */
-  faceindex?: InputMaybe<Scalars['IntType']>;
+  faceindex?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Face Padding
    *
@@ -1366,9 +1437,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=facearea`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/facepad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/face-padding)
    */
-  facepad?: InputMaybe<Scalars['FloatType']>;
+  facepad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Json Face Data
    *
@@ -1376,9 +1447,9 @@ type ImgixParams = {
    *
    * Depends on: `fm=json`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/face-detection/faces)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/face-detection/json-face-data)
    */
-  faces?: InputMaybe<Scalars['IntType']>;
+  faces?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Fill Mode
    *
@@ -1386,7 +1457,7 @@ type ImgixParams = {
    *
    * Depends on: `fit`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-mode)
    */
   fill?: InputMaybe<ImgixParamsFill>;
   /**
@@ -1396,15 +1467,145 @@ type ImgixParams = {
    *
    * Depends on: `fill=solid`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/fill-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-color)
    */
-  fillColor?: InputMaybe<Scalars['String']>;
+  fillColor?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fill Generative Fallback
+   *
+   * Sets the fallback behavior for generative fill.
+   *
+   * Depends on: `fit=fill`, `fill=gen`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-fallback)
+   */
+  fillGenFallback?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * Fill Generative Negative Prompt
+   *
+   * Provides a negative text suggestion to the generative fill parameter. Used to reduce the probability of a subject, detail, or object appearing in generative output.
+   *
+   * Depends on: `fit=fill`, `fill=gen`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-negative-prompt)
+   */
+  fillGenNegPrompt?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fill Generative Position
+   *
+   * Sets the position of the Origin Image in relation to the generative fill.
+   *
+   * Depends on: `fit=fill`, `fill=gen`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-position)
+   */
+  fillGenPos?: InputMaybe<Array<ImgixParamsFillGenPos>>;
+  /**
+   * Fill Generative Prompt
+   *
+   * Provides a text suggestion to the generative fill parameter.
+   *
+   * Depends on: `fit=fill`, `fill=gen`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-prompt)
+   */
+  fillGenPrompt?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fill Generative Seed
+   *
+   * Sets the generative seed value. Used to generate similar outputs from different prompts.
+   *
+   * Depends on: `fit=fill`, `fill=gen`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-generative-seed)
+   */
+  fillGenSeed?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Fill Gradient Color Space
+   *
+   * Defines the color space as linear, sRGB, Oklab, HSL, or LCH for gradient color interpolation
+   *
+   * Depends on: `fit=fill`, `fill=gradient`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-color-space)
+   */
+  fillGradientCs?: InputMaybe<ImgixParamsFillGradientCs>;
+  /**
+   * Fill Gradient Linear
+   *
+   * Blends a gradient between two colors, {color1} and {color2}, along a straight path
+   *
+   * Depends on: `fit=fill`, `fill=gradient`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-linear)
+   */
+  fillGradientLinear?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fill Gradient Linear Direction
+   *
+   * The fill-gradient-linear-direction specifies the gradient's direction, flowing towards the bottom, top, right, or left
+   *
+   * Depends on: `fit=fill`, `fill=gen`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-linear-direction)
+   */
+  fillGradientLinearDirection?: InputMaybe<Array<ImgixParamsFillGradientLinearDirection>>;
+  /**
+   * Fill Gradient Radial
+   *
+   * The fill-gradient-radial parameter creates a circular gradient transitioning from a central color (Color1) to an outer color (Color2)
+   *
+   * Depends on: `fit=fill`, `fill=gradient`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial)
+   */
+  fillGradientRadial?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fill Gradient Radial Radius
+   *
+   * Parameter defines the radial gradient's radius as pixels or a percentage (0.0-1.0) of the image's smallest dimension
+   *
+   * Depends on: `fit=fill`, `fill=gradient`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-radius)
+   */
+  fillGradientRadialRadius?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Fill Gradient Radial X
+   *
+   * Specifies the location of the radial gradient's center along the x-axis, using either a pixel value or a floating point percentage (ranging from 0.0 to 1.0) of the image's width
+   *
+   * Depends on: `fit=fill`, `fill=gradient`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-x)
+   */
+  fillGradientRadialX?: InputMaybe<Scalars['FloatType']['input']>;
+  /**
+   * Fill Gradient Radial Y
+   *
+   * Parameter sets the radial gradient's center on the y-axis, using pixels or a 0.0 to 1.0 percentage of the image's height
+   *
+   * Depends on: `fit=fill`, `fill=gradient`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-radial-y)
+   */
+  fillGradientRadialY?: InputMaybe<Scalars['FloatType']['input']>;
+  /**
+   * Fill Gradient Type
+   *
+   * Specifies if a gradient is radial (circular) or linear (straight)
+   *
+   * Depends on: `fit=fill`, `fill=gradient`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/fill-gradient-type)
+   */
+  fillGradientType?: InputMaybe<ImgixParamsFillGradientType>;
   /**
    * Resize Fit Mode
    *
    * Specifies how to map the source image to the output image dimensions.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/resize-fit-mode)
    */
   fit?: InputMaybe<ImgixParamsFit>;
   /**
@@ -1412,7 +1613,7 @@ type ImgixParams = {
    *
    * Flips an image on a specified axis.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/flip)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/flip-axis)
    */
   flip?: InputMaybe<ImgixParamsFlip>;
   /**
@@ -1420,7 +1621,7 @@ type ImgixParams = {
    *
    * Changes the format of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/fm)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/output-format)
    */
   fm?: InputMaybe<ImgixParamsFm>;
   /**
@@ -1430,9 +1631,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-debug)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-debug)
    */
-  fpDebug?: InputMaybe<Scalars['BooleanType']>;
+  fpDebug?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Focal Point X Position
    *
@@ -1440,9 +1641,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-x-position)
    */
-  fpX?: InputMaybe<Scalars['FloatType']>;
+  fpX?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Focal Point Y Position
    *
@@ -1450,9 +1651,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-y-position)
    */
-  fpY?: InputMaybe<Scalars['FloatType']>;
+  fpY?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Focal Point Zoom
    *
@@ -1460,109 +1661,135 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`, `crop=focalpoint`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/focalpoint-crop/fp-z)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/focal-point-crop/focal-point-zoom)
    */
-  fpZ?: InputMaybe<Scalars['FloatType']>;
+  fpZ?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Frames Per Second
    *
    * Specifies the framerate of the generated image.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frames-per-second)
    */
-  fps?: InputMaybe<Scalars['IntType']>;
+  fps?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Frame Selection
    *
    * Specifies the frame of an animated image to use.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-selection)
    */
-  frame?: InputMaybe<Scalars['String']>;
+  frame?: InputMaybe<Scalars['String']['input']>;
   /**
    * Gamma
    *
    * Adjusts the gamma of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/gam)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/gamma)
    */
-  gam?: InputMaybe<Scalars['IntType']>;
+  gam?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Animated Gif Quality
    *
+   * Specifies the quality of the animated gif. The higher the value, the better more compression is applied.
+   *
    * Depends on: `fm=gif`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/animated-gif-quality)
    */
-  gifQ?: InputMaybe<Scalars['IntType']>;
+  gifQ?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Grid Colors
    *
    * Sets grid colors for the transparency checkerboard grid.
    *
    * Depends on: `transparency`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/grid-colors)
    */
-  gridColors?: InputMaybe<Scalars['String']>;
+  gridColors?: InputMaybe<Scalars['String']['input']>;
   /**
    * Grid Size
    *
    * Sets grid size for the transparency checkerboard grid.
    *
    * Depends on: `transparency`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/grid-size)
    */
-  gridSize?: InputMaybe<Scalars['IntType']>;
+  gridSize?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Image Height
    *
    * Adjusts the height of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/h)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/image-height)
    */
-  h?: InputMaybe<Scalars['FloatType']>;
+  h?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Highlight
    *
    * Adjusts the highlights of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/high)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/highlight)
    */
-  high?: InputMaybe<Scalars['IntType']>;
+  high?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Halftone
    *
    * Applies a half-tone effect to the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/htn)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/halftone)
    */
-  htn?: InputMaybe<Scalars['IntType']>;
+  htn?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Hue Shift
    *
    * Adjusts the hue of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/hue)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/hue-shift)
    */
-  hue?: InputMaybe<Scalars['IntType']>;
+  hue?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Frame Interval
    *
    * Displays every Nth frame starting with the first frame.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-interval)
    */
-  interval?: InputMaybe<Scalars['IntType']>;
+  interval?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Invert
    *
    * Inverts the colors on the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/invert)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/invert)
    */
-  invert?: InputMaybe<Scalars['BooleanType']>;
+  invert?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Iptc Passthrough
    *
    * Determine if IPTC data should be passed for JPEG images.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/iptc-passthrough)
    */
   iptc?: InputMaybe<ImgixParamsIptc>;
+  /**
+   * Jpg Progressive
+   *
+   * Specifies whether or not a jpg/jpeg uses progressive (true) or baseline (false)
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/jpg-progressive)
+   */
+  jpgProgressive?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Animation Loop Count
    *
    * Specifies the number of times an animated image should repeat. A value of 0 means infinite looping.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation)
    */
-  loop?: InputMaybe<Scalars['IntType']>;
+  loop?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Lossless Compression
    *
@@ -1570,17 +1797,25 @@ type ImgixParams = {
    *
    * Depends on: `fm=webp`, `fm=jxr`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/lossless)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/lossless-compression)
    */
-  lossless?: InputMaybe<Scalars['BooleanType']>;
+  lossless?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * License Plate Blur
+   *
+   * Specifies the amount of blur to apply to detected license plates. Defaults to 0.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/license-plate-detection/license-plate-blur)
+   */
+  lpBlur?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Image Url
    *
    * Specifies the location of the watermark image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-image-url)
    */
-  mark?: InputMaybe<Scalars['String']>;
+  mark?: InputMaybe<Scalars['String']['input']>;
   /**
    * Watermark Alignment Mode
    *
@@ -1588,7 +1823,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-align)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-alignment-mode)
    */
   markAlign?: InputMaybe<Array<ImgixParamsMarkAlign>>;
   /**
@@ -1598,9 +1833,9 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-alpha)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-alpha)
    */
-  markAlpha?: InputMaybe<Scalars['IntType']>;
+  markAlpha?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Base Url
    *
@@ -1608,9 +1843,9 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-base)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-base-url)
    */
-  markBase?: InputMaybe<Scalars['String']>;
+  markBase?: InputMaybe<Scalars['String']['input']>;
   /**
    * Watermark Fit Mode
    *
@@ -1618,7 +1853,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`, `markw`, `markh`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-fit-mode)
    */
   markFit?: InputMaybe<ImgixParamsMarkFit>;
   /**
@@ -1628,9 +1863,29 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-h)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-height)
    */
-  markH?: InputMaybe<Scalars['FloatType']>;
+  markH?: InputMaybe<Scalars['FloatType']['input']>;
+  /**
+   * Watermark If Minimum Height
+   *
+   * Displays the watermark if rendered base image pixel height is equal to or larger than the supplied value
+   *
+   * Depends on: `mark`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-if-minimum-height)
+   */
+  markIfMinHeight?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Watermark If Minimum Width
+   *
+   * Displays the watermark if rendered base image pixel width is equal to or larger than the supplied value
+   *
+   * Depends on: `mark`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-if-minimum-width)
+   */
+  markIfMinWidth?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Padding
    *
@@ -1638,17 +1893,17 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-padding)
    */
-  markPad?: InputMaybe<Scalars['IntType']>;
+  markPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Rotation
    *
    * Rotates a watermark or tiled watermarks by a specified number of degrees.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-rot)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-rotation)
    */
-  markRot?: InputMaybe<Scalars['FloatType']>;
+  markRot?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Watermark Scale
    *
@@ -1656,9 +1911,9 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-scale)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-scale)
    */
-  markScale?: InputMaybe<Scalars['IntType']>;
+  markScale?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Tile
    *
@@ -1666,7 +1921,7 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-tile)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-tile)
    */
   markTile?: InputMaybe<ImgixParamsMarkTile>;
   /**
@@ -1676,9 +1931,9 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-w)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-width)
    */
-  markW?: InputMaybe<Scalars['FloatType']>;
+  markW?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Watermark X Position
    *
@@ -1686,9 +1941,9 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-x-position)
    */
-  markX?: InputMaybe<Scalars['IntType']>;
+  markX?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Watermark Y Position
    *
@@ -1696,17 +1951,17 @@ type ImgixParams = {
    *
    * Depends on: `mark`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/watermark/mark-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/watermark/watermark-y-position)
    */
-  markY?: InputMaybe<Scalars['IntType']>;
+  markY?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Mask Type
    *
    * Defines the type of mask and specifies the URL if that type is selected.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-type)
    */
-  mask?: InputMaybe<Scalars['String']>;
+  mask?: InputMaybe<Scalars['String']['input']>;
   /**
    * Mask Background Color
    *
@@ -1714,9 +1969,9 @@ type ImgixParams = {
    *
    * Depends on: `mask`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/mask/mask-bg)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/mask-image/mask-background-color)
    */
-  maskBg?: InputMaybe<Scalars['String']>;
+  maskBg?: InputMaybe<Scalars['String']['input']>;
   /**
    * Maximum Height
    *
@@ -1724,9 +1979,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-height)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/maximum-height)
    */
-  maxH?: InputMaybe<Scalars['IntType']>;
+  maxH?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Maximum Width
    *
@@ -1734,9 +1989,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/max-width)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/maximum-width)
    */
-  maxW?: InputMaybe<Scalars['IntType']>;
+  maxW?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Minimum Height
    *
@@ -1744,9 +1999,9 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-height)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/minimum-height)
    */
-  minH?: InputMaybe<Scalars['IntType']>;
+  minH?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Minimum Width
    *
@@ -1754,95 +2009,133 @@ type ImgixParams = {
    *
    * Depends on: `fit=crop`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/min-width)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/minimum-width)
    */
-  minW?: InputMaybe<Scalars['IntType']>;
+  minW?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Monochrome
    *
    * Applies a monochrome effect to the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/monochrome)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/monochrome)
    */
-  monochrome?: InputMaybe<Scalars['String']>;
+  monochrome?: InputMaybe<Scalars['String']['input']>;
   /**
    * Noise Reduction Bound
    *
    * Reduces the noise in an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nr)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/noise-reduction/noise-reduction-bound)
    */
-  nr?: InputMaybe<Scalars['IntType']>;
+  nr?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Noise Reduction Sharpen
    *
    * Provides a threshold by which to sharpen an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/noise-reduction/nrs)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/noise-reduction/noise-reduction-sharpen)
    */
-  nrs?: InputMaybe<Scalars['IntType']>;
+  nrs?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Object Removal Negative Prompt
+   *
+   * Provides a negative text suggestion to object-removal-prompt. Used to reduce the probability of a subject, detail, or object appearing in generative output.
+   *
+   * Depends on: `object-removal-rect`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-negative-prompt)
+   */
+  objectRemovalNegativePrompt?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Object Removal Prompt
+   *
+   * Suggest auto generative fill for the object-removal-rect parameter
+   *
+   * Depends on: `object-removal-rect`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-prompt)
+   */
+  objectRemovalPrompt?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Object Removal
+   *
+   * Using a specified rectangle, an object is removed from the image
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal)
+   */
+  objectRemovalRect?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Object Removal Seed
+   *
+   * Sets the generative seed value for object-removal. Used to generate new outputs from the same prompt
+   *
+   * Depends on: `object-removal-rect`, `object-removal-prompt`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/object-manipulation/object-removal-seed)
+   */
+  objectRemovalSeed?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Orientation
    *
    * Changes the image orientation.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/orient)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/orientation)
    */
-  orient?: InputMaybe<Scalars['IntType']>;
+  orient?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding
    *
    * Pads an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding)
    */
-  pad?: InputMaybe<Scalars['IntType']>;
+  pad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Bottom
    *
    * Sets bottom padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-bottom)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-bottom)
    */
-  padBottom?: InputMaybe<Scalars['IntType']>;
+  padBottom?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Left
    *
    * Sets left padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-left)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-left)
    */
-  padLeft?: InputMaybe<Scalars['IntType']>;
+  padLeft?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Right
    *
    * Sets right padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-right)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-right)
    */
-  padRight?: InputMaybe<Scalars['IntType']>;
+  padRight?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Padding Top
    *
    * Sets top padding of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/border-and-padding/pad-top)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/border-and-padding/padding-top)
    */
-  padTop?: InputMaybe<Scalars['IntType']>;
+  padTop?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Pdf Page Number
    *
    * Selects a page from a PDF for display.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/pdf/page)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/pdf/pdf-page-number)
    */
-  page?: InputMaybe<Scalars['IntType']>;
+  page?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Color Palette Extraction
    *
    * Specifies an output format for palette-extraction.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/palette)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/color-palette-extraction)
    */
   palette?: InputMaybe<ImgixParamsPalette>;
   /**
@@ -1850,9 +2143,9 @@ type ImgixParams = {
    *
    * Enables or disables PDF annotation.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/pdf/pdf-annotation)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/pdf/pdf-annotation)
    */
-  pdfAnnotation?: InputMaybe<Scalars['BooleanType']>;
+  pdfAnnotation?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Css Prefix
    *
@@ -1860,93 +2153,125 @@ type ImgixParams = {
    *
    * Depends on: `palette=css`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/color-palette/prefix)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/color-palette/css-prefix)
    */
-  prefix?: InputMaybe<Scalars['String']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
   /**
    * Pixellate
    *
    * Applies a pixelation effect to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/px)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/pixellate)
    */
-  px?: InputMaybe<Scalars['IntType']>;
+  px?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Output Quality
    *
    * Adjusts the quality of an output image.
    *
-   * Depends on: `fm=jpg`, `fm=pjpg`, `fm=webp`, `fm=jxr`
+   * Depends on: `fm=avif`, `fm=jpg`, `fm=pjpg`, `fm=webp`, `fm=jxr`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/format/q)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/output-quality)
    */
-  q?: InputMaybe<Scalars['IntType']>;
+  q?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Rasterize Bypass
+   *
+   * Bypasses all rendering parameters (including default parameters) and serves the original image. Works for svg+xml,x-eps,pdf, and vnd.adobe.illustrator.
+   */
+  rasterizeBypass?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Source Rectangle Region
    *
    * Crops an image to a specified rectangle.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/rect)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/source-rectangle-region)
    */
-  rect?: InputMaybe<Scalars['String']>;
+  rect?: InputMaybe<Scalars['String']['input']>;
   /**
    * Reverse
    *
    * Reverses the frame order on the source animation.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/reverse)
    */
-  reverse?: InputMaybe<Scalars['BooleanType']>;
+  reverse?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Rotation
    *
    * Rotates an image by a specified number of degrees.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/rotation/rot)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/rotation)
    */
-  rot?: InputMaybe<Scalars['FloatType']>;
+  rot?: InputMaybe<Scalars['FloatType']['input']>;
+  /**
+   * Rotation Type
+   *
+   * Changes the rotation type.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/rotation/rotation-type)
+   */
+  rotType?: InputMaybe<ImgixParamsRotType>;
   /**
    * Saturation
    *
    * Adjusts the saturation of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sat)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/saturation)
    */
-  sat?: InputMaybe<Scalars['IntType']>;
+  sat?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Sepia Tone
    *
    * Applies a sepia effect to an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/stylize/sepia)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/stylize/sepia-tone)
    */
-  sepia?: InputMaybe<Scalars['IntType']>;
+  sepia?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Shadow
    *
    * Adjusts the highlights of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/shad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/shadow)
    */
-  shad?: InputMaybe<Scalars['FloatType']>;
+  shad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Sharpen
    *
    * Adjusts the sharpness of the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/sharp)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/sharpen)
    */
-  sharp?: InputMaybe<Scalars['FloatType']>;
+  sharp?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Frame Skip
    *
    * Skips every Nth frame starting with the first frame.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/animation/frame-skip)
    */
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Bypasses any [DatoCMS Automatic Image Optimization](https://www.datocms.com/docs/cdn-settings/advanced-asset-settings) that might be set up for the project.
+   *
+   * Exercise caution when using this parameter, as it could significantly increase your bandwidth costs.
+   */
+  skipDefaultOptimizations?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * Sanitize Svg
+   *
+   * Specifies whether to sanitize an SVG.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/format/sanitize-svg)
+   */
+  svgSanitize?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Transparency
    *
    * Adds checkerboard behind images which support transparency.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/fill/transparency)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/fill/transparency)
    */
   transparency?: InputMaybe<ImgixParamsTransparency>;
   /**
@@ -1954,9 +2279,19 @@ type ImgixParams = {
    *
    * Trims the source image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-image)
    */
   trim?: InputMaybe<ImgixParamsTrim>;
+  /**
+   * Trim Alpha
+   *
+   * Specifies a trim alpha on a trim operation.
+   *
+   * Depends on: `trim=alpha`
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-alpha)
+   */
+  trimAlpha?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Trim Color
    *
@@ -1964,9 +2299,9 @@ type ImgixParams = {
    *
    * Depends on: `trim=color`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-color)
    */
-  trimColor?: InputMaybe<Scalars['String']>;
+  trimColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Trim Mean Difference
    *
@@ -1974,9 +2309,9 @@ type ImgixParams = {
    *
    * Depends on: `trim=auto`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-md)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-mean-difference)
    */
-  trimMd?: InputMaybe<Scalars['FloatType']>;
+  trimMd?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Trim Padding
    *
@@ -1984,9 +2319,9 @@ type ImgixParams = {
    *
    * Depends on: `trim`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-padding)
    */
-  trimPad?: InputMaybe<Scalars['IntType']>;
+  trimPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Trim Standard Deviation
    *
@@ -1994,9 +2329,9 @@ type ImgixParams = {
    *
    * Depends on: `trim=auto`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-sd)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-standard-deviation)
    */
-  trimSd?: InputMaybe<Scalars['FloatType']>;
+  trimSd?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Trim Tolerance
    *
@@ -2004,17 +2339,17 @@ type ImgixParams = {
    *
    * Depends on: `trim=color`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/trim/trim-tol)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/trim/trim-tolerance)
    */
-  trimTol?: InputMaybe<Scalars['FloatType']>;
+  trimTol?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Text String
    *
    * Sets the text string to render.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-string)
    */
-  txt?: InputMaybe<Scalars['String']>;
+  txt?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Align
    *
@@ -2022,7 +2357,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-align)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-align)
    */
   txtAlign?: InputMaybe<Array<ImgixParamsTxtAlign>>;
   /**
@@ -2032,7 +2367,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-clip)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-clipping-mode)
    */
   txtClip?: InputMaybe<Array<ImgixParamsTxtClip>>;
   /**
@@ -2042,9 +2377,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-color)
    */
-  txtColor?: InputMaybe<Scalars['String']>;
+  txtColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Fit Mode
    *
@@ -2052,7 +2387,7 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-fit)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-fit-mode)
    */
   txtFit?: InputMaybe<ImgixParamsTxtFit>;
   /**
@@ -2062,9 +2397,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-font)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-font)
    */
-  txtFont?: InputMaybe<Scalars['String']>;
+  txtFont?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Leading
    *
@@ -2072,19 +2407,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-lead)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/typesetting-endpoint/text-leading)
    */
-  txtLead?: InputMaybe<Scalars['IntType']>;
-  /**
-   * Text Ligatures
-   *
-   * Controls the level of ligature substitution
-   *
-   * Depends on: `txt`
-   *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-lig)
-   */
-  txtLig?: InputMaybe<Scalars['IntType']>;
+  txtLead?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Outline
    *
@@ -2092,9 +2417,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-outline)
    */
-  txtLine?: InputMaybe<Scalars['IntType']>;
+  txtLine?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Outline Color
    *
@@ -2102,9 +2427,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`, `txtline`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-line-color)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-outline-color)
    */
-  txtLineColor?: InputMaybe<Scalars['String']>;
+  txtLineColor?: InputMaybe<Scalars['String']['input']>;
   /**
    * Text Padding
    *
@@ -2112,9 +2437,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-pad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-padding)
    */
-  txtPad?: InputMaybe<Scalars['IntType']>;
+  txtPad?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Shadow
    *
@@ -2122,9 +2447,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-shad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-shadow)
    */
-  txtShad?: InputMaybe<Scalars['FloatType']>;
+  txtShad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Text Font Size
    *
@@ -2132,9 +2457,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-size)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-font-size)
    */
-  txtSize?: InputMaybe<Scalars['IntType']>;
+  txtSize?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Tracking
    *
@@ -2142,9 +2467,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/typesetting/txt-track)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/typesetting-endpoint/text-tracking)
    */
-  txtTrack?: InputMaybe<Scalars['IntType']>;
+  txtTrack?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Width
    *
@@ -2152,9 +2477,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-width)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-width)
    */
-  txtWidth?: InputMaybe<Scalars['IntType']>;
+  txtWidth?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text X Position
    *
@@ -2162,9 +2487,9 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-x)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-x-position)
    */
-  txtX?: InputMaybe<Scalars['IntType']>;
+  txtX?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Text Y Position
    *
@@ -2172,17 +2497,33 @@ type ImgixParams = {
    *
    * Depends on: `txt`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/text/txt-y)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/text/text-y-position)
    */
-  txtY?: InputMaybe<Scalars['IntType']>;
+  txtY?: InputMaybe<Scalars['IntType']['input']>;
+  /**
+   * Super Resolution
+   *
+   * Uses generative AI fill to upscale low resolution images.
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution)
+   */
+  upscale?: InputMaybe<Scalars['BooleanType']['input']>;
+  /**
+   * Super Resolution Fallback
+   *
+   * Overrides default fallback behavior for super resolution failures
+   *
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/super-resolution)
+   */
+  upscaleFallback?: InputMaybe<Scalars['BooleanType']['input']>;
   /**
    * Unsharp Mask
    *
    * Sharpens the source image using an unsharp mask.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usm)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/unsharp-mask)
    */
-  usm?: InputMaybe<Scalars['IntType']>;
+  usm?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Unsharp Mask Radius
    *
@@ -2190,25 +2531,25 @@ type ImgixParams = {
    *
    * Depends on: `usm`
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/usmrad)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/unsharp-mask-radius)
    */
-  usmrad?: InputMaybe<Scalars['FloatType']>;
+  usmrad?: InputMaybe<Scalars['FloatType']['input']>;
   /**
    * Vibrance
    *
    * Adjusts the vibrance of an image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/adjustment/vib)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/adjustment/vibrance)
    */
-  vib?: InputMaybe<Scalars['IntType']>;
+  vib?: InputMaybe<Scalars['IntType']['input']>;
   /**
    * Image Width
    *
    * Adjusts the width of the output image.
    *
-   * [Open Imgix reference »](https://docs.imgix.com/apis/url/size/w)
+   * [Open Imgix reference »](https://docs.imgix.com/apis/rendering/size/image-width)
    */
-  w?: InputMaybe<Scalars['FloatType']>;
+  w?: InputMaybe<Scalars['FloatType']['input']>;
 };
 
 enum ImgixParamsAuto {
@@ -2216,6 +2557,11 @@ enum ImgixParamsAuto {
   enhance = 'enhance',
   format = 'format',
   redeye = 'redeye'
+}
+
+enum ImgixParamsBgRemoveFgType {
+  auto = 'auto',
+  car = 'car'
 }
 
 enum ImgixParamsBlendAlign {
@@ -2285,6 +2631,7 @@ enum ImgixParamsCrop {
 
 enum ImgixParamsCs {
   adobergb1998 = 'adobergb1998',
+  origin = 'origin',
   srgb = 'srgb',
   strip = 'strip',
   tinysrgb = 'tinysrgb'
@@ -2292,7 +2639,39 @@ enum ImgixParamsCs {
 
 enum ImgixParamsFill {
   blur = 'blur',
+  gen = 'gen',
+  generative = 'generative',
+  gradient = 'gradient',
   solid = 'solid'
+}
+
+enum ImgixParamsFillGenPos {
+  bottom = 'bottom',
+  center = 'center',
+  left = 'left',
+  middle = 'middle',
+  right = 'right',
+  top = 'top'
+}
+
+enum ImgixParamsFillGradientCs {
+  hsl = 'hsl',
+  lch = 'lch',
+  linear = 'linear',
+  oklab = 'oklab',
+  srgb = 'srgb'
+}
+
+enum ImgixParamsFillGradientLinearDirection {
+  bottom = 'bottom',
+  left = 'left',
+  right = 'right',
+  top = 'top'
+}
+
+enum ImgixParamsFillGradientType {
+  linear = 'linear',
+  radial = 'radial'
 }
 
 enum ImgixParamsFit {
@@ -2361,11 +2740,17 @@ enum ImgixParamsPalette {
   json = 'json'
 }
 
+enum ImgixParamsRotType {
+  pivot = 'pivot',
+  straighten = 'straighten'
+}
+
 enum ImgixParamsTransparency {
   grid = 'grid'
 }
 
 enum ImgixParamsTrim {
+  alpha = 'alpha',
   auto = 'auto',
   color = 'color'
 }
@@ -2390,10 +2775,55 @@ enum ImgixParamsTxtFit {
   max = 'max'
 }
 
+type InEnglishModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButtonRecord | VideoRecord;
+
+type InEnglishModelContentField = {
+  __typename?: 'InEnglishModelContentField';
+  blocks: Array<InEnglishModelContentBlocksField>;
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
+};
+
+/** Record of type In English (in_english) */
+type InEnglishRecord = RecordInterface & {
+  __typename?: 'InEnglishRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  content?: Maybe<InEnglishModelContentField>;
+  id: Scalars['ItemId']['output'];
+  image: FileField;
+  intro: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+};
+
+
+/** Record of type In English (in_english) */
+type InEnglishRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type In English (in_english) */
+type InEnglishRecordintroArgs = {
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 /** Specifies how to filter by usage */
 type InUseFilter = {
   /** Search uploads that are currently used by some record or not */
-  eq?: InputMaybe<Scalars['BooleanType']>;
+  eq?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
 /** Linking fields */
@@ -2456,27 +2886,28 @@ type InternalLinkModelRecordField = AboutRecord | ExhibitionRecord | LocationRec
 type InternalLinkRecord = RecordInterface & {
   __typename?: 'InternalLinkRecord';
   _allTitleLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   record: InternalLinkModelRecordField;
-  title?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** Record of type Intern länk (internal_link) */
 type InternalLinkRecord_allTitleLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -2719,13 +3150,13 @@ type InverseRelationshipFilterBetweenStartAndLocation = {
 /** Specifies how to filter by ID */
 type ItemIdFilter = {
   /** Search the record with the specified ID */
-  eq?: InputMaybe<Scalars['ItemId']>;
+  eq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Search records with the specified IDs */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Exclude the record with the specified ID */
-  neq?: InputMaybe<Scalars['ItemId']>;
+  neq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Search records that do not have the specified IDs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
 };
 
 enum ItemStatus {
@@ -2739,18 +3170,20 @@ type LinkButtonModelLinkField = ExternalLinkRecord | InternalLinkRecord;
 /** Block of type Knapp (link_button) */
 type LinkButtonRecord = RecordInterface & {
   __typename?: 'LinkButtonRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   link: LinkButtonModelLinkField;
 };
 
@@ -2763,20 +3196,21 @@ type LinkButtonRecord_seoMetaTagsArgs = {
 /** Specifies how to filter Single-link fields */
 type LinkFilter = {
   /** Search for records with an exact match. The specified value must be a Record ID */
-  eq?: InputMaybe<Scalars['ItemId']>;
+  eq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records linked to one of the specified records */
-  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Exclude records with an exact match. The specified value must be a Record ID */
-  neq?: InputMaybe<Scalars['ItemId']>;
+  neq?: InputMaybe<Scalars['ItemId']['input']>;
   /** Filter records not linked to one of the specified records */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
 };
 
 /** Linking locales */
 enum LinkingLocale {
   _nonLocalized = '_nonLocalized',
+  en = 'en',
   sv = 'sv'
 }
 
@@ -2791,15 +3225,25 @@ type LinkingLocalesFilter = {
 /** Specifies how to filter Multiple-links fields */
 type LinksFilter = {
   /** Filter records linked to all of the specified records. The specified values must be Record IDs */
-  allIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  allIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Filter records linked to at least one of the specified records. The specified values must be Record IDs */
-  anyIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  anyIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Search for records with an exact match. The specified values must be Record IDs */
-  eq?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  eq?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records not linked to any of the specified records. The specified values must be Record IDs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>>>;
+};
+
+/** Specifies how to filter by locale */
+type LocalesFilter = {
+  /** Filter records that are localized in all the specified locales */
+  allIn?: InputMaybe<Array<SiteLocale>>;
+  /** Filter records that are localized in at least one of the specified locales */
+  anyIn?: InputMaybe<Array<SiteLocale>>;
+  /** Filter records that are not localized in any of the specified locales */
+  notIn?: InputMaybe<Array<SiteLocale>>;
 };
 
 type LocationModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButtonRecord | VideoRecord;
@@ -2807,8 +3251,9 @@ type LocationModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkBu
 type LocationModelContentField = {
   __typename?: 'LocationModelContentField';
   blocks: Array<LocationModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type LocationModelContentFieldMultiLocaleField = {
@@ -2892,26 +3337,28 @@ type LocationRecord = RecordInterface & {
   /** Returns meta information regarding a record collection */
   _allReferencingStartsMeta: CollectionMetadata;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  address?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  address?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
   content?: Maybe<LocationModelContentField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image: FileField;
-  intro: Scalars['String'];
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  webpage?: Maybe<Scalars['String']>;
+  intro: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  webpage?: Maybe<Scalars['String']['output']>;
   year: YearRecord;
 };
 
@@ -2919,14 +3366,13 @@ type LocationRecord = RecordInterface & {
 /** Record of type Plats (location) */
 type LocationRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Plats (location) */
 type LocationRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -2934,10 +3380,10 @@ type LocationRecord_allIntroLocalesArgs = {
 type LocationRecord_allReferencingExhibitionsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ExhibitionModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ExhibitionModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenExhibitionAndLocation>;
 };
 
@@ -2954,10 +3400,10 @@ type LocationRecord_allReferencingExhibitionsMetaArgs = {
 type LocationRecord_allReferencingInternalLinksArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<InternalLinkModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<InternalLinkModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenInternalLinkAndLocation>;
 };
 
@@ -2974,10 +3420,10 @@ type LocationRecord_allReferencingInternalLinksMetaArgs = {
 type LocationRecord_allReferencingProgramsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProgramModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProgramModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenProgramAndLocation>;
 };
 
@@ -2994,10 +3440,10 @@ type LocationRecord_allReferencingProgramsMetaArgs = {
 type LocationRecord_allReferencingStartsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<StartModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<StartModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenStartAndLocation>;
 };
 
@@ -3013,7 +3459,6 @@ type LocationRecord_allReferencingStartsMetaArgs = {
 /** Record of type Plats (location) */
 type LocationRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -3032,8 +3477,9 @@ type LocationRecordcontentArgs = {
 
 /** Record of type Plats (location) */
 type LocationRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3054,8 +3500,9 @@ type NewsModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkButton
 type NewsModelContentField = {
   __typename?: 'NewsModelContentField';
   blocks: Array<NewsModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type NewsModelContentFieldMultiLocaleField = {
@@ -3070,6 +3517,7 @@ type NewsModelFilter = {
   _createdAt?: InputMaybe<CreatedAtFilter>;
   _firstPublishedAt?: InputMaybe<PublishedAtFilter>;
   _isValid?: InputMaybe<BooleanFilter>;
+  _locales?: InputMaybe<LocalesFilter>;
   _publicationScheduledAt?: InputMaybe<PublishedAtFilter>;
   _publishedAt?: InputMaybe<PublishedAtFilter>;
   _status?: InputMaybe<StatusFilter>;
@@ -3113,51 +3561,51 @@ type NewsRecord = RecordInterface & {
   _allIntroLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allTitleLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _locales: Array<SiteLocale>;
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   content?: Maybe<NewsModelContentField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image?: Maybe<FileField>;
-  intro: Scalars['String'];
-  slug: Scalars['String'];
-  title: Scalars['String'];
+  intro: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
 };
 
 
 /** Record of type Nyheter (news) */
 type NewsRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Nyheter (news) */
 type NewsRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Nyheter (news) */
 type NewsRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Nyheter (news) */
 type NewsRecord_allTitleLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -3176,8 +3624,9 @@ type NewsRecordcontentArgs = {
 
 /** Record of type Nyheter (news) */
 type NewsRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3207,8 +3656,9 @@ type ParticipantModelContentBlocksField = ImageGalleryRecord | ImageRecord | Lin
 type ParticipantModelContentField = {
   __typename?: 'ParticipantModelContentField';
   blocks: Array<ParticipantModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type ParticipantModelContentFieldMultiLocaleField = {
@@ -3281,23 +3731,25 @@ type ParticipantRecord = RecordInterface & {
   /** Returns meta information regarding a record collection */
   _allReferencingProgramsMeta: CollectionMetadata;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   content?: Maybe<ParticipantModelContentField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image: FileField;
-  intro: Scalars['String'];
-  name: Scalars['String'];
-  slug: Scalars['String'];
+  intro: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
   year: YearRecord;
 };
 
@@ -3305,21 +3757,19 @@ type ParticipantRecord = RecordInterface & {
 /** Record of type Medverkande (participant) */
 type ParticipantRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Medverkande (participant) */
 type ParticipantRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Medverkande (participant) */
 type ParticipantRecord_allNameLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -3327,10 +3777,10 @@ type ParticipantRecord_allNameLocalesArgs = {
 type ParticipantRecord_allReferencingExhibitionsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ExhibitionModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ExhibitionModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenExhibitionAndParticipant>;
 };
 
@@ -3347,10 +3797,10 @@ type ParticipantRecord_allReferencingExhibitionsMetaArgs = {
 type ParticipantRecord_allReferencingInternalLinksArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<InternalLinkModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<InternalLinkModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenInternalLinkAndParticipant>;
 };
 
@@ -3367,10 +3817,10 @@ type ParticipantRecord_allReferencingInternalLinksMetaArgs = {
 type ParticipantRecord_allReferencingProgramsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProgramModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProgramModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenProgramAndParticipant>;
 };
 
@@ -3386,7 +3836,6 @@ type ParticipantRecord_allReferencingProgramsMetaArgs = {
 /** Record of type Medverkande (participant) */
 type ParticipantRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -3405,8 +3854,9 @@ type ParticipantRecordcontentArgs = {
 
 /** Record of type Medverkande (participant) */
 type ParticipantRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3428,8 +3878,9 @@ type PartnerModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkBut
 type PartnerModelContentField = {
   __typename?: 'PartnerModelContentField';
   blocks: Array<PartnerModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type PartnerModelContentFieldMultiLocaleField = {
@@ -3501,26 +3952,29 @@ type PartnerRecord = RecordInterface & {
   _allContentLocales?: Maybe<Array<PartnerModelContentFieldMultiLocaleField>>;
   _allIntroLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _allTitleLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  address?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  address?: Maybe<Scalars['String']['output']>;
+  city?: Maybe<Scalars['String']['output']>;
   content?: Maybe<PartnerModelContentField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
   image: FileField;
-  intro: Scalars['String'];
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  webpage?: Maybe<Scalars['String']>;
+  intro: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  webpage?: Maybe<Scalars['String']['output']>;
   year: YearRecord;
 };
 
@@ -3528,21 +3982,25 @@ type PartnerRecord = RecordInterface & {
 /** Record of type Partner (partner) */
 type PartnerRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Partner (partner) */
 type PartnerRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Partner (partner) */
 type PartnerRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** Record of type Partner (partner) */
+type PartnerRecord_allTitleLocalesArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
 };
 
 
@@ -3561,8 +4019,9 @@ type PartnerRecordcontentArgs = {
 
 /** Record of type Partner (partner) */
 type PartnerRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3572,20 +4031,27 @@ type PartnerRecordslugArgs = {
   locale?: InputMaybe<SiteLocale>;
 };
 
+
+/** Record of type Partner (partner) */
+type PartnerRecordtitleArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Specifies how to filter by position (sorted and tree-like collections) */
 type PositionFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Filter records with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 type ProgramCategoryModelFilter = {
@@ -3633,35 +4099,35 @@ enum ProgramCategoryModelOrderBy {
 type ProgramCategoryRecord = RecordInterface & {
   __typename?: 'ProgramCategoryRecord';
   _allDescLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _allTitleLocales?: Maybe<Array<StringMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _allTitleLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  desc?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
-  title?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  desc?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
 };
 
 
 /** Record of type Program kategori (program_category) */
 type ProgramCategoryRecord_allDescLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Program kategori (program_category) */
 type ProgramCategoryRecord_allTitleLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -3689,8 +4155,9 @@ type ProgramModelContentBlocksField = ImageGalleryRecord | ImageRecord | LinkBut
 type ProgramModelContentField = {
   __typename?: 'ProgramModelContentField';
   blocks: Array<ProgramModelContentBlocksField>;
-  links: Array<Scalars['String']>;
-  value: Scalars['JsonField'];
+  inlineBlocks: Array<Scalars['String']['output']>;
+  links: Array<Scalars['String']['output']>;
+  value: Scalars['JsonField']['output'];
 };
 
 type ProgramModelContentFieldMultiLocaleField = {
@@ -3790,34 +4257,36 @@ type ProgramRecord = RecordInterface & {
   _allMiscLocales?: Maybe<Array<StringMultiLocaleField>>;
   _allSlugLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
   _allTitleLocales?: Maybe<Array<StringNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  address?: Maybe<Scalars['String']>;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  address?: Maybe<Scalars['String']['output']>;
   content?: Maybe<ProgramModelContentField>;
-  endDate?: Maybe<Scalars['Date']>;
-  externalLink?: Maybe<Scalars['String']>;
-  id: Scalars['ItemId'];
+  endDate?: Maybe<Scalars['Date']['output']>;
+  externalLink?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ItemId']['output'];
   image: FileField;
-  intro: Scalars['String'];
+  intro: Scalars['String']['output'];
   location: Array<LocationRecord>;
-  misc?: Maybe<Scalars['String']>;
+  misc?: Maybe<Scalars['String']['output']>;
   partipants: Array<ParticipantRecord>;
   partner: Array<PartnerRecord>;
   programCategory: ProgramCategoryRecord;
-  slug: Scalars['String'];
-  startDate: Scalars['Date'];
-  startTime?: Maybe<Scalars['DateTime']>;
-  time?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
+  slug: Scalars['String']['output'];
+  startDate: Scalars['Date']['output'];
+  startTime?: Maybe<Scalars['DateTime']['output']>;
+  time?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
   year: YearRecord;
 };
 
@@ -3825,35 +4294,31 @@ type ProgramRecord = RecordInterface & {
 /** Record of type Program (program) */
 type ProgramRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Program (program) */
 type ProgramRecord_allIntroLocalesArgs = {
-  locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Record of type Program (program) */
 type ProgramRecord_allMiscLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Program (program) */
 type ProgramRecord_allSlugLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
 /** Record of type Program (program) */
 type ProgramRecord_allTitleLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -3872,8 +4337,9 @@ type ProgramRecordcontentArgs = {
 
 /** Record of type Program (program) */
 type ProgramRecordintroArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3900,19 +4366,19 @@ type ProgramRecordtitleArgs = {
 /** Specifies how to filter by publication datetime */
 type PublishedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 /** The query root for this schema */
@@ -3978,6 +4444,8 @@ type Query = {
   externalLink?: Maybe<ExternalLinkRecord>;
   /** Returns the single instance record */
   general?: Maybe<GeneralRecord>;
+  /** Returns the single instance record */
+  inEnglish?: Maybe<InEnglishRecord>;
   /** Returns a specific record */
   internalLink?: Maybe<InternalLinkRecord>;
   /** Returns a specific record */
@@ -4003,7 +4471,6 @@ type Query = {
 
 /** The query root for this schema */
 type Query_allAboutsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<AboutModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4011,7 +4478,6 @@ type Query_allAboutsMetaArgs = {
 
 /** The query root for this schema */
 type Query_allExhibitionsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ExhibitionModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4019,7 +4485,6 @@ type Query_allExhibitionsMetaArgs = {
 
 /** The query root for this schema */
 type Query_allExternalLinksMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ExternalLinkModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4027,7 +4492,6 @@ type Query_allExternalLinksMetaArgs = {
 
 /** The query root for this schema */
 type Query_allInternalLinksMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<InternalLinkModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4035,7 +4499,6 @@ type Query_allInternalLinksMetaArgs = {
 
 /** The query root for this schema */
 type Query_allLocationsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<LocationModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4043,7 +4506,6 @@ type Query_allLocationsMetaArgs = {
 
 /** The query root for this schema */
 type Query_allNewsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4051,7 +4513,6 @@ type Query_allNewsMetaArgs = {
 
 /** The query root for this schema */
 type Query_allParticipantsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ParticipantModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4059,7 +4520,6 @@ type Query_allParticipantsMetaArgs = {
 
 /** The query root for this schema */
 type Query_allPartnersMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<PartnerModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4067,7 +4527,6 @@ type Query_allPartnersMetaArgs = {
 
 /** The query root for this schema */
 type Query_allProgramCategoriesMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProgramCategoryModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4075,7 +4534,6 @@ type Query_allProgramCategoriesMetaArgs = {
 
 /** The query root for this schema */
 type Query_allProgramsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProgramModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4090,7 +4548,6 @@ type Query_allUploadsMetaArgs = {
 
 /** The query root for this schema */
 type Query_allYearsMetaArgs = {
-  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<YearModelFilter>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4116,10 +4573,10 @@ type QueryaboutArgs = {
 type QueryallAboutsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<AboutModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<AboutModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4127,10 +4584,10 @@ type QueryallAboutsArgs = {
 type QueryallExhibitionsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ExhibitionModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ExhibitionModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4138,10 +4595,10 @@ type QueryallExhibitionsArgs = {
 type QueryallExternalLinksArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ExternalLinkModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ExternalLinkModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4149,10 +4606,10 @@ type QueryallExternalLinksArgs = {
 type QueryallInternalLinksArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<InternalLinkModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<InternalLinkModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4160,10 +4617,10 @@ type QueryallInternalLinksArgs = {
 type QueryallLocationsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<LocationModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<LocationModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4171,10 +4628,10 @@ type QueryallLocationsArgs = {
 type QueryallNewsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<NewsModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<NewsModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4182,10 +4639,10 @@ type QueryallNewsArgs = {
 type QueryallParticipantsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ParticipantModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ParticipantModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4193,10 +4650,10 @@ type QueryallParticipantsArgs = {
 type QueryallPartnersArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<PartnerModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<PartnerModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4204,10 +4661,10 @@ type QueryallPartnersArgs = {
 type QueryallProgramCategoriesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProgramCategoryModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProgramCategoryModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4215,10 +4672,10 @@ type QueryallProgramCategoriesArgs = {
 type QueryallProgramsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProgramModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProgramModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4226,10 +4683,10 @@ type QueryallProgramsArgs = {
 type QueryallUploadsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<UploadFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<UploadOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4237,10 +4694,10 @@ type QueryallUploadsArgs = {
 type QueryallYearsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<YearModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<YearModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 
@@ -4271,6 +4728,13 @@ type QueryexternalLinkArgs = {
 
 /** The query root for this schema */
 type QuerygeneralArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+/** The query root for this schema */
+type QueryinEnglishArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   locale?: InputMaybe<SiteLocale>;
 };
@@ -4364,18 +4828,20 @@ type QueryyearArgs = {
 };
 
 type RecordInterface = {
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
 };
 
 
@@ -4404,25 +4870,26 @@ enum ResolutionType {
 
 type ResponsiveImage = {
   __typename?: 'ResponsiveImage';
-  alt?: Maybe<Scalars['String']>;
-  aspectRatio: Scalars['FloatType'];
-  base64?: Maybe<Scalars['String']>;
-  bgColor?: Maybe<Scalars['String']>;
-  height: Scalars['IntType'];
-  sizes: Scalars['String'];
-  src: Scalars['String'];
-  srcSet: Scalars['String'];
-  title?: Maybe<Scalars['String']>;
-  webpSrcSet: Scalars['String'];
-  width: Scalars['IntType'];
+  alt?: Maybe<Scalars['String']['output']>;
+  aspectRatio: Scalars['FloatType']['output'];
+  base64?: Maybe<Scalars['String']['output']>;
+  bgColor?: Maybe<Scalars['String']['output']>;
+  height: Scalars['IntType']['output'];
+  sizes: Scalars['String']['output'];
+  src: Scalars['String']['output'];
+  srcSet: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  webpSrcSet: Scalars['String']['output'];
+  width: Scalars['IntType']['output'];
 };
 
 type SeoField = {
   __typename?: 'SeoField';
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   image?: Maybe<FileField>;
-  title?: Maybe<Scalars['String']>;
-  twitterCard?: Maybe<Scalars['String']>;
+  noIndex?: Maybe<Scalars['BooleanType']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  twitterCard?: Maybe<Scalars['String']['output']>;
 };
 
 type Site = {
@@ -4431,6 +4898,7 @@ type Site = {
   faviconMetaTags: Array<Tag>;
   globalSeo?: Maybe<GlobalSeoField>;
   locales: Array<SiteLocale>;
+  noIndex?: Maybe<Scalars['BooleanType']['output']>;
 };
 
 
@@ -4445,37 +4913,40 @@ type SiteglobalSeoArgs = {
 };
 
 enum SiteLocale {
+  en = 'en',
   sv = 'sv'
 }
 
 /** Specifies how to filter Slug fields */
 type SlugFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records that have one of the specified slugs */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records that do have one of the specified slugs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 /** Block of type Utställningar (start_exhibition) */
 type StartExhibitionRecord = RecordInterface & {
   __typename?: 'StartExhibitionRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  amount: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  amount: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
 };
 
 
@@ -4489,22 +4960,24 @@ type StartFullBleedImageModelLinkField = ExternalLinkRecord | InternalLinkRecord
 /** Block of type Utfallande bild (start_full_bleed_image) */
 type StartFullBleedImageRecord = RecordInterface & {
   __typename?: 'StartFullBleedImageRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  headline: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  headline: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
   image: FileField;
   link: StartFullBleedImageModelLinkField;
-  text: Scalars['String'];
+  text: Scalars['String']['output'];
 };
 
 
@@ -4516,7 +4989,7 @@ type StartFullBleedImageRecord_seoMetaTagsArgs = {
 
 /** Block of type Utfallande bild (start_full_bleed_image) */
 type StartFullBleedImageRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type StartFullscreenImageModelLinkField = ExternalLinkRecord | InternalLinkRecord;
@@ -4524,22 +4997,24 @@ type StartFullscreenImageModelLinkField = ExternalLinkRecord | InternalLinkRecor
 /** Block of type Stor bild (start_fullscreen_image) */
 type StartFullscreenImageRecord = RecordInterface & {
   __typename?: 'StartFullscreenImageRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  headline: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  headline: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
   image: FileField;
   link: StartFullscreenImageModelLinkField;
-  text: Scalars['String'];
+  text: Scalars['String']['output'];
 };
 
 
@@ -4553,21 +5028,23 @@ type StartFullscreenVideoModelLinkField = ExternalLinkRecord | InternalLinkRecor
 /** Block of type Fullbredd video (start_fullscreen_video) */
 type StartFullscreenVideoRecord = RecordInterface & {
   __typename?: 'StartFullscreenVideoRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  headline: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  headline: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
   link: StartFullscreenVideoModelLinkField;
-  text: Scalars['String'];
+  text: Scalars['String']['output'];
   video: VideoFileField;
 };
 
@@ -4580,7 +5057,7 @@ type StartFullscreenVideoRecord_seoMetaTagsArgs = {
 
 /** Block of type Fullbredd video (start_fullscreen_video) */
 type StartFullscreenVideoRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 type StartGalleryModelLinkField = ExternalLinkRecord | InternalLinkRecord;
@@ -4588,19 +5065,21 @@ type StartGalleryModelLinkField = ExternalLinkRecord | InternalLinkRecord;
 /** Block of type Bildgalleri (start_gallery) */
 type StartGalleryRecord = RecordInterface & {
   __typename?: 'StartGalleryRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  headline: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  headline: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
   images: Array<FileField>;
   link: StartGalleryModelLinkField;
 };
@@ -4663,19 +5142,21 @@ enum StartModelOrderBy {
 /** Block of type Senaste nyheter (start_news) */
 type StartNewsRecord = RecordInterface & {
   __typename?: 'StartNewsRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  amount: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  amount: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
 };
 
 
@@ -4687,19 +5168,21 @@ type StartNewsRecord_seoMetaTagsArgs = {
 /** Block of type I programmet (start_program) */
 type StartProgramRecord = RecordInterface & {
   __typename?: 'StartProgramRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  amount: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  amount: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
 };
 
 
@@ -4711,19 +5194,21 @@ type StartProgramRecord_seoMetaTagsArgs = {
 /** Block of type Slumpade medverkande (start_random_participant) */
 type StartRandomParticipantRecord = RecordInterface & {
   __typename?: 'StartRandomParticipantRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  amount: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  amount: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
 };
 
 
@@ -4736,26 +5221,27 @@ type StartRandomParticipantRecord_seoMetaTagsArgs = {
 type StartRecord = RecordInterface & {
   __typename?: 'StartRecord';
   _allContentLocales?: Maybe<Array<StartModelContentFieldListListNonNullMultiLocaleField>>;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
   content: Array<StartModelContentField>;
-  id: Scalars['ItemId'];
+  id: Scalars['ItemId']['output'];
 };
 
 
 /** Record of type Startsida (start) */
 type StartRecord_allContentLocalesArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
-  locale?: InputMaybe<SiteLocale>;
 };
 
 
@@ -4774,18 +5260,20 @@ type StartRecordcontentArgs = {
 /** Block of type Utvalda platser (start_selected_location) */
 type StartSelectedLocationRecord = RecordInterface & {
   __typename?: 'StartSelectedLocationRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
   locations: Array<LocationRecord>;
 };
 
@@ -4800,21 +5288,23 @@ type StartTextModelLinkField = ExternalLinkRecord | InternalLinkRecord;
 /** Block of type Text (start_text) */
 type StartTextRecord = RecordInterface & {
   __typename?: 'StartTextRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  headline: Scalars['String'];
-  id: Scalars['ItemId'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  headline: Scalars['String']['output'];
+  id: Scalars['ItemId']['output'];
   link: StartTextModelLinkField;
-  text: Scalars['String'];
+  text: Scalars['String']['output'];
 };
 
 
@@ -4826,25 +5316,27 @@ type StartTextRecord_seoMetaTagsArgs = {
 
 /** Block of type Text (start_text) */
 type StartTextRecordtextArgs = {
-  markdown?: InputMaybe<Scalars['Boolean']>;
+  markdown?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** Block of type Video (start) (start_video) */
 type StartVideoRecord = RecordInterface & {
   __typename?: 'StartVideoRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  title: Scalars['String'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
   video: VideoField;
 };
 
@@ -4869,51 +5361,51 @@ type StatusFilter = {
 /** Specifies how to filter Single-line string fields */
 type StringFilter = {
   /** Search for records with an exact match */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records that equal one of the specified values */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter records with the specified field set as blank (null or empty string) */
-  isBlank?: InputMaybe<Scalars['BooleanType']>;
+  isBlank?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field present (neither null, nor empty string) */
-  isPresent?: InputMaybe<Scalars['BooleanType']>;
+  isPresent?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude records with an exact match */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Filter records that do not equal one of the specified values */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude records based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
 
 type StringMatchesFilter = {
-  caseSensitive?: InputMaybe<Scalars['BooleanType']>;
-  pattern: Scalars['String'];
-  regexp?: InputMaybe<Scalars['BooleanType']>;
+  caseSensitive?: InputMaybe<Scalars['BooleanType']['input']>;
+  pattern: Scalars['String']['input'];
+  regexp?: InputMaybe<Scalars['BooleanType']['input']>;
 };
 
 type StringMultiLocaleField = {
   __typename?: 'StringMultiLocaleField';
   locale?: Maybe<SiteLocale>;
-  value?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']['output']>;
 };
 
 type StringNonNullMultiLocaleField = {
   __typename?: 'StringNonNullMultiLocaleField';
   locale?: Maybe<SiteLocale>;
-  value: Scalars['String'];
+  value: Scalars['String']['output'];
 };
 
-/** Specifies how to filter Structured Text fields */
+/** Specifies how to filter Structured Text fields values */
 type StructuredTextFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field set as blank (null or single empty paragraph) */
-  isBlank?: InputMaybe<Scalars['BooleanType']>;
+  isBlank?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field present (neither null, nor empty string) */
-  isPresent?: InputMaybe<Scalars['BooleanType']>;
+  isPresent?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude records based on a regular expression */
@@ -4922,19 +5414,19 @@ type StructuredTextFilter = {
 
 type Tag = {
   __typename?: 'Tag';
-  attributes?: Maybe<Scalars['MetaTagAttributes']>;
-  content?: Maybe<Scalars['String']>;
-  tag: Scalars['String'];
+  attributes?: Maybe<Scalars['MetaTagAttributes']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  tag: Scalars['String']['output'];
 };
 
 /** Specifies how to filter text fields */
 type TextFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED] */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field set as blank (null or empty string) */
-  isBlank?: InputMaybe<Scalars['BooleanType']>;
+  isBlank?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with the specified field present (neither null, nor empty string) */
-  isPresent?: InputMaybe<Scalars['BooleanType']>;
+  isPresent?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude records based on a regular expression */
@@ -4956,35 +5448,35 @@ type TypeFilter = {
 /** Specifies how to filter by update datetime */
 type UpdatedAtFilter = {
   /** Filter records with a value that's within the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter records with a value that's strictly greater than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's greater than or equal to than the one specified. Seconds and milliseconds are truncated from the argument. */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's less or equal than the one specified. Seconds and milliseconds are truncated from the argument. */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter records with a value that's outside the specified minute range. Seconds and milliseconds are truncated from the argument. */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 /** Specifies how to filter by default alt */
 type UploadAltFilter = {
   /** Search the uploads with the specified alt */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Search uploads with the specified values as default alt */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude the uploads with the specified alt */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search uploads that do not have the specified values as default alt */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude uploads based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
@@ -4992,7 +5484,7 @@ type UploadAltFilter = {
 /** Specifies how to filter by auhtor */
 type UploadAuthorFilter = {
   /** Filter uploads with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
@@ -5024,7 +5516,7 @@ type UploadColorsFilter = {
 /** Specifies how to filter by copyright */
 type UploadCopyrightFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
@@ -5034,17 +5526,17 @@ type UploadCopyrightFilter = {
 /** Specifies how to filter by creation datetime */
 type UploadCreatedAtFilter = {
   /** Search for uploads with an exact match */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Exclude uploads with an exact match */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 /** Specifies how to filter by filename */
@@ -5086,67 +5578,67 @@ type UploadFilter = {
 /** Specifies how to filter by format */
 type UploadFormatFilter = {
   /** Search the asset with the specified format */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets with the specified formats */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude the asset with the specified format */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified formats */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 /** Specifies how to filter by height */
 type UploadHeightFilter = {
   /** Search assets with the specified height */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger than the specified height */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified height */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets smaller than the specified height */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified height */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search assets that do not have the specified height */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 /** Specifies how to filter by ID */
 type UploadIdFilter = {
   /** Search the asset with the specified ID */
-  eq?: InputMaybe<Scalars['UploadId']>;
+  eq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Search assets with the specified IDs */
-  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
   /** Exclude the asset with the specified ID */
-  neq?: InputMaybe<Scalars['UploadId']>;
+  neq?: InputMaybe<Scalars['UploadId']['input']>;
   /** Search assets that do not have the specified IDs */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['UploadId']['input']>>>;
 };
 
 /** Specifies how to filter by MD5 */
 type UploadMd5Filter = {
   /** Search the asset with the specified MD5 */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets with the specified MD5s */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude the asset with the specified MD5 */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified MD5s */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 /** Specifies how to filter by mime type */
 type UploadMimeTypeFilter = {
   /** Search the asset with the specified mime type */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets with the specified mime types */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude the asset with the specified mime type */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified mime types */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude uploads based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
@@ -5154,7 +5646,7 @@ type UploadMimeTypeFilter = {
 /** Specifies how to filter by notes */
 type UploadNotesFilter = {
   /** Filter records with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude uploads based on a regular expression */
@@ -5191,47 +5683,47 @@ enum UploadOrientation {
 /** Specifies how to filter by size */
 type UploadSizeFilter = {
   /** Search assets with the specified size (in bytes) */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger than the specified size (in bytes) */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified size (in bytes) */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets smaller than the specified size (in bytes) */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified size (in bytes) */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search assets that do not have the specified size (in bytes) */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 /** Specifies how to filter by tags */
 type UploadTagsFilter = {
   /** Filter uploads linked to all of the specified tags */
-  allIn?: InputMaybe<Array<Scalars['String']>>;
+  allIn?: InputMaybe<Array<Scalars['String']['input']>>;
   /** Filter uploads linked to at least one of the specified tags */
-  anyIn?: InputMaybe<Array<Scalars['String']>>;
+  anyIn?: InputMaybe<Array<Scalars['String']['input']>>;
   /** Filter uploads linked to the specified tag */
-  contains?: InputMaybe<Scalars['String']>;
+  contains?: InputMaybe<Scalars['String']['input']>;
   /** Search for uploads with an exact match */
-  eq?: InputMaybe<Array<Scalars['String']>>;
+  eq?: InputMaybe<Array<Scalars['String']['input']>>;
   /** Filter uploads not linked to any of the specified tags */
-  notIn?: InputMaybe<Array<Scalars['String']>>;
+  notIn?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 /** Specifies how to filter by default title */
 type UploadTitleFilter = {
   /** Search the asset with the specified title */
-  eq?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
   /** Filter assets with the specified field defined (i.e. with any value) or not */
-  exists?: InputMaybe<Scalars['BooleanType']>;
+  exists?: InputMaybe<Scalars['BooleanType']['input']>;
   /** Search assets with the specified as default title */
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Filter uploads based on a regular expression */
   matches?: InputMaybe<StringMatchesFilter>;
   /** Exclude the asset with the specified title */
-  neq?: InputMaybe<Scalars['String']>;
+  neq?: InputMaybe<Scalars['String']['input']>;
   /** Search assets that do not have the specified as default title */
-  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   /** Exclude uploads based on a regular expression */
   notMatches?: InputMaybe<StringMatchesFilter>;
 };
@@ -5250,28 +5742,49 @@ enum UploadType {
 /** Specifies how to filter by update datetime */
 type UploadUpdatedAtFilter = {
   /** Search for uploads with an exact match */
-  eq?: InputMaybe<Scalars['DateTime']>;
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's strictly greater than the one specified */
-  gt?: InputMaybe<Scalars['DateTime']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's greater than or equal to the one specified */
-  gte?: InputMaybe<Scalars['DateTime']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less than the one specified */
-  lt?: InputMaybe<Scalars['DateTime']>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
   /** Filter uploads with a value that's less or equal than the one specified */
-  lte?: InputMaybe<Scalars['DateTime']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
   /** Exclude uploads with an exact match */
-  neq?: InputMaybe<Scalars['DateTime']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 type UploadVideoField = {
   __typename?: 'UploadVideoField';
-  duration?: Maybe<Scalars['Int']>;
-  framerate?: Maybe<Scalars['Int']>;
-  mp4Url?: Maybe<Scalars['String']>;
-  muxAssetId: Scalars['String'];
-  muxPlaybackId: Scalars['String'];
-  streamingUrl: Scalars['String'];
-  thumbnailUrl: Scalars['String'];
+  alt?: Maybe<Scalars['String']['output']>;
+  blurUpThumb?: Maybe<Scalars['String']['output']>;
+  blurhash?: Maybe<Scalars['String']['output']>;
+  duration?: Maybe<Scalars['Int']['output']>;
+  framerate?: Maybe<Scalars['Int']['output']>;
+  height: Scalars['IntType']['output'];
+  mp4Url?: Maybe<Scalars['String']['output']>;
+  muxAssetId: Scalars['String']['output'];
+  muxPlaybackId: Scalars['String']['output'];
+  streamingUrl: Scalars['String']['output'];
+  thumbhash?: Maybe<Scalars['String']['output']>;
+  thumbnailUrl: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  width: Scalars['IntType']['output'];
+};
+
+
+type UploadVideoFieldaltArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
+
+type UploadVideoFieldblurUpThumbArgs = {
+  imgixParams?: InputMaybe<ImgixParams>;
+  punch?: Scalars['Float']['input'];
+  quality?: Scalars['Int']['input'];
+  size?: Scalars['Int']['input'];
 };
 
 
@@ -5285,63 +5798,71 @@ type UploadVideoFieldthumbnailUrlArgs = {
   format?: InputMaybe<MuxThumbnailFormatType>;
 };
 
+
+type UploadVideoFieldtitleArgs = {
+  fallbackLocales?: InputMaybe<Array<SiteLocale>>;
+  locale?: InputMaybe<SiteLocale>;
+};
+
 /** Specifies how to filter by width */
 type UploadWidthFilter = {
   /** Search assets with the specified width */
-  eq?: InputMaybe<Scalars['IntType']>;
+  eq?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger than the specified width */
-  gt?: InputMaybe<Scalars['IntType']>;
+  gt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified width */
-  gte?: InputMaybe<Scalars['IntType']>;
+  gte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets smaller than the specified width */
-  lt?: InputMaybe<Scalars['IntType']>;
+  lt?: InputMaybe<Scalars['IntType']['input']>;
   /** Search all assets larger or equal to the specified width */
-  lte?: InputMaybe<Scalars['IntType']>;
+  lte?: InputMaybe<Scalars['IntType']['input']>;
   /** Search assets that do not have the specified width */
-  neq?: InputMaybe<Scalars['IntType']>;
+  neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
 type VideoField = {
   __typename?: 'VideoField';
-  height: Scalars['IntType'];
-  provider: Scalars['String'];
-  providerUid: Scalars['String'];
-  thumbnailUrl: Scalars['String'];
-  title: Scalars['String'];
-  url: Scalars['String'];
-  width: Scalars['IntType'];
+  height: Scalars['IntType']['output'];
+  provider: Scalars['String']['output'];
+  providerUid: Scalars['String']['output'];
+  thumbnailUrl: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+  width: Scalars['IntType']['output'];
 };
 
 type VideoFileField = FileFieldInterface & {
   __typename?: 'VideoFileField';
-  _createdAt: Scalars['DateTime'];
-  _updatedAt: Scalars['DateTime'];
-  alt?: Maybe<Scalars['String']>;
-  author?: Maybe<Scalars['String']>;
-  basename: Scalars['String'];
-  blurUpThumb?: Maybe<Scalars['String']>;
-  blurhash?: Maybe<Scalars['String']>;
+  _createdAt: Scalars['DateTime']['output'];
+  /** The DatoCMS URL where you can edit this entity. To use this field, you need to set a X-Base-Editing-Url header in the request */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  alt?: Maybe<Scalars['String']['output']>;
+  author?: Maybe<Scalars['String']['output']>;
+  basename: Scalars['String']['output'];
+  blurUpThumb?: Maybe<Scalars['String']['output']>;
+  blurhash?: Maybe<Scalars['String']['output']>;
   colors: Array<ColorField>;
-  copyright?: Maybe<Scalars['String']>;
-  customData: Scalars['CustomData'];
-  exifInfo: Scalars['CustomData'];
-  filename: Scalars['String'];
+  copyright?: Maybe<Scalars['String']['output']>;
+  customData: Scalars['CustomData']['output'];
+  exifInfo: Scalars['CustomData']['output'];
+  filename: Scalars['String']['output'];
   focalPoint?: Maybe<focalPoint>;
-  format: Scalars['String'];
-  height?: Maybe<Scalars['IntType']>;
-  id: Scalars['UploadId'];
-  md5: Scalars['String'];
-  mimeType: Scalars['String'];
-  notes?: Maybe<Scalars['String']>;
+  format: Scalars['String']['output'];
+  height: Scalars['IntType']['output'];
+  id: Scalars['UploadId']['output'];
+  md5: Scalars['String']['output'];
+  mimeType: Scalars['String']['output'];
+  notes?: Maybe<Scalars['String']['output']>;
   responsiveImage?: Maybe<ResponsiveImage>;
-  size: Scalars['IntType'];
-  smartTags: Array<Scalars['String']>;
-  tags: Array<Scalars['String']>;
-  thumbhash?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  url: Scalars['String'];
+  size: Scalars['IntType']['output'];
+  smartTags: Array<Scalars['String']['output']>;
+  tags: Array<Scalars['String']['output']>;
+  thumbhash?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  url: Scalars['String']['output'];
   video: UploadVideoField;
-  width?: Maybe<Scalars['IntType']>;
+  width: Scalars['IntType']['output'];
 };
 
 
@@ -5353,9 +5874,9 @@ type VideoFileFieldaltArgs = {
 
 type VideoFileFieldblurUpThumbArgs = {
   imgixParams?: InputMaybe<ImgixParams>;
-  punch?: Scalars['Float'];
-  quality?: Scalars['Int'];
-  size?: Scalars['Int'];
+  punch?: Scalars['Float']['input'];
+  quality?: Scalars['Int']['input'];
+  size?: Scalars['Int']['input'];
 };
 
 
@@ -5375,7 +5896,7 @@ type VideoFileFieldresponsiveImageArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   imgixParams?: InputMaybe<ImgixParams>;
   locale?: InputMaybe<SiteLocale>;
-  sizes?: InputMaybe<Scalars['String']>;
+  sizes?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -5398,19 +5919,21 @@ enum VideoMp4Res {
 /** Block of type Video (video) */
 type VideoRecord = RecordInterface & {
   __typename?: 'VideoRecord';
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  title: Scalars['String'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  title: Scalars['String']['output'];
   video: VideoField;
 };
 
@@ -5480,20 +6003,22 @@ type YearRecord = RecordInterface & {
   _allReferencingPrograms: Array<ProgramRecord>;
   /** Returns meta information regarding a record collection */
   _allReferencingProgramsMeta: CollectionMetadata;
-  _createdAt: Scalars['DateTime'];
-  _firstPublishedAt?: Maybe<Scalars['DateTime']>;
-  _isValid: Scalars['BooleanType'];
-  _modelApiKey: Scalars['String'];
-  _publicationScheduledAt?: Maybe<Scalars['DateTime']>;
-  _publishedAt?: Maybe<Scalars['DateTime']>;
-  /** SEO meta tags */
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
   _seoMetaTags: Array<Tag>;
   _status: ItemStatus;
-  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']>;
-  _updatedAt: Scalars['DateTime'];
-  id: Scalars['ItemId'];
-  slug: Scalars['String'];
-  title: Scalars['String'];
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
 };
 
 
@@ -5501,10 +6026,10 @@ type YearRecord = RecordInterface & {
 type YearRecord_allReferencingAboutsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<AboutModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<AboutModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenAboutAndYear>;
 };
 
@@ -5521,10 +6046,10 @@ type YearRecord_allReferencingAboutsMetaArgs = {
 type YearRecord_allReferencingExhibitionsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ExhibitionModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ExhibitionModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenExhibitionAndYear>;
 };
 
@@ -5541,10 +6066,10 @@ type YearRecord_allReferencingExhibitionsMetaArgs = {
 type YearRecord_allReferencingLocationsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<LocationModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<LocationModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenLocationAndYear>;
 };
 
@@ -5561,10 +6086,10 @@ type YearRecord_allReferencingLocationsMetaArgs = {
 type YearRecord_allReferencingParticipantsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ParticipantModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ParticipantModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenParticipantAndYear>;
 };
 
@@ -5581,10 +6106,10 @@ type YearRecord_allReferencingParticipantsMetaArgs = {
 type YearRecord_allReferencingPartnersArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<PartnerModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<PartnerModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenPartnerAndYear>;
 };
 
@@ -5601,10 +6126,10 @@ type YearRecord_allReferencingPartnersMetaArgs = {
 type YearRecord_allReferencingProgramsArgs = {
   fallbackLocales?: InputMaybe<Array<SiteLocale>>;
   filter?: InputMaybe<ProgramModelFilter>;
-  first?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
   locale?: InputMaybe<SiteLocale>;
   orderBy?: InputMaybe<Array<InputMaybe<ProgramModelOrderBy>>>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
   through?: InputMaybe<InverseRelationshipFilterBetweenProgramAndYear>;
 };
 
@@ -5624,67 +6149,96 @@ type YearRecord_seoMetaTagsArgs = {
 
 type focalPoint = {
   __typename?: 'focalPoint';
-  x: Scalars['FloatType'];
-  y: Scalars['FloatType'];
+  x: Scalars['FloatType']['output'];
+  y: Scalars['FloatType']['output'];
 };
 
 type AllAboutsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
 type AllAboutsQuery = { __typename?: 'Query', abouts: Array<{ __typename: 'AboutRecord', id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type AboutQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type AboutQuery = { __typename?: 'Query', about?: { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+<<<<<<< HEAD
+type AboutQuery = { __typename?: 'Query', about?: { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+=======
+type AboutQuery = { __typename?: 'Query', about?: { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+>>>>>>> abc6f93 (fixes)
 
 type MainAboutQueryVariables = Exact<{
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type MainAboutQuery = { __typename?: 'Query', abouts: Array<{ __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }> };
+<<<<<<< HEAD
+type MainAboutQuery = { __typename?: 'Query', abouts: Array<{ __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }> };
+=======
+type MainAboutQuery = { __typename?: 'Query', abouts: Array<{ __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> }> };
+>>>>>>> abc6f93 (fixes)
 
-type AllAboutsMenuQueryVariables = Exact<{ [key: string]: never; }>;
+type AllAboutsMenuQueryVariables = Exact<{
+  locale?: InputMaybe<SiteLocale>;
+}>;
 
 
 type AllAboutsMenuQuery = { __typename?: 'Query', abouts: Array<{ __typename?: 'AboutRecord', title: string, slug: string }> };
 
-type ContactQueryVariables = Exact<{ [key: string]: never; }>;
+type ContactQueryVariables = Exact<{
+  locale?: InputMaybe<SiteLocale>;
+}>;
 
 
-type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRecord', id: any, intro?: string | null, slug: string, title?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, content?: { __typename?: 'ContactModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRecord', id: any, intro?: string | null, slug: string, title?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, content?: { __typename?: 'ContactModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
 
 type AllExhibitionsQueryVariables = Exact<{
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  locale?: InputMaybe<SiteLocale>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type AllExhibitionsQuery = { __typename?: 'Query', exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type ExhibitionQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type ExhibitionQuery = { __typename?: 'Query', exhibition?: { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, content?: { __typename?: 'ExhibitionModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+<<<<<<< HEAD
+type ExhibitionQuery = { __typename?: 'Query', exhibition?: { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ExhibitionModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+=======
+type ExhibitionQuery = { __typename?: 'Query', exhibition?: { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ExhibitionModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+>>>>>>> abc6f93 (fixes)
 
 type FooterQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type FooterQuery = { __typename?: 'Query', footer?: { __typename?: 'GeneralRecord', id: any, email?: string | null, facebook?: string | null, instagram?: string | null, about?: string | null } | null };
 
-type AboutFragment = { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+<<<<<<< HEAD
+type AboutFragment = { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
 type AboutFragmentLightFragment = { __typename: 'AboutRecord', id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null };
 
-type ExhibitionFragment = { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, content?: { __typename?: 'ExhibitionModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type ExhibitionFragment = { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ExhibitionModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+=======
+type AboutFragment = { __typename: 'AboutRecord', _modelApiKey: string, id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null, content?: { __typename?: 'AboutModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+
+type AboutFragmentLightFragment = { __typename: 'AboutRecord', id: any, title: string, intro: string, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year?: { __typename?: 'YearRecord', id: any, title: string, slug: string } | null };
+
+type ExhibitionFragment = { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, thumb?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ExhibitionModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+>>>>>>> abc6f93 (fixes)
 
 type ExhibitionFragmentLightFragment = { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> };
 
@@ -5694,164 +6248,236 @@ type ImageMediumFragment = { __typename?: 'FileField', id: any, mimeType: string
 
 type ImageThumbnailFragment = { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null };
 
-type LocationFragment = { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'LocationModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+<<<<<<< HEAD
+type LocationFragment = { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'LocationModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
 type LocationFragmentLightFragment = { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } };
 
-type NewsFragment = { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type NewsFragment = { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
 type NewsFragmentLightFragment = { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null };
 
-type ParticipantFragment = { __typename?: 'ParticipantRecord', _createdAt: any, id: any, name: string, intro: string, slug: string, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ParticipantModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type ParticipantFragment = { __typename?: 'ParticipantRecord', _createdAt: any, id: any, name: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ParticipantModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
 type ParticipantFragmentLightFragment = { __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } };
 
-type PartnerFragment = { __typename?: 'PartnerRecord', _createdAt: any, id: any, title: string, intro: string, slug: string, address?: string | null, city?: string | null, webpage?: string | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, content?: { __typename?: 'PartnerModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type PartnerFragment = { __typename?: 'PartnerRecord', _createdAt: any, id: any, title: string, intro: string, slug: string, address?: string | null, city?: string | null, webpage?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, content?: { __typename?: 'PartnerModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
 type PartnerFragmentLightFragment = { __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } };
 
-type ProgramFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, time?: string | null, address?: string | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, thumb: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partipants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, content?: { __typename?: 'ProgramModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+type ProgramFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, time?: string | null, address?: string | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, thumb: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partipants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, content?: { __typename?: 'ProgramModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+=======
+type LocationFragment = { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'LocationModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
 
-type ProgramFragmentLightFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } };
+type LocationFragmentLightFragment = { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } };
+
+type NewsFragment = { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null };
+
+type NewsFragmentLightFragment = { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null };
+
+type ParticipantFragment = { __typename?: 'ParticipantRecord', _createdAt: any, id: any, name: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ParticipantModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+
+type ParticipantFragmentLightFragment = { __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } };
+
+type PartnerFragment = { __typename?: 'PartnerRecord', _createdAt: any, id: any, title: string, intro: string, slug: string, address?: string | null, city?: string | null, webpage?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, content?: { __typename?: 'PartnerModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+
+type PartnerFragmentLightFragment = { __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } };
+
+type ProgramFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, time?: string | null, address?: string | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, thumb: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partipants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, content?: { __typename?: 'ProgramModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> };
+>>>>>>> abc6f93 (fixes)
+
+type ProgramFragmentLightFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } };
+
+type SeoMetaTagsFragment = { __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string };
 
 type SiteFragment = { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null };
 
-type VideoFragment = { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } };
+type VideoFragment = { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width: any, height: any, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } };
 
 type YearFragment = { __typename?: 'YearRecord', id: any, title: string, slug: string };
 
 type YearFragmentLightFragment = { __typename?: 'YearRecord', id: any, title: string, slug: string };
+
+type GeneralQueryVariables = Exact<{
+  locale?: InputMaybe<SiteLocale>;
+}>;
+
+
+type GeneralQuery = { __typename?: 'Query', general?: { __typename?: 'GeneralRecord', id: any, facebook?: string | null, instagram?: string | null, about?: string | null, email?: string | null } | null };
 
 type GlobalQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type GlobalQuery = { __typename?: 'Query', site: { __typename?: 'Site', favicon: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, globalSeo?: { __typename?: 'GlobalSeoField', facebookPageUrl?: string | null, siteName?: string | null, titleSuffix?: string | null, twitterAccount?: string | null, fallbackSeo?: { __typename?: 'SeoField', description?: string | null, title?: string | null, twitterCard?: string | null, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null } | null } | null } };
 
+type InEnglishQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type InEnglishQuery = { __typename?: 'Query', inEnglish?: { __typename?: 'InEnglishRecord', id: any, title: string, intro: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, content?: { __typename?: 'InEnglishModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+
 type AllLocationsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type AllLocationsQuery = { __typename?: 'Query', locations: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type LocationQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type LocationQuery = { __typename?: 'Query', location?: { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'LocationModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+<<<<<<< HEAD
+type LocationQuery = { __typename?: 'Query', location?: { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'LocationModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+=======
+type LocationQuery = { __typename?: 'Query', location?: { __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'LocationModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+>>>>>>> abc6f93 (fixes)
 
 type MenuQueryVariables = Exact<{
-  altLocale?: InputMaybe<SiteLocale>;
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  locale?: InputMaybe<SiteLocale>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
-type MenuQuery = { __typename?: 'Query', abouts: Array<{ __typename?: 'AboutRecord', id: any, title: string, slug: string, altSlug: string, year?: { __typename?: 'YearRecord', title: string } | null }>, years: Array<{ __typename?: 'YearRecord', id: any, title: string, slug: string }>, year?: { __typename?: 'YearRecord', id: any, title: string } | null, aboutMeta: { __typename?: 'CollectionMetadata', count: any }, programMeta: { __typename?: 'CollectionMetadata', count: any }, participantsMeta: { __typename?: 'CollectionMetadata', count: any }, partnersMeta: { __typename?: 'CollectionMetadata', count: any }, exhibitionsMeta: { __typename?: 'CollectionMetadata', count: any }, locationsMeta: { __typename?: 'CollectionMetadata', count: any } };
+type MenuQuery = { __typename?: 'Query', abouts: Array<{ __typename?: 'AboutRecord', id: any, title: string, slug: string, year?: { __typename?: 'YearRecord', title: string } | null }>, years: Array<{ __typename?: 'YearRecord', id: any, title: string, slug: string }>, year?: { __typename?: 'YearRecord', id: any, title: string } | null, aboutMeta: { __typename?: 'CollectionMetadata', count: any }, programMeta: { __typename?: 'CollectionMetadata', count: any }, participantsMeta: { __typename?: 'CollectionMetadata', count: any }, partnersMeta: { __typename?: 'CollectionMetadata', count: any }, exhibitionsMeta: { __typename?: 'CollectionMetadata', count: any }, locationsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllNewsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
 type AllNewsQuery = { __typename?: 'Query', news: Array<{ __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type NewsQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type NewsQuery = { __typename?: 'Query', news?: { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+<<<<<<< HEAD
+type NewsQuery = { __typename?: 'Query', news?: { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+=======
+type NewsQuery = { __typename?: 'Query', news?: { __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, content?: { __typename?: 'NewsModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }>, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null } | null };
+>>>>>>> abc6f93 (fixes)
 
 type AllParticipantsQueryVariables = Exact<{
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  locale?: InputMaybe<SiteLocale>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type AllParticipantsQuery = { __typename?: 'Query', participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type ParticipantQueryVariables = Exact<{
-  slug?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type ParticipantQuery = { __typename?: 'Query', participant?: { __typename?: 'ParticipantRecord', _createdAt: any, id: any, name: string, intro: string, slug: string, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ParticipantModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+<<<<<<< HEAD
+type ParticipantQuery = { __typename?: 'Query', participant?: { __typename?: 'ParticipantRecord', _createdAt: any, id: any, name: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ParticipantModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+=======
+type ParticipantQuery = { __typename?: 'Query', participant?: { __typename?: 'ParticipantRecord', _createdAt: any, id: any, name: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, content?: { __typename?: 'ParticipantModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+>>>>>>> abc6f93 (fixes)
 
 type AllPartnersQueryVariables = Exact<{
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  locale?: InputMaybe<SiteLocale>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
 type AllPartnersQuery = { __typename?: 'Query', partners: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type PartnerQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type PartnerQuery = { __typename?: 'Query', partner?: { __typename?: 'PartnerRecord', _createdAt: any, id: any, title: string, intro: string, slug: string, address?: string | null, city?: string | null, webpage?: string | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, content?: { __typename?: 'PartnerModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+<<<<<<< HEAD
+type PartnerQuery = { __typename?: 'Query', partner?: { __typename?: 'PartnerRecord', _createdAt: any, id: any, title: string, intro: string, slug: string, address?: string | null, city?: string | null, webpage?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, content?: { __typename?: 'PartnerModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+=======
+type PartnerQuery = { __typename?: 'Query', partner?: { __typename?: 'PartnerRecord', _createdAt: any, id: any, title: string, intro: string, slug: string, address?: string | null, city?: string | null, webpage?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string }, content?: { __typename?: 'PartnerModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+>>>>>>> abc6f93 (fixes)
 
 type AllProgramsQueryVariables = Exact<{
-  yearId?: InputMaybe<Scalars['ItemId']>;
+  locale?: InputMaybe<SiteLocale>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
-type AllProgramsQuery = { __typename?: 'Query', programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
+type AllProgramsQuery = { __typename?: 'Query', programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type ProgramQueryVariables = Exact<{
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type ProgramQuery = { __typename?: 'Query', program?: { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, time?: string | null, address?: string | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, thumb: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partipants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, content?: { __typename?: 'ProgramModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+<<<<<<< HEAD
+type ProgramQuery = { __typename?: 'Query', program?: { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, time?: string | null, address?: string | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, thumb: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partipants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, content?: { __typename?: 'ProgramModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+=======
+type ProgramQuery = { __typename?: 'Query', program?: { __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, time?: string | null, address?: string | null, intro: string, misc?: string | null, slug: string, externalLink?: string | null, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, thumb: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }>, partipants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, partner: Array<{ __typename?: 'PartnerRecord', id: any, title: string, intro: string, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, content?: { __typename?: 'ProgramModelContentField', value: any, blocks: Array<{ __typename: 'ImageGalleryRecord', id: any, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }> } | { __typename: 'ImageRecord', id: any, layout: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } } | { __typename: 'LinkButtonRecord', id: any, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null, _allSlugLocales?: Array<{ __typename?: 'StringNonNullMultiLocaleField', locale?: SiteLocale | null, value: string }> | null, _seoMetaTags: Array<{ __typename?: 'Tag', attributes?: any | null, content?: string | null, tag: string }> } | null };
+>>>>>>> abc6f93 (fixes)
 
-type AllProgramCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+type AllProgramCategoriesQueryVariables = Exact<{
+  locale?: InputMaybe<SiteLocale>;
+}>;
 
 
-type AllProgramCategoriesQuery = { __typename?: 'Query', programCategories: Array<{ __typename?: 'ProgramCategoryRecord', id: any, title?: string | null, desc?: string | null }> };
+type AllProgramCategoriesQuery = { __typename?: 'Query', programCategories: Array<{ __typename?: 'ProgramCategoryRecord', id: any, title: string, desc?: string | null }> };
 
 type SiteSearchQueryVariables = Exact<{
-  aboutIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  newsIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  programIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  exhibitionIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  participantIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  locationIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  partnerIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']>> | InputMaybe<Scalars['ItemId']>>;
-  first?: InputMaybe<Scalars['IntType']>;
-  skip?: InputMaybe<Scalars['IntType']>;
+  aboutIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  newsIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  programIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  exhibitionIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  participantIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  locationIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  partnerIds?: InputMaybe<Array<InputMaybe<Scalars['ItemId']['input']>> | InputMaybe<Scalars['ItemId']['input']>>;
+  first?: InputMaybe<Scalars['IntType']['input']>;
+  skip?: InputMaybe<Scalars['IntType']['input']>;
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
 type SiteSearchQuery = { __typename?: 'Query', abouts: Array<{ __typename: 'AboutRecord', _modelApiKey: string, title: string, slug: string, text: string, year?: { __typename?: 'YearRecord', title: string } | null }>, news: Array<{ __typename: 'NewsRecord', _modelApiKey: string, title: string, slug: string, text: string }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, title: string, slug: string, text: string, year: { __typename?: 'YearRecord', title: string } }>, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, title: string, slug: string, text: string, year: { __typename?: 'YearRecord', title: string } }>, participants: Array<{ __typename: 'ParticipantRecord', _modelApiKey: string, slug: string, title: string, text: string, year: { __typename?: 'YearRecord', title: string } }>, locations: Array<{ __typename: 'LocationRecord', _modelApiKey: string, title: string, slug: string, text: string, year: { __typename?: 'YearRecord', title: string } }>, partners: Array<{ __typename: 'PartnerRecord', _modelApiKey: string, title: string, slug: string, text: string, year: { __typename?: 'YearRecord', title: string } }> };
 
-type StartQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, content: Array<{ __typename: 'StartExhibitionRecord', id: any, amount: string } | { __typename: 'StartFullBleedImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartFullscreenImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartFullscreenVideoRecord', id: any, headline: string, text: string, video: { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, height?: any | null, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } }, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartGalleryRecord', id: any, headline: string, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }>, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartNewsRecord', id: any, amount: string } | { __typename: 'StartProgramRecord', id: any, amount: string } | { __typename: 'StartRandomParticipantRecord', id: any, amount: string } | { __typename: 'StartSelectedLocationRecord', id: any, locations: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }> } | { __typename: 'StartTextRecord', id: any, headline: string, text: string, link: { __typename: 'ExternalLinkRecord', id: any, title: string, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartVideoRecord', id: any, title: string, video: { __typename?: 'VideoField', provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null };
-
-type StartDataQueryVariables = Exact<{
-  newsItems?: InputMaybe<Scalars['IntType']>;
-  programItems?: InputMaybe<Scalars['IntType']>;
-  date?: InputMaybe<Scalars['Date']>;
-  yearId?: InputMaybe<Scalars['ItemId']>;
+type StartQueryVariables = Exact<{
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 
-type StartDataQuery = { __typename?: 'Query', news: Array<{ __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title?: string | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }> };
+type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', id: any, content: Array<{ __typename: 'StartExhibitionRecord', id: any, amount: string } | { __typename: 'StartFullBleedImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartFullscreenImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartFullscreenVideoRecord', id: any, headline: string, text: string, video: { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width: any, height: any, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } }, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartGalleryRecord', id: any, headline: string, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }>, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartNewsRecord', id: any, amount: string } | { __typename: 'StartProgramRecord', id: any, amount: string } | { __typename: 'StartRandomParticipantRecord', id: any, amount: string } | { __typename: 'StartSelectedLocationRecord', id: any, locations: Array<{ __typename?: 'LocationRecord', id: any, title: string, city?: string | null, address?: string | null, intro: string, webpage?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string } }> } | { __typename: 'StartTextRecord', id: any, headline: string, text: string, link: { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string } | { __typename: 'InternalLinkRecord', id: any, internalTitle?: string | null, record: { __typename?: 'AboutRecord', id: any, slug: string, title: string } | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string } | { __typename?: 'LocationRecord', id: any, slug: string, title: string } | { __typename?: 'NewsRecord', id: any, slug: string, title: string } | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string } | { __typename?: 'ProgramRecord', id: any, slug: string, title: string } } } | { __typename: 'StartVideoRecord', id: any, title: string, video: { __typename?: 'VideoField', provider: string, providerUid: string, thumbnailUrl: string, url: string } }> } | null };
+
+type StartDataQueryVariables = Exact<{
+  newsItems?: InputMaybe<Scalars['IntType']['input']>;
+  programItems?: InputMaybe<Scalars['IntType']['input']>;
+  date?: InputMaybe<Scalars['Date']['input']>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
+  locale?: InputMaybe<SiteLocale>;
+}>;
+
+
+type StartDataQuery = { __typename?: 'Query', news: Array<{ __typename?: 'NewsRecord', id: any, title: string, intro: string, slug: string, _createdAt: any, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null } | null }>, programs: Array<{ __typename: 'ProgramRecord', _modelApiKey: string, id: any, title: string, startDate: any, endDate?: any | null, intro: string, time?: string | null, slug: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, programCategory: { __typename?: 'ProgramCategoryRecord', id: any, title: string }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }>, participants: Array<{ __typename?: 'ParticipantRecord', id: any, name: string, intro: string, slug: string, _createdAt: any, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null } | null }, year: { __typename?: 'YearRecord', id: any, title: string, slug: string } }> };
 
 type AllYearsQueryVariables = Exact<{
-  year?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<SiteLocale>;
+  year?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 type AllYearsQuery = { __typename?: 'Query', years: Array<{ __typename?: 'YearRecord', id: any, title: string, slug: string }> };
 
 type YearQueryVariables = Exact<{
-  title: Scalars['String'];
+  title: Scalars['String']['input'];
+  locale?: InputMaybe<SiteLocale>;
 }>;
 
 

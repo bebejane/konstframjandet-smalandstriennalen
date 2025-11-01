@@ -1,5 +1,5 @@
-query Start {
-	start {
+query Start($locale: SiteLocale) {
+	start(locale: $locale, fallbackLocales: [sv]) {
 		id
 		content {
 			__typename
@@ -320,13 +320,25 @@ query Start {
 	}
 }
 
-query StartData($newsItems: IntType, $programItems: IntType, $date: Date, $yearId: ItemId) {
-	news: allNews(first: $newsItems, orderBy: _createdAt_DESC) {
+query StartData(
+	$newsItems: IntType
+	$programItems: IntType
+	$date: Date
+	$yearId: ItemId
+	$locale: SiteLocale
+) {
+	news: allNews(
+		locale: $locale
+		fallbackLocales: [sv]
+		first: $newsItems
+		orderBy: _createdAt_DESC
+	) {
 		...NewsFragmentLight
 	}
 	programs: allPrograms(
 		filter: { startDate: { gte: $date }, year: { eq: $yearId } }
-
+		locale: $locale
+		fallbackLocales: [sv]
 		first: $programItems
 		orderBy: startDate_DESC
 	) {
@@ -336,14 +348,9 @@ query StartData($newsItems: IntType, $programItems: IntType, $date: Date, $yearI
 		filter: { year: { eq: $yearId } }
 		first: 100
 		orderBy: _createdAt_DESC
+		locale: $locale
+		fallbackLocales: [sv]
 	) {
 		...ParticipantFragmentLight
-	}
-	exhibitions: allExhibitions(
-		filter: { year: { eq: $yearId }, startDate: { exists: true } }
-		first: 100
-		orderBy: [startDate_ASC]
-	) {
-		...ExhibitionFragmentLight
 	}
 }

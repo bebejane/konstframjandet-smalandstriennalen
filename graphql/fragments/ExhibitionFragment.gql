@@ -26,10 +26,6 @@ fragment ExhibitionFragment on ExhibitionRecord {
 		...PartnerFragmentLight
 	}
 	slug
-	_allSlugLocales {
-		locale
-		value
-	}
 	externalLink
 	content {
 		value
@@ -119,9 +115,11 @@ fragment ExhibitionFragment on ExhibitionRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
-		attributes
-		content
-		tag
+		...SeoMetaTagsFragment
 	}
 }

@@ -1,0 +1,9 @@
+query General($locale: SiteLocale) {
+	general(locale: $locale, fallbackLocales: [sv]) {
+		id
+		facebook
+		instagram
+		about
+		email
+	}
+}

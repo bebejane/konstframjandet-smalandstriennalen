@@ -21,7 +21,7 @@ export default function FilterBar({ options = [], onChange, multi = false }: Pro
 
   const t = useTranslations('FilterBar')
   const [selected, setSelected] = useState<FilterOption[]>([])
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const { isMobile } = useDevice()
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function FilterBar({ options = [], onChange, multi = false }: Pro
   }, [selected])
 
   return (
-    <nav className={cn(s.filter, open && s.open)}>
+    <nav className={cn(s.filter, open && isMobile && s.open)}>
       <ul onClick={() => setOpen(!open)}>
         <li onClick={() => setSelected([])} className={cn(!selected?.length && s.selected)}>
           {t('all')}<span className={s.arrow}>›</span>

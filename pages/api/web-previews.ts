@@ -1,13 +1,28 @@
-import { withWebPreviews } from 'dato-nextjs-utils/hoc';
+import { translatePath, allYears } from '/lib/utils';
+import { defaultLocale } from '/lib/i18n'
+import { withWebPreviewsEdge } from 'dato-nextjs-utils/hoc';
 
-export default withWebPreviews(async ({ item, itemType }) => {
+export const config = {
+  runtime: 'edge'
+}
+
+export default withWebPreviewsEdge(async ({ item, itemType, locale }) => {
 
   let path = null;
 
-  const { api_key } = itemType.attributes
-  const slug = typeof item.attributes.slug === 'object' ? item.attributes.slug.sv : item.attributes.slug
+  const { slug: baseSlug, year: yearId, title } = item.attributes
+  const isYearRecord = itemType.attributes.api_key === 'year'
+  const years = await allYears()
+  const year = yearId ? years.find(({ id }) => id === yearId) : undefined
+  const slug = typeof baseSlug === 'object' ? baseSlug[locale] : baseSlug
 
-  switch (api_key) {
+  switch (itemType.attributes.api_key) {
+    case 'year':
+      path = `/${item.attributes.title}`
+      break;
+    case 'general':
+      path = `/`
+      break;
     case 'start':
       path = `/`
       break;
@@ -16,6 +31,9 @@ export default withWebPreviews(async ({ item, itemType }) => {
       break;
     case 'program':
       path = `/program/${slug}`
+      break;
+    case 'program_category':
+      path = `/program`
       break;
     case 'participant':
       path = `/medverkande/${slug}`
@@ -38,9 +56,14 @@ export default withWebPreviews(async ({ item, itemType }) => {
     case 'contact':
       path = `/kontakt`
       break;
+    case 'in_english':
+      path = `/in-english`
+      break;
     default:
       break;
   }
 
-  return path
+  if (isYearRecord) return path
+
+  return path ? translatePath(path, locale, defaultLocale, year?.title) : null
 })

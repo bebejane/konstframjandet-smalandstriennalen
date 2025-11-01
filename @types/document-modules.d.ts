@@ -192,6 +192,15 @@ declare module '*/ProgramFragmentLight.gql' {
 }
     
 
+declare module '*/SeoMetaTagsFragment.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const SeoMetaTagsFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/SiteFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -228,10 +237,28 @@ declare module '*/YearFragmentLight.gql' {
 }
     
 
+declare module '*/general.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const General: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/global.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const Global: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/inenglish.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const InEnglish: DocumentNode;
 
   export default defaultDocument;
 }

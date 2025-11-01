@@ -6,11 +6,6 @@ fragment NewsFragment on NewsRecord {
 		...ImageFragment
 	}
 	slug
-
-	_allSlugLocales {
-		locale
-		value
-	}
 	_createdAt
 	content {
 		value
@@ -101,8 +96,10 @@ fragment NewsFragment on NewsRecord {
 		}
 	}
 	_seoMetaTags {
-		attributes
-		content
-		tag
+		...SeoMetaTagsFragment
+	}
+	_allSlugLocales {
+		locale
+		value
 	}
 }

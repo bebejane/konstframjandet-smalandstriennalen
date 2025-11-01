@@ -42,5 +42,9 @@
 	"search": {
 		"en": "search",
 		"sv": "sok"
+	},
+	"in-english": {
+		"en": "in-english",
+		"sv": "in-english"
 	}
 }

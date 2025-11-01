@@ -9,10 +9,6 @@ fragment LocationFragment on LocationRecord {
 	intro(markdown: false)
 	webpage
 	slug
-	_allSlugLocales {
-		locale
-		value
-	}
 	exhibitions: _allReferencingExhibitions(first: 100) {
 		...ExhibitionFragmentLight
 	}
@@ -107,9 +103,11 @@ fragment LocationFragment on LocationRecord {
 			}
 		}
 	}
+	_allSlugLocales {
+		locale
+		value
+	}
 	_seoMetaTags {
-		attributes
-		content
-		tag
+		...SeoMetaTagsFragment
 	}
 }

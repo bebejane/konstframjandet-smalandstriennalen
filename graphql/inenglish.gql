@@ -1,12 +1,11 @@
-query Contact($locale: SiteLocale) {
-	contact(locale: $locale, fallbackLocales: [sv]) {
+query InEnglish {
+	inEnglish {
 		id
+		title
+		intro(markdown: false)
 		image {
 			...ImageFragment
 		}
-		intro(markdown: false)
-		slug
-		title
 		content {
 			value
 			blocks {
@@ -24,20 +23,6 @@ query Contact($locale: SiteLocale) {
 					id
 					images {
 						...ImageThumbnailFragment
-					}
-				}
-				... on VideoRecord {
-					__typename
-					id
-					title
-					video {
-						height
-						width
-						title
-						provider
-						providerUid
-						thumbnailUrl
-						url
 					}
 				}
 				... on LinkButtonRecord {
@@ -87,6 +72,20 @@ query Contact($locale: SiteLocale) {
 								}
 							}
 						}
+					}
+				}
+				... on VideoRecord {
+					__typename
+					id
+					title
+					video {
+						height
+						width
+						title
+						provider
+						providerUid
+						thumbnailUrl
+						url
 					}
 				}
 				... on RecordInterface {

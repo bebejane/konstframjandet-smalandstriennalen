@@ -10,11 +10,13 @@ query SiteSearch(
 	$partnerIds: [ItemId]
 	$first: IntType = 100
 	$skip: IntType = 0
+	$locale: SiteLocale
 ) {
 	abouts: allAbouts(
 		first: $first
 		skip: $skip
-
+		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $aboutIds } }
 	) {
 		__typename
@@ -26,7 +28,13 @@ query SiteSearch(
 			title
 		}
 	}
-	news: allNews(first: $first, skip: $skip, filter: { id: { in: $newsIds } }) {
+	news: allNews(
+		first: $first
+		skip: $skip
+		locale: $locale
+		fallbackLocales: [sv]
+		filter: { id: { in: $newsIds } }
+	) {
 		__typename
 		_modelApiKey
 		title
@@ -36,7 +44,8 @@ query SiteSearch(
 	programs: allPrograms(
 		first: $first
 		skip: $skip
-
+		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $programIds } }
 	) {
 		__typename
@@ -51,7 +60,8 @@ query SiteSearch(
 	exhibitions: allExhibitions(
 		first: $first
 		skip: $skip
-
+		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $exhibitionIds } }
 	) {
 		__typename
@@ -63,24 +73,12 @@ query SiteSearch(
 			title
 		}
 	}
-	exhibitions: allExhibitions(
-		first: $first
-		skip: $skip
 
-		filter: { id: { in: $exhibitionIds } }
-	) {
-		__typename
-		_modelApiKey
-		title
-		text: intro(markdown: false)
-		slug
-		year {
-			title
-		}
-	}
 	participants: allParticipants(
 		first: $first
 		skip: $skip
+		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $participantIds } }
 	) {
 		__typename
@@ -95,7 +93,8 @@ query SiteSearch(
 	locations: allLocations(
 		first: $first
 		skip: $skip
-
+		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $locationIds } }
 	) {
 		__typename
@@ -110,7 +109,8 @@ query SiteSearch(
 	partners: allPartners(
 		first: $first
 		skip: $skip
-
+		locale: $locale
+		fallbackLocales: [sv]
 		filter: { id: { in: $partnerIds } }
 	) {
 		__typename
