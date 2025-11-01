@@ -2,9 +2,11 @@
 	--black: #1d1d1d;
 	--white: #fcfcfc;
 	--red: #bf0000;
-	--green: #097832;
+	--green: #004f38;
 	--pink: #ff57ff;
 	--archive: #ececec;
+	--yellow: #d1ff33;
+	--blue: #004f96;
 	--outer-margin: 4vw;
 	--logo-size-optical: 0rem;
 	--total-outer-margin: calc((var(--outer-margin) * 2) + var(--logo-size-optical));
@@ -151,7 +153,9 @@ button {
 		padding-top: 1em;
 	}
 
-	transition: color 0.2s ease-in-out, background-color 0.3s ease-in-out;
+	transition:
+		color 0.2s ease-in-out,
+		background-color 0.3s ease-in-out;
 
 	&.back {
 		width: var(--body-width);
