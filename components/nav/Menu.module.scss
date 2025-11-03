@@ -1,188 +1,186 @@
 .menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: var(--z-menu);
-  padding: var(--outer-margin);
-  overflow: hidden;
-  background: var(--green);
-  transition: transform var(--menu-transition);
-  min-width: 20%;
-  max-width: 20%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: var(--z-menu);
+	padding: var(--outer-margin);
+	overflow: hidden;
+	background: var(--yellow);
+	transition: transform var(--menu-transition);
+	min-width: 20%;
+	max-width: 20%;
 
-  @include mq($until: desktop) {
-    --max-width: calc(100% - var(--logo-size-optical) - calc(var(--outer-margin) * 3));
-    min-width: var(--max-width);
-    max-width: var(--max-width);
-  }
+	@include mq($until: desktop) {
+		--max-width: calc(100% - var(--logo-size-optical) - calc(var(--outer-margin) * 3));
+		min-width: var(--max-width);
+		max-width: var(--max-width);
+	}
 
-  &.hide {
-    transform: translateX(100%);
-  }
+	&.hide {
+		transform: translateX(100%);
+	}
 
-  .wrapper {
-    padding: var(--outer-margin);
-  }
+	.wrapper {
+		padding: var(--outer-margin);
+	}
 
-  span {
-    display: block;
-    line-height: 1;
+	span {
+		display: block;
+		line-height: 1;
 
-    @include mq($until: tablet) {
-      padding-top: 1.5em;
-      padding-bottom: calc(var(--header-height) - 1.5em);
-    }
+		@include mq($until: tablet) {
+			padding-top: 1.5em;
+			padding-bottom: calc(var(--header-height) - 1.5em);
+		}
 
-    padding-bottom: var(--header-height);
-  }
+		padding-bottom: var(--header-height);
+	}
 
-  a:hover {
-    color: var(--black) !important;
-  }
+	a:hover {
+		color: var(--green) !important;
+	}
 
-  ul {
-    list-style: none;
-    font-weight: bold;
-    padding-left: 0.62rem;
-    margin-top: 0.5em;
+	ul {
+		list-style: none;
+		font-weight: bold;
+		padding-left: 0.62rem;
+		margin-top: 0.5em;
 
-    @include mq($until: tablet) {
-      margin-left: 0.62em;
-      font-size: 1.1rem;
-    }
+		@include mq($until: tablet) {
+			margin-left: 0.62em;
+			font-size: 1.1rem;
+		}
 
-    &[data-level="0"] {
-      scrollbar-width: 0px;
-      overflow-y: scroll;
-      overflow-x: hidden;
+		&[data-level='0'] {
+			scrollbar-width: 0px;
+			overflow-y: scroll;
+			overflow-x: hidden;
 
-      // Extra padding for scrolling on mobile
-      @include mq($until: tablet) {
-        padding-bottom: 4rem;
-      }
+			// Extra padding for scrolling on mobile
+			@include mq($until: tablet) {
+				padding-bottom: 4rem;
+			}
 
-      &::-webkit-scrollbar {
-        height: 0px;
-      }
+			&::-webkit-scrollbar {
+				height: 0px;
+			}
 
-      &::-webkit-scrollbar-thumb,
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
+			&::-webkit-scrollbar-thumb,
+			&::-webkit-scrollbar-track {
+				background: transparent;
+			}
 
-      >li>a {
-        font-weight: bold;
-        color: var(--white);
-      }
-    }
+			> li > a {
+				font-weight: bold;
+				color: var(--blue);
+			}
+		}
 
-    &[data-level="2"] {
-      li>a {
-        font-weight: normal !important;
-      }
-    }
+		&[data-level='2'] {
+			li > a {
+				//font-weight: normal !important;
+				color: var(--blue);
+			}
+		}
 
-    li {
+		li {
+			padding-bottom: 0.8em;
+			line-height: 1.4;
+			overflow-x: visible !important;
+			overflow-y: visible !important;
 
-      padding-bottom: 0.8em;
-      line-height: 1.4;
-      overflow-x: visible !important;
-      overflow-y: visible !important;
+			span {
+				cursor: pointer;
+			}
 
-      span {
-        cursor: pointer;
-      }
+			a {
+				line-height: initial;
+			}
 
-      a {
-        line-height: initial;
-      }
+			&.bold > a {
+				font-weight: bold;
+			}
 
-      &.bold>a {
-        font-weight: bold;
-      }
+			&.active {
+				a {
+					color: var(--green);
+				}
+			}
 
-      &.active {
-        a {
-          color: var(--black) !important;
-        }
-      }
+			&:last-of-type {
+				padding-bottom: 0;
+			}
 
-      &:last-of-type {
-        padding-bottom: 0;
-      }
+			&:first-of-type {
+				//padding-top: 0.5em;
 
+				@include mq($from: tablet) {
+					//padding-bottom: 0.5em;
+				}
+			}
+		}
+	}
 
-
-      &:first-of-type {
-        //padding-top: 0.5em;
-
-        @include mq($from: tablet) {
-          //padding-bottom: 0.5em;
-        }
-      }
-    }
-  }
-
-  >ul {
-    margin-top: calc(var(--big-space) - var(--outer-margin));
-  }
+	> ul {
+		margin-top: calc(var(--big-space) - var(--outer-margin));
+	}
 }
 
 .search {
-  position: relative;
-  padding-bottom: 0 !important;
-  --padding: 0rem;
-  margin-bottom: 0.5rem;
+	position: relative;
+	padding-bottom: 0 !important;
+	--padding: 0rem;
+	margin-bottom: 0.5rem;
 
-  input {
-    width: 100%;
-    border: 0;
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: 600;
-    padding: var(--padding);
-    margin-top: calc(var(--padding) * -1);
+	input {
+		width: 100%;
+		border: 0;
+		margin: 0;
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: 600;
+		padding: var(--padding);
+		margin-top: calc(var(--padding) * -1);
 
-    margin-left: calc(var(--padding) * -1);
-    padding-bottom: 0.3rem;
+		margin-left: calc(var(--padding) * -1);
+		padding-bottom: 0.3rem;
 
-    &::placeholder {
-      color: var(--white);
-    }
+		&::placeholder {
+			color: var(--blue);
+		}
 
-    cursor: pointer;
+		cursor: pointer;
 
-    &:focus {
-      cursor: text;
-      border-bottom: 1px solid lightgray;
+		&:focus {
+			cursor: text;
+			border-bottom: 1px solid lightgray;
 
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.2);
-      }
-    }
-  }
+			&::placeholder {
+				color: rgba(255, 255, 255, 0.2);
+			}
+		}
+	}
 
-  .close {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--padding);
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 1rem;
-    opacity: 0.5;
-    transition: opacity 0.2s ease-in-out;
-    cursor: pointer;
+	.close {
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: var(--padding);
+		top: 0;
+		right: 0;
+		height: 100%;
+		width: 1rem;
+		opacity: 0.5;
+		transition: opacity 0.2s ease-in-out;
+		cursor: pointer;
 
-    &:hover {
-      opacity: 1;
-    }
+		&:hover {
+			opacity: 1;
+		}
 
-    &.hide {
-      opacity: 0;
-    }
-  }
+		&.hide {
+			opacity: 0;
+		}
+	}
 }

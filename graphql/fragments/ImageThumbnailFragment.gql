@@ -16,5 +16,6 @@ fragment ImageThumbnailFragment on FileField {
 		alt
 		title
 		base64
+		sizes
 	}
 }

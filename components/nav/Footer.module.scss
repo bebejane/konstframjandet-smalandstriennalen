@@ -1,71 +1,69 @@
 .footer {
-  width: 100%;
-  //margin-left: var(--outer-margin);
-  //margin-right: var(--outer-margin);
-  padding-bottom: var(--outer-margin);
-  border-top: 1px solid var(--black);
-  position: relative;
-  text-align: left;
-  z-index: var(--z-footer);
-  background-color: var(--black);
-  color: var(--white);
+	width: 100%;
+	padding-bottom: var(--outer-margin);
+	border-top: 1px solid var(--black);
+	position: relative;
+	text-align: left;
+	z-index: var(--z-footer);
+	background-color: var(--green);
+	color: var(--yellow);
 
-  a {
-    color: var(--white);
-  }
+	a {
+		color: var(--white);
+	}
 
-  section {
-    position: relative;
-    display: flex;
+	section {
+		position: relative;
+		display: flex;
 
-    @include mq($until: tablet) {
-      flex-direction: column;
-      align-items: center;
-      padding-left: var(--outer-margin);
-      padding-right: var(--outer-margin);
-    }
+		@include mq($until: tablet) {
+			flex-direction: column;
+			align-items: center;
+			padding-left: var(--outer-margin);
+			padding-right: var(--outer-margin);
+		}
 
-    padding-top: var(--outer-margin);
-    padding-left: var(--total-outer-margin);
-    padding-right: var(--total-outer-margin);
-    position: relative;
+		padding-top: var(--outer-margin);
+		padding-left: var(--total-outer-margin);
+		padding-right: var(--total-outer-margin);
+		position: relative;
 
-    .logo {
-      position: absolute;
-      top: var(--outer-margin);
-      left: 0;
+		.logo {
+			position: absolute;
+			top: var(--outer-margin);
+			left: 0;
 
-      @include mq($until: desktop) {
-        display: none;
-      }
-    }
+			@include mq($until: desktop) {
+				display: none;
+			}
+		}
 
-    div {
-      padding-bottom: 0.2em;
+		div {
+			padding-bottom: 0.2em;
 
-      @include mq($from: tablet) {
-        width: 33.33%;
+			@include mq($from: tablet) {
+				width: 33.33%;
 
-        &:last-of-type {
-          padding-right: 2rem;
-        }
-      }
+				&:last-of-type {
+					padding-right: 2rem;
+				}
+			}
 
-      text-align: center;
-    }
-  }
+			text-align: center;
+		}
+	}
 
-  .kf {
-    margin-right: var(--outer-margin);
-    filter: invert(1);
-    @include mq($until: tablet) {
-      transform: scale(0.7);
-    }
+	.kf {
+		margin-right: var(--outer-margin);
+		filter: invert(1);
+		@include mq($until: tablet) {
+			transform: scale(0.7);
+		}
 
-    @include mq($from: tablet) {
-      position: absolute;
-      right: 0;
-      margin-bottom: var(--outer-margin);
-    }
-  }
+		@include mq($from: tablet) {
+			position: absolute;
+			right: 0;
+			margin-bottom: var(--outer-margin);
+		}
+	}
 }
