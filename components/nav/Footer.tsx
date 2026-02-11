@@ -12,7 +12,11 @@ export type FooterProps = {
 	footer: GeneralRecord;
 };
 
-export default function Footer({ menu, footer: { email, facebook, instagram, about } }: FooterProps) {
+export default function Footer({
+	menu,
+	footer: { email, facebook, instagram, about },
+}: FooterProps) {
+	return null;
 	const t = useTranslations('Footer');
 	const { isHome } = usePage();
 
@@ -20,7 +24,8 @@ export default function Footer({ menu, footer: { email, facebook, instagram, abo
 		<footer className={cn(s.footer)} id='footer'>
 			<section>
 				<div>
-					Copyright {PROJECT_NAME}, {new Date().getFullYear()} <a href={`mailto:${email}`}>{email}</a> Cookies & GDPR
+					Copyright {PROJECT_NAME}, {new Date().getFullYear()}{' '}
+					<a href={`mailto:${email}`}>{email}</a> Cookies & GDPR
 				</div>
 				<div>
 					{t('followUs')} <a href={instagram}>Instagram</a>
