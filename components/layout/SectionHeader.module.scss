@@ -1,91 +1,91 @@
 .header {
-  position: relative;
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
+	position: relative;
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
 
-  z-index: var(--z-section-header);
-  transition: width 0.3s ease-in-out;
-  width: 100%;
+	z-index: var(--z-section-header);
+	transition: width 0.3s ease-in-out;
+	width: 100%;
 
-  h2 {
-    @include mq($until: tablet) {
-      max-width: 100px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-    line-height: 1;
-  }
+	h2 {
+		@include mq($until: tablet) {
+			max-width: 100px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		line-height: 1;
+	}
 
-  @include mq($from: tablet) {
-    a,
-    span {
-      color: var(--black);
-    }
-  }
+	@include mq($from: tablet) {
+		a,
+		span {
+			color: var(--black);
+		}
+	}
 
-  &.full {
-    padding-right: 0;
+	&.full {
+		padding-right: 0;
 
-    @include mq($until: tablet) {
-      width: 100%;
-    }
+		@include mq($until: tablet) {
+			width: 100%;
+		}
 
-    @include mq($from: wide) {
-      //width: calc(100% - (2 * var(--wide-margin)));
-    }
-  }
+		@include mq($from: wide) {
+			//width: calc(100% - (2 * var(--wide-margin)));
+		}
+	}
 
-  margin-top: var(--big-space);
+	margin-top: var(--big-space);
 
-  @include mq($until: tablet) {
-    margin-top: -1.5em;
-  }
+	@include mq($until: tablet) {
+		margin-top: -1.5em;
+	}
 
-  @include mq($from: tablet) {
-    width: 100%;
-  }
+	@include mq($from: tablet) {
+		width: 100%;
+	}
 
-  &.home {
-    margin-top: 0;
-  }
+	&.home {
+		margin-top: 0;
+	}
 
-  .archive {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    font-family: $headline-font;
-    font-weight: bold;
-    margin-top: -0.15em;
-    letter-spacing: 0.2em;
-    font-size: 2.7rem;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px;
-    text-align: center;
-    color: rgb(47, 47, 47);
-    width: 100%;
+	.archive {
+		position: absolute;
+		display: block;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		font-family: $headline-font;
+		font-weight: bold;
+		margin-top: -0.15em;
+		letter-spacing: 0.2em;
+		font-size: 2.7rem;
+		-webkit-text-fill-color: transparent;
+		-webkit-text-stroke: 1px;
+		text-align: center;
+		color: rgb(47, 47, 47);
+		width: 100%;
 
-    @include mq($from: tablet) {
-      margin-top: -0.08em;
-      width: calc(100% - var(--total-outer-margin));
-    }
-  }
+		@include mq($from: tablet) {
+			margin-top: -0.08em;
+			width: calc(100% - var(--total-outer-margin));
+		}
+	}
 
-  a {
-    //width: 100%;
+	a {
+		//width: 100%;
 
-    h2 {
-      line-height: 1;
-      text-align: center;
-      padding: 0;
-      margin: 0;
-      width: 100%;
+		h2 {
+			line-height: 1;
+			text-align: center;
+			padding: 0;
+			margin: 0;
+			width: 100%;
 
-      > span {
-        /*
+			> span {
+				/*
         &:hover {
           padding-left: 1em;
           padding-right: 1em;
@@ -96,64 +96,70 @@
         }
         */
 
-        span {
-          animation-name: show;
-          animation-duration: 0.2s;
-          animation-timing-function: steps(1, end);
-          animation-fill-mode: forwards;
-          opacity: 0.5;
+				span {
+					animation-name: show;
+					animation-duration: 0.2s;
+					animation-timing-function: steps(1, end);
+					animation-fill-mode: forwards;
+					opacity: 0.5;
 
-          @keyframes show {
-            to {
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
-  }
+					@keyframes show {
+						to {
+							opacity: 1;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 .logo {
-  position: fixed;
-  margin: var(--outer-margin);
-  left: 0;
-  top: 0;
-  z-index: var(--z-menu);
+	position: fixed;
+	margin: var(--outer-margin);
+	left: 0;
+	top: 0;
+	z-index: var(--z-menu);
 
-  svg {
-    @include mq($until: tablet) {
-      width: 120px;
-      height: 50px;
-    }
+	svg {
+		path {
+			transform: scale(0.8);
 
-    path {
-      transform: scale(0.8);
+			@include mq($until: tablet) {
+				transform: scale(0.38);
+			}
+		}
 
-      @include mq($until: tablet) {
-        transform: scale(0.38);
-      }
-    }
-  }
+		@include mq($until: tablet) {
+			width: 120px;
+			height: 50px;
+			mask {
+				display: none;
+			}
+			path {
+				fill: var(--blue) !important;
+			}
+		}
+	}
 }
 
 .line {
-  margin-bottom: var(--space);
-  width: 100%;
-  //border-bottom: 1px solid var(--black);
+	margin-bottom: var(--space);
+	width: 100%;
+	//border-bottom: 1px solid var(--black);
 
-  @include mq($until: tablet) {
-    margin-left: var(--outer-margin);
-    margin-right: var(--outer-margin);
-    width: var(--body-width);
-  }
+	@include mq($until: tablet) {
+		margin-left: var(--outer-margin);
+		margin-right: var(--outer-margin);
+		width: var(--body-width);
+	}
 }
 
 .spacer {
-  position: relative;
-  height: 0;
+	position: relative;
+	height: 0;
 
-  @include mq($from: tablet) {
-    height: var(--space);
-  }
+	@include mq($from: tablet) {
+		height: var(--space);
+	}
 }
