@@ -53,14 +53,14 @@ export default function Thumbnail({
 			<h3 className={cn(s[`rows-${titleRows}`])}>
 				<span>{titleLength ? truncateWords(title, titleLength) : title}</span>
 			</h3>
-			{(strippedIntro || meta) && (
+			{strippedIntro || meta ? (
 				<div className='thumb-intro'>
 					<p>
 						{meta && <strong>{meta.trim()}</strong>}
 						{strippedIntro}
 					</p>
 				</div>
-			)}
+			) : null}
 		</Link>
 	);
 }
