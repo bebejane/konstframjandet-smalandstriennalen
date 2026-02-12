@@ -16,7 +16,6 @@ export default function Footer({
 	menu,
 	footer: { email, facebook, instagram, about },
 }: FooterProps) {
-	return null;
 	const t = useTranslations('Footer');
 	const { isHome } = usePage();
 
