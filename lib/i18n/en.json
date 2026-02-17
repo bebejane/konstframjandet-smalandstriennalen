@@ -37,7 +37,8 @@
 	"Footer": {
 		"subscribe": "Subscribe to our newsletter",
 		"followUs": "Follow us on",
-		"and": "and"
+		"and": "and",
+		"newsletter": "Newsletter"
 	},
 	"Search": {
 		"searcResults": "Search results",

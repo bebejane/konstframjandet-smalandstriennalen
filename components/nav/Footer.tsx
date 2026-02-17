@@ -27,7 +27,8 @@ export default function Footer({
 					<a href={`mailto:${email}`}>{email}</a> Cookies & GDPR
 				</div>
 				<div>
-					{t('followUs')} <a href={instagram}>Instagram</a>
+					{t('followUs')} <a href={instagram}>Instagram</a><br />
+					<a href="https://smalandstriennalen.us6.list-manage.com/subscribe?u=0cee99232ee087dbedebff728&id=db45c9b977">{t('newsletter')}</a>
 				</div>
 				<div>{about}</div>
 				<KFLogo className={s.kf} />

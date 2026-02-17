@@ -37,7 +37,8 @@
 	"Footer": {
 		"subscribe": "Prenumerera på vårt nyhetsbrev",
 		"followUs": "Följ oss på",
-		"and": "och"
+		"and": "och",
+		"newsletter": "Nyhetsbrev"
 	},
 	"Search": {
 		"searcResults": "Sökresultat",
