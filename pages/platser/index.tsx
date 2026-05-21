@@ -36,16 +36,17 @@ export default function Partners({ locations }: Props) {
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [AllLocationsDocument] },
-	async ({ props, revalidate }: any) => {
+	async ({ props, revalidate, errorCode }: any) => {
 		return {
 			props: {
 				...props,
 				page: {
 					section: 'locations',
-					slugs: pageSlugs('locations', props.year.title),
+					slugs: pageSlugs('locations', props.year?.title),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

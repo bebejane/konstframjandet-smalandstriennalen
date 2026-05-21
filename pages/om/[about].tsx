@@ -37,7 +37,7 @@ export async function getStaticPaths() {
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [] },
-	async ({ props, revalidate, context }: any) => {
+	async ({ props, revalidate, context, errorCode }: any) => {
 		const slug = context.params.about;
 		const { about } = await apiQuery(AboutDocument, {
 			variables: { slug, locale: context.locale },
@@ -54,10 +54,11 @@ export const getStaticProps = withGlobalProps(
 					section: 'about',
 					parent: false,
 					title: about.title,
-					slugs: pageSlugs('about', props.year.title, about._allSlugLocales),
+					slugs: pageSlugs('about', props.year?.title, about._allSlugLocales),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

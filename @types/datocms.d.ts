@@ -6215,7 +6215,7 @@ type AllExhibitionsQueryVariables = Exact<{
 type AllExhibitionsQuery = { __typename?: 'Query', exhibitions: Array<{ __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, title: string, startDate?: any | null, endDate?: any | null, slug: string, image?: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null } | null, year: { __typename?: 'YearRecord', id: any, title: string }, location: Array<{ __typename?: 'LocationRecord', id: any, title: string }> }>, pagination: { __typename?: 'CollectionMetadata', count: any } };
 
 type ExhibitionQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  slug?: InputMaybe<Scalars['String']['input']>;
   locale?: InputMaybe<SiteLocale>;
 }>;
 
@@ -6301,6 +6301,7 @@ type AllLocationsQuery = { __typename?: 'Query', locations: Array<{ __typename?:
 type LocationQueryVariables = Exact<{
   slug: Scalars['String']['input'];
   locale?: InputMaybe<SiteLocale>;
+  yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 

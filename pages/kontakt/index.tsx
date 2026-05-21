@@ -32,7 +32,7 @@ export default function Program({
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [] },
-	async ({ props, revalidate, context }: any) => {
+	async ({ props, revalidate, context, errorCode }: any) => {
 		const { contact } = await apiQuery(ContactDocument, { variables: { locale: context.locale } });
 
 		return {
@@ -43,8 +43,9 @@ export const getStaticProps = withGlobalProps(
 					section: 'contact',
 					slugs: pageSlugs('contact'),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

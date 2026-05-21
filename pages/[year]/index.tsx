@@ -7,7 +7,7 @@ export { default } from '/pages/om';
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [] },
-	async ({ props, revalidate, context }: any) => {
+	async ({ props, revalidate, context, errorCode }: any) => {
 		const yearId = props.year.id;
 		const { abouts } = await apiQuery(AllAboutsDocument, {
 			variables: { first: 1, locale: context.locale, yearId },
@@ -25,12 +25,13 @@ export const getStaticProps = withGlobalProps(
 				page: {
 					section: 'home',
 					title: abouts[0].title,
-					slugs: pageSlugs('home', props.year.title),
+					slugs: pageSlugs('home', props.year?.title),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );
 
 export async function getStaticPaths() {

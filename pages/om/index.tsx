@@ -8,7 +8,7 @@ export { default } from './[about]';
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [] },
-	async ({ props, revalidate, context }: any) => {
+	async ({ props, revalidate, context, errorCode }: any) => {
 		const yearId = props.year.id;
 		const { abouts } = await apiQuery(MainAboutDocument, {
 			variables: { locale: context.locale, yearId },
@@ -25,10 +25,11 @@ export const getStaticProps = withGlobalProps(
 				page: {
 					section: 'about',
 					title: about.title,
-					slugs: pageSlugs('about', props.year.title, about._allSlugLocales),
+					slugs: pageSlugs('about', props.year?.title, about._allSlugLocales),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

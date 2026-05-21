@@ -48,7 +48,7 @@ export default function News({ news }: Props) {
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [AllNewsDocument] },
-	async ({ props, revalidate }: any) => {
+	async ({ props, revalidate, errorCode }: any) => {
 		return {
 			props: {
 				...props,
@@ -56,8 +56,9 @@ export const getStaticProps = withGlobalProps(
 					section: 'news',
 					slugs: pageSlugs('news'),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

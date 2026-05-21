@@ -31,31 +31,31 @@ export default function Home({ start }: Props) {
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [StartDocument] },
-	async ({ props, revalidate, context }: any) => {
+	async ({ props, revalidate, context, errorCode }: any) => {
 		let { start }: { start: StartRecord } = props;
 		const date = format(new Date(), 'yyyy-MM-dd');
 		const count = {
 			participants: parseInt(
 				(
 					start?.content.find(
-						(el) => el.__typename === 'StartRandomParticipantRecord'
+						(el) => el.__typename === 'StartRandomParticipantRecord',
 					) as StartRandomParticipantRecord
-				)?.amount ?? '6'
+				)?.amount ?? '6',
 			),
 			news: parseInt(
 				(start?.content.find((el) => el.__typename === 'StartNewsRecord') as StartNewsRecord)
-					?.amount ?? '6'
+					?.amount ?? '6',
 			),
 			programs: parseInt(
 				(start?.content.find((el) => el.__typename === 'StartProgramRecord') as StartProgramRecord)
-					?.amount ?? '6'
+					?.amount ?? '6',
 			),
 			exhibitions: parseInt(
 				(
 					start?.content.find(
-						(el) => el.__typename === 'StartExhibitionRecord'
+						(el) => el.__typename === 'StartExhibitionRecord',
 					) as StartExhibitionRecord
-				)?.amount ?? '6'
+				)?.amount ?? '6',
 			),
 		};
 
@@ -108,8 +108,9 @@ export const getStaticProps = withGlobalProps(
 					section: 'home',
 					slugs: pageSlugs('home'),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

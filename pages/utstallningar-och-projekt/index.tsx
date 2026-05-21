@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { DatoSEO } from 'dato-nextjs-utils/components';
 import { useTranslations } from 'next-intl';
 import { pageSlugs } from '/lib/i18n';
+import Error from 'next/error';
 
 export type Props = {
 	exhibitions: (ExhibitionRecord & ThumbnailImage)[];
@@ -40,7 +41,7 @@ export default function Exhibition({ exhibitions }: Props) {
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [AllExhibitionsDocument] },
-	async ({ props, revalidate }: any) => {
+	async ({ props, revalidate, errorCode }: any) => {
 		const { exhibitions } = props;
 
 		return {
@@ -48,10 +49,11 @@ export const getStaticProps = withGlobalProps(
 				...props,
 				page: {
 					section: 'exhibitions',
-					slugs: pageSlugs('exhibitions', props.year.title),
+					slugs: pageSlugs('exhibitions', props.year?.title),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

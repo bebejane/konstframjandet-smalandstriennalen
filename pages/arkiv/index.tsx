@@ -36,7 +36,7 @@ export default function Archive({ years }: Props) {
 
 export const getStaticProps = withGlobalProps(
 	{ queries: [AllYearsDocument] },
-	async ({ props, revalidate }: any) => {
+	async ({ props, revalidate, errorCode }: any) => {
 		return {
 			props: {
 				...props,
@@ -45,8 +45,9 @@ export const getStaticProps = withGlobalProps(
 					section: 'archive',
 					slugs: pageSlugs('archive'),
 				} as PageProps,
+				errorCode,
 			},
 			revalidate,
 		};
-	}
+	},
 );

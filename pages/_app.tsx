@@ -8,6 +8,7 @@ import { locales } from '/lib/i18n';
 import { PROJECT_NAME } from '/lib/constant';
 import { sv, enGB as en } from 'date-fns/locale';
 import setDefaultOptions from 'date-fns/setDefaultOptions';
+import Error from 'next/error';
 
 setDefaultOptions({ locale: sv });
 
@@ -21,12 +22,11 @@ function App({ Component, pageProps, router }) {
 	const { asPath } = useRouter();
 	const siteTitle = PROJECT_NAME;
 	const isHome = asPath === '/' || locales.find((l) => asPath === `/${l}`) !== undefined;
-	const errorCode = parseInt(router.pathname.replace('/', ''));
+	const errorCode = pageProps.errorCode ?? parseInt(router.pathname.replace('/', ''));
 
 	const isError =
 		(!isNaN(errorCode) && errorCode > 400 && errorCode < 600) ||
 		router.pathname.replace('/', '') === '_error';
-	if (isError) return <Component {...pageProps} />;
 
 	return (
 		<>
@@ -36,11 +36,15 @@ function App({ Component, pageProps, router }) {
 				onError={onMessageError}
 				getMessageFallback={getMessageFallback}
 			>
-				<PageProvider value={{ ...page, year: pageProps.year, isHome }}>
-					<Layout title={siteTitle} menu={pageProps.menu || []} footer={pageProps.general}>
-						<Component {...pageProps} />
-					</Layout>
-				</PageProvider>
+				{isError ? (
+					<Error statusCode={errorCode} />
+				) : (
+					<PageProvider value={{ ...page, year: pageProps.year, isHome }}>
+						<Layout title={siteTitle} menu={pageProps.menu || []} footer={pageProps.general}>
+							<Component {...pageProps} />
+						</Layout>
+					</PageProvider>
+				)}
 			</NextIntlProvider>
 		</>
 	);
