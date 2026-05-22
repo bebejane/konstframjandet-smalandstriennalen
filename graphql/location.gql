@@ -138,3 +138,134 @@ query Location($slug: String!, $locale: SiteLocale, $yearId: ItemId) {
 		}
 	}
 }
+
+fragment LocationFragment on LocationRecord {
+	id
+	title
+	city
+	address
+	image {
+		...ImageFragment
+	}
+	intro(markdown: false)
+	webpage
+	slug
+	exhibitions: _allReferencingExhibitions(first: 100) {
+		...ExhibitionFragmentLight
+	}
+	programs: _allReferencingPrograms(first: 100) {
+		...ProgramFragmentLight
+	}
+	content {
+		value
+		blocks {
+			__typename
+			... on ImageRecord {
+				__typename
+				id
+				layout
+				image {
+					...ImageFragment
+				}
+			}
+			... on ImageGalleryRecord {
+				__typename
+				id
+				images {
+					...ImageThumbnailFragment
+				}
+			}
+			... on LinkButtonRecord {
+				__typename
+				id
+				link {
+					__typename
+					... on ExternalLinkRecord {
+						__typename
+						id
+						title
+						url
+					}
+					... on InternalLinkRecord {
+						__typename
+						id
+						record {
+							... on AboutRecord {
+								id
+								slug
+								title
+							}
+							... on ExhibitionRecord {
+								id
+								slug
+								title
+							}
+							... on LocationRecord {
+								id
+								slug
+								title
+							}
+							... on NewsRecord {
+								id
+								slug
+								title
+							}
+							... on ParticipantRecord {
+								id
+								slug
+								name
+							}
+							... on ProgramRecord {
+								id
+								slug
+								title
+							}
+						}
+					}
+				}
+			}
+			... on VideoRecord {
+				__typename
+				id
+				title
+				video {
+					height
+					width
+					title
+					provider
+					providerUid
+					thumbnailUrl
+					url
+				}
+			}
+			... on RecordInterface {
+				__typename
+				id
+			}
+		}
+	}
+	_allSlugLocales {
+		locale
+		value
+	}
+	_seoMetaTags {
+		...SeoMetaTagsFragment
+	}
+}
+
+fragment LocationFragmentLight on LocationRecord {
+	id
+	title
+	city
+	address
+	intro(markdown: false)
+	webpage
+	slug
+	image {
+		...ImageThumbnailFragment
+	}
+	year {
+		id
+		title
+	}
+}

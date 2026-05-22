@@ -1,5 +1,0 @@
-fragment YearFragmentLight on YearRecord {
-	id
-	title
-	slug
-}

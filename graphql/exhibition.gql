@@ -2,13 +2,157 @@ query AllExhibitions($locale: SiteLocale, $yearId: ItemId) {
 	exhibitions: allExhibitions(filter: { year: { eq: $yearId } }, locale: $locale, first: 100) {
 		...ExhibitionFragmentLight
 	}
-	pagination: _allExhibitionsMeta(locale: $locale) {
+	pagination: _allExhibitionsMeta(filter: { year: { eq: $yearId } }, locale: $locale) {
 		count
 	}
 }
 
 query Exhibition($slug: String, $locale: SiteLocale) {
-	exhibition(filter: { slug: { eq: $slug } }, locale: $locale, fallbackLocales: [sv]) {
+	exhibition(filter: { slug: { eq: $slug } }, locale: $locale) {
 		...ExhibitionFragment
 	}
+}
+
+fragment ExhibitionFragment on ExhibitionRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	startDate
+	endDate
+	image {
+		...ImageFragment
+	}
+	thumb: image {
+		...ImageThumbnailFragment
+	}
+	intro(markdown: false)
+	misc
+	participants {
+		...ParticipantFragmentLight
+	}
+	location {
+		...LocationFragmentLight
+	}
+	partner {
+		...PartnerFragmentLight
+	}
+	slug
+	externalLink
+	content {
+		value
+		blocks {
+			__typename
+			... on ImageRecord {
+				__typename
+				id
+				layout
+				image {
+					...ImageFragment
+				}
+			}
+			... on ImageGalleryRecord {
+				__typename
+				id
+				images {
+					...ImageThumbnailFragment
+				}
+			}
+			... on LinkButtonRecord {
+				__typename
+				id
+				link {
+					__typename
+					... on ExternalLinkRecord {
+						__typename
+						id
+						title
+						url
+					}
+					... on InternalLinkRecord {
+						__typename
+						id
+						record {
+							... on AboutRecord {
+								id
+								slug
+								title
+							}
+							... on ExhibitionRecord {
+								id
+								slug
+								title
+							}
+							... on LocationRecord {
+								id
+								slug
+								title
+							}
+							... on NewsRecord {
+								id
+								slug
+								title
+							}
+							... on ParticipantRecord {
+								id
+								slug
+								name
+							}
+							... on ProgramRecord {
+								id
+								slug
+								title
+							}
+						}
+					}
+				}
+			}
+			... on VideoRecord {
+				__typename
+				id
+				title
+				video {
+					height
+					width
+					title
+					provider
+					providerUid
+					thumbnailUrl
+					url
+				}
+			}
+			... on RecordInterface {
+				__typename
+				id
+			}
+		}
+	}
+	_allSlugLocales {
+		locale
+		value
+	}
+	_seoMetaTags {
+		...SeoMetaTagsFragment
+	}
+}
+
+fragment ExhibitionFragmentLight on ExhibitionRecord {
+	__typename
+	_modelApiKey
+	id
+	title
+	startDate
+	endDate
+	image {
+		...ImageThumbnailFragment
+	}
+	year {
+		id
+		title
+	}
+	location {
+		id
+		title
+	}
+	slug
 }

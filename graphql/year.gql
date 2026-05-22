@@ -15,3 +15,15 @@ query Year($title: String!, $locale: SiteLocale) {
 		...YearFragment
 	}
 }
+
+fragment YearFragment on YearRecord {
+	id
+	title
+	slug
+}
+
+fragment YearFragmentLight on YearRecord {
+	id
+	title
+	slug
+}

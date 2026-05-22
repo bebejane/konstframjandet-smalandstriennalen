@@ -1,5 +1,3 @@
-#import "./fragments/ImageThumbnailFragment"
-
 query SiteSearch(
 	$aboutIds: [ItemId]
 	$newsIds: [ItemId]

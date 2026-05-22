@@ -1,7 +1,7 @@
 import s from './index.module.scss';
 import cn from 'classnames';
 import withGlobalProps from '/lib/withGlobalProps';
-import { StartDataDocument, StartDocument } from '/graphql';
+import { AllExhibitionsDocument, StartDataDocument, StartDocument } from '/graphql';
 import { apiQuery } from 'dato-nextjs-utils/api';
 import { Block } from '/components';
 import { pageSlugs } from '/lib/i18n';

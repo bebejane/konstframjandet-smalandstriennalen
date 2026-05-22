@@ -57,6 +57,7 @@ export default function withGlobalProps(
 				return await callback({ context, props: { ...props }, revalidate, errorCode: null });
 			else return { props: { ...props }, context, revalidate, errorCode: null };
 		} catch (e) {
+			console.log(e);
 			const errorCode = 500;
 			if (callback) return await callback({ context, props: {}, revalidate, errorCode });
 			else return { props: {}, context, revalidate, errorCode };

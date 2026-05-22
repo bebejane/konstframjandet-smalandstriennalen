@@ -1,5 +1,0 @@
-fragment YearFragment on YearRecord {
-	id
-	title
-	slug
-}

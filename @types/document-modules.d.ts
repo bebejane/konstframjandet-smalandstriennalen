@@ -6,6 +6,8 @@ declare module '*/about.gql' {
 export const About: DocumentNode;
 export const MainAbout: DocumentNode;
 export const AllAboutsMenu: DocumentNode;
+export const AboutFragment: DocumentNode;
+export const AboutFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -25,6 +27,8 @@ declare module '*/exhibition.gql' {
   const defaultDocument: DocumentNode;
   export const AllExhibitions: DocumentNode;
 export const Exhibition: DocumentNode;
+export const ExhibitionFragment: DocumentNode;
+export const ExhibitionFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -34,42 +38,6 @@ declare module '*/footer.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const Footer: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/AboutFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const AboutFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/AboutFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const AboutFragmentLight: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ExhibitionFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ExhibitionFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ExhibitionFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ExhibitionFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -102,96 +70,6 @@ declare module '*/ImageThumbnailFragment.gql' {
 }
     
 
-declare module '*/LocationFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const LocationFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/LocationFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const LocationFragmentLight: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/NewsFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const NewsFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/NewsFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const NewsFragmentLight: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ParticipantFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ParticipantFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ParticipantFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ParticipantFragmentLight: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/PartnerFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const PartnerFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/PartnerFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const PartnerFragmentLight: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ProgramFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ProgramFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/ProgramFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const ProgramFragmentLight: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/SeoMetaTagsFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -214,24 +92,6 @@ declare module '*/VideoFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const VideoFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/YearFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const YearFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/YearFragmentLight.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const YearFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -269,6 +129,8 @@ declare module '*/location.gql' {
   const defaultDocument: DocumentNode;
   export const AllLocations: DocumentNode;
 export const Location: DocumentNode;
+export const LocationFragment: DocumentNode;
+export const LocationFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -288,6 +150,8 @@ declare module '*/news.gql' {
   const defaultDocument: DocumentNode;
   export const AllNews: DocumentNode;
 export const News: DocumentNode;
+export const NewsFragment: DocumentNode;
+export const NewsFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -298,6 +162,8 @@ declare module '*/participant.gql' {
   const defaultDocument: DocumentNode;
   export const AllParticipants: DocumentNode;
 export const Participant: DocumentNode;
+export const ParticipantFragment: DocumentNode;
+export const ParticipantFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -308,6 +174,8 @@ declare module '*/partner.gql' {
   const defaultDocument: DocumentNode;
   export const AllPartners: DocumentNode;
 export const Partner: DocumentNode;
+export const PartnerFragment: DocumentNode;
+export const PartnerFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -319,6 +187,8 @@ declare module '*/program.gql' {
   export const AllPrograms: DocumentNode;
 export const Program: DocumentNode;
 export const AllProgramCategories: DocumentNode;
+export const ProgramFragment: DocumentNode;
+export const ProgramFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
@@ -348,6 +218,8 @@ declare module '*/year.gql' {
   const defaultDocument: DocumentNode;
   export const AllYears: DocumentNode;
 export const Year: DocumentNode;
+export const YearFragment: DocumentNode;
+export const YearFragmentLight: DocumentNode;
 
   export default defaultDocument;
 }
