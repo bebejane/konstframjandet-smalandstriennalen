@@ -80,7 +80,8 @@ export const getStaticProps = withGlobalProps(
 	{ queries: [] },
 	async ({ props, revalidate, context, errorCode }: any) => {
 		const slug = context.params.location;
-		const yearId = context.params.year;
+		const yearId = context.params.year?.id;
+
 		const { location } = await apiQuery(LocationDocument, {
 			variables: { slug, locale: context.locale, yearId },
 			preview: context.preview,
