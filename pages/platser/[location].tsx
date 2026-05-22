@@ -6,8 +6,6 @@ import { Article, Related, BackButton, MetaSection } from '/components';
 import { useTranslations } from 'next-intl';
 import { DatoSEO } from 'dato-nextjs-utils/components';
 import { pageSlugs } from '/lib/i18n';
-import { useRouter } from 'next/router';
-import { usePage } from '/lib/context/page';
 
 export type LocationExtendedRecord = (LocationRecord & ThumbnailImage) & {
 	exhibitions: ExhibitionRecord[];
@@ -34,7 +32,7 @@ export default function Location({
 	},
 }: Props) {
 	const t = useTranslations();
-
+	//console.log(exhibitions, programs);
 	return (
 		<>
 			<DatoSEO title={title} description={intro} seo={_seoMetaTags} />
@@ -80,7 +78,7 @@ export const getStaticProps = withGlobalProps(
 	{ queries: [] },
 	async ({ props, revalidate, context, errorCode }: any) => {
 		const slug = context.params.location;
-		const yearId = context.params.year?.id;
+		const yearId = props.year?.id;
 
 		const { location } = await apiQuery(LocationDocument, {
 			variables: { slug, locale: context.locale, yearId },

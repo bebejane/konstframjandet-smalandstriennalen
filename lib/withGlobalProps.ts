@@ -35,7 +35,7 @@ export default function withGlobalProps(
 
 		const variables = queries.map((el) => ({ locale: context.locale, yearId: year.id }));
 		const messages = (await import(`./i18n/${context.locale}.json`)).default;
-
+		console.log(variables);
 		try {
 			const props = await apiQuery(queries, {
 				preview: context.preview,
