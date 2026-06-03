@@ -33,8 +33,6 @@ export async function getStaticPaths() {
 	};
 }
 
-//AboutItem.page = { crumbs: [{ slug: 'nyheter', title: 'Nyheter' }], regional: true } as PageProps
-
 export const getStaticProps = withGlobalProps(
 	{ queries: [] },
 	async ({ props, revalidate, context, errorCode }: any) => {
