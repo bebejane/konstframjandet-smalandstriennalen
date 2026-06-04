@@ -14,7 +14,7 @@ export default function BackButton(props: Props) {
 	segemnts.pop();
 
 	return (
-		<Link href={href || segemnts.join('/')} transformHref={true}>
+		<Link href={href || segemnts.join('/')} transformHref={false}>
 			<Button className='back'>{children}</Button>
 		</Link>
 	);
