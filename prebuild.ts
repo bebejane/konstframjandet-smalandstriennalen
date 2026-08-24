@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import fs from 'fs';
 import { apiQuery } from 'next-dato-utils/api';
-import { AllYearsDocument } from '@/graphql';
+import { AllYearsDocument } from '@@/graphql';
 
 (async () => {
 	const { allYears } = await apiQuery(AllYearsDocument, {

@@ -1,8 +1,8 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import { apiQuery } from 'dato-nextjs-utils/api';
-import { AllExhibitionsDocument, AllProgramsDocument } from '../../graphql';
+import { apiQuery } from 'next-dato-utils/api';
+import { AllExhibitionsDocument, AllProgramsDocument } from '../..@/graphql';
 
 (async () => {
 	const res = await apiQuery(AllExhibitionsDocument, {

@@ -1,6 +1,6 @@
 import s from './Logo.module.scss';
 import cn from 'classnames';
-import { usePage } from '/lib/context/page';
+import { usePage } from '@/lib/context/page';
 import Link from 'next/link';
 
 export default function Logo() {

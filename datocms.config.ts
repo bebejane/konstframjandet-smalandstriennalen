@@ -6,7 +6,7 @@ import {
 	getItemReferenceRoutes,
 } from 'next-dato-utils/config';
 import { MetadataRoute } from 'next';
-import { SiteDocument, SitemapDocument } from '@/graphql';
+import { SiteDocument, SitemapDocument } from '@@/graphql';
 import { defaultLocale, getPathname, locales, routing } from '@/i18n/routing';
 import years from '@/years.json';
 

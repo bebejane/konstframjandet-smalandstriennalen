@@ -1,11 +1,11 @@
 import s from './Layout.module.scss';
 import React, { useEffect, useState } from 'react';
 import { Content, Footer, Grid, Menu, Language, FullscreenGallery } from '/components';
-import type { MenuItem } from '/lib/menu';
-import { buildMenu } from '/lib/menu';
+import type { MenuItem } from '@/lib/menu';
+import { buildMenu } from '@/lib/menu';
 import { useRouter } from 'next/router';
-import { useStore } from '/lib/store';
-import { usePage } from '/lib/context/page';
+import { useStore } from '@/lib/store';
+import { usePage } from '@/lib/context/page';
 
 export type LayoutProps = {
 	children: React.ReactNode;

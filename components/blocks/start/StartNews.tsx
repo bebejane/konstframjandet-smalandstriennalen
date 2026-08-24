@@ -3,7 +3,7 @@ import React from 'react';
 import { CardContainer, Card, Thumbnail } from '/components';
 import { useTranslations } from 'next-intl';
 import Link from '/components/nav/Link';
-import i18nPaths from '/lib/i18n/paths.json';
+import i18nPaths from '@/lib/i18n/paths.json';
 import { useRouter } from 'next/router';
 
 export type Props = {

@@ -1,5 +1,5 @@
 import Link from './Link';
-import { recordToSlug } from '/lib/utils';
+import { recordToSlug } from '@/lib/utils';
 
 export type Props = {
 	link: ExternalLinkRecord | (InternalLinkRecord & { internalTitle: String }) | any;
@@ -15,7 +15,7 @@ export default function DatoLink({ link, className, children }: Props) {
 		link.__typename === 'ExternalLinkRecord'
 			? link.title
 			: link.internalTitle ||
-			  (link.record.__typename === 'ParticipantRecord' ? link.record.name : link.record.title);
+				(link.record.__typename === 'ParticipantRecord' ? link.record.name : link.record.title);
 
 	return link.__typename === 'ExternalLinkRecord' ? (
 		<a href={slug} className={className}>

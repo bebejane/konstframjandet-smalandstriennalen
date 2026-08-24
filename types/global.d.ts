@@ -1,33 +1,42 @@
 type SiteLocale = 'sv' | 'en';
 
 type PageSlug = {
-  locale: SiteLocale
-  value: string
-  parent: string
-
-}
+	locale: SiteLocale;
+	value: string;
+	parent: string;
+};
 
 type PageProps = {
-  year: YearExtendedRecord
-  title?: string
-  isHome: boolean
-  slugs?: PageSlugs[]
-  section: SectionId
-  parent?: boolean
-  overview?: string
-}
+	year: YearExtendedRecord;
+	title?: string;
+	isHome: boolean;
+	slugs?: PageSlugs[];
+	section: SectionId;
+	parent?: boolean;
+	overview?: string;
+};
 
 type YearExtendedRecord = YearRecord & {
-  isArchive: boolean
-}
+	isArchive: boolean;
+};
 
-type SectionId = 'home' | 'contact' | 'participants' | 'news' | 'about' | 'locations' | 'program' | 'exhibitions' | 'partners' | 'archive' | 'search' | 'in-english'
+type SectionId =
+	| 'home'
+	| 'contact'
+	| 'participants'
+	| 'news'
+	| 'about'
+	| 'locations'
+	| 'program'
+	| 'exhibitions'
+	| 'partners'
+	| 'archive'
+	| 'search'
+	| 'in-english';
 
 type ThumbnailImage = {
-  thumb: FileField
-}
+	thumb: FileField;
+};
 
-type Messages = typeof import('../lib/i18n/en.json');
-declare interface IntlMessages extends Messages { }
-
-
+type Messages = typeof import('..@/lib/i18n/en.json');
+declare interface IntlMessages extends Messages {}
