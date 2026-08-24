@@ -1,5 +1,5 @@
 query AllParticipants($locale: SiteLocale, $yearId: ItemId) {
-	participants: allParticipants(
+	allParticipants(
 		filter: { year: { eq: $yearId } }
 		locale: $locale
 		fallbackLocales: [sv]
@@ -8,7 +8,7 @@ query AllParticipants($locale: SiteLocale, $yearId: ItemId) {
 	) {
 		...ParticipantFragmentLight
 	}
-	pagination: _allParticipantsMeta(locale: $locale) {
+	_allParticipantsMeta(locale: $locale, filter: { year: { eq: $yearId } }) {
 		count
 	}
 }

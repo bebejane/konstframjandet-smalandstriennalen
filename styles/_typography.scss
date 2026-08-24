@@ -28,7 +28,7 @@ h1 {
 	font-weight: bold;
 	padding-bottom: var(--space);
 	line-height: 1.25;
-	font-family: $body-font;
+	font-family: var(--body-font);
 	text-align: center;
 	@include mq($until: tablet) {
 		padding-left: var(--outer-margin);
@@ -41,12 +41,12 @@ h2 {
 	@include mq($from: tablet) {
 		font-size: 0.75rem;
 	}
-	font-family: $headline-font;
+	font-family: var(--headline-font);
 }
 
 h3 {
 	font-size: 1rem;
-	font-family: $body-font;
+	font-family: var(--body-font);
 	text-align: center;
 	padding-bottom: 1em;
 	line-height: 1.2;
@@ -73,7 +73,7 @@ p.intro,
 	}
 
 	strong {
-		font-family: $headline-font;
+		font-family: var(--headline-font);
 		font-weight: bold !important;
 		font-size: 0.75rem;
 		display: inline-block;
@@ -95,7 +95,7 @@ footer,
 footer nav,
 figcaption,
 .caption label {
-	font-family: $headline-font;
+	font-family: var(--headline-font);
 	font-size: 0.85rem;
 	font-weight: bold;
 	text-align: center;
@@ -110,7 +110,7 @@ button,
 .mid input,
 .mid select {
 	font-size: 0.95rem;
-	font-family: $headline-font;
+	font-family: var(--headline-font);
 	@include mq($from: tablet) {
 		font-size: 0.75rem;
 	}
@@ -159,7 +159,7 @@ article {
 	p strong,
 	p b {
 		font-weight: normal !important;
-		font-family: $headline-font-medium;
+		font-family: var(--headline-font)-medium;
 	}
 
 	p.center {
@@ -168,7 +168,7 @@ article {
 }
 
 button {
-	font-family: $headline-font;
+	font-family: var(--headline-font);
 }
 
 em,

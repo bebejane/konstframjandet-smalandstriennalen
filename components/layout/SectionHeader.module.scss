@@ -57,7 +57,7 @@
 		top: 0;
 		left: 0;
 		z-index: -1;
-		font-family: $headline-font;
+		font-family: var(--headline-font);
 		font-weight: bold;
 		margin-top: -0.15em;
 		letter-spacing: 0.2em;

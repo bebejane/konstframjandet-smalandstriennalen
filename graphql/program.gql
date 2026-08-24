@@ -1,5 +1,5 @@
 query AllPrograms($locale: SiteLocale, $yearId: ItemId) {
-	programs: allPrograms(
+	allPrograms(
 		filter: { year: { eq: $yearId } }
 		locale: $locale
 		fallbackLocales: [sv]
@@ -8,7 +8,7 @@ query AllPrograms($locale: SiteLocale, $yearId: ItemId) {
 	) {
 		...ProgramFragmentLight
 	}
-	pagination: _allProgramsMeta(locale: $locale) {
+	_allProgramsMeta(locale: $locale, filter: { year: { eq: $yearId } }) {
 		count
 	}
 }
@@ -20,7 +20,7 @@ query Program($slug: String!, $locale: SiteLocale) {
 }
 
 query AllProgramCategories($locale: SiteLocale) {
-	programCategories: allProgramCategories(locale: $locale, orderBy: title_DESC, first: 100) {
+	allProgramCategories(locale: $locale, orderBy: title_DESC, first: 100) {
 		id
 		title
 		desc

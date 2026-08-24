@@ -1,5 +1,5 @@
 query AllYears($locale: SiteLocale, $year: String) {
-	years: allYears(
+	allYears(
 		filter: { title: { neq: $year } }
 		locale: $locale
 		fallbackLocales: [sv]
@@ -7,6 +7,9 @@ query AllYears($locale: SiteLocale, $year: String) {
 		orderBy: title_DESC
 	) {
 		...YearFragment
+	}
+	_allYearsMeta(locale: $locale, filter: { title: { neq: $year } }) {
+		count
 	}
 }
 

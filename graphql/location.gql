@@ -4,7 +4,7 @@ query AllLocations(
 	$locale: SiteLocale
 	$yearId: ItemId
 ) {
-	locations: allLocations(
+	allLocations(
 		filter: { year: { eq: $yearId } }
 		first: $first
 		skip: $skip
@@ -14,7 +14,7 @@ query AllLocations(
 		...LocationFragmentLight
 	}
 
-	pagination: _allLocationsMeta(locale: $locale) {
+	_allLocationsMeta(locale: $locale, filter: { year: { eq: $yearId } }) {
 		count
 	}
 }
@@ -35,10 +35,10 @@ query Location($slug: String!, $locale: SiteLocale, $yearId: ItemId) {
 		intro(markdown: false)
 		webpage
 		slug
-		exhibitions: _allReferencingExhibitions(first: 100, filter: { year: { eq: $yearId } }) {
+		_allReferencingExhibitions(first: 100, filter: { year: { eq: $yearId } }) {
 			...ExhibitionFragmentLight
 		}
-		programs: _allReferencingPrograms(first: 100, filter: { year: { eq: $yearId } }) {
+		_allReferencingPrograms(first: 100, filter: { year: { eq: $yearId } }) {
 			...ProgramFragmentLight
 		}
 		content {

@@ -1,5 +1,5 @@
 query AllNews($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale) {
-	news: allNews(
+	allNews(
 		locale: $locale
 		fallbackLocales: [sv]
 		first: $first
@@ -9,7 +9,7 @@ query AllNews($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale) {
 		...NewsFragmentLight
 	}
 
-	pagination: _allNewsMeta(locale: $locale) {
+	_allNewsMeta(locale: $locale) {
 		count
 	}
 }

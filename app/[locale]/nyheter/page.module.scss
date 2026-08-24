@@ -1,0 +1,19 @@
+.news {
+	padding-top: 0rem;
+
+	strong {
+		padding-right: 1em;
+	}
+
+	h3 {
+		font-weight: normal;
+		text-transform: uppercase;
+		padding-bottom: var(--small-space);
+	}
+
+	> ul {
+		list-style: none;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}

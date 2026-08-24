@@ -31,7 +31,7 @@
 		flex-direction: column;
 		z-index: 2;
 		color: var(--white);
-		font-family: $body-font;
+		font-family: var(--body-font);
 		font-size: 1rem;
 
 		@include mq($from: tablet) {

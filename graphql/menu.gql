@@ -1,5 +1,5 @@
 query Menu($locale: SiteLocale, $yearId: ItemId) {
-	abouts: allAbouts(
+	allAbouts(
 		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
 		first: 100
 		locale: $locale
@@ -8,12 +8,11 @@ query Menu($locale: SiteLocale, $yearId: ItemId) {
 		id
 		title
 		slug
-		#altSlug: slug(locale: $altLocale)
 		year {
 			title
 		}
 	}
-	years: allYears(
+	allYears(
 		filter: { id: { neq: $yearId } }
 		locale: $locale
 		fallbackLocales: [sv]
@@ -31,24 +30,22 @@ query Menu($locale: SiteLocale, $yearId: ItemId) {
 		id
 		title
 	}
-	aboutMeta: _allAboutsMeta(
-		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
-	) {
+	_allAboutsMeta(filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }) {
 		count
 	}
-	programMeta: _allProgramsMeta(filter: { year: { eq: $yearId } }) {
+	_allProgramsMeta(filter: { year: { eq: $yearId } }) {
 		count
 	}
-	participantsMeta: _allParticipantsMeta(filter: { year: { eq: $yearId } }) {
+	_allParticipantsMeta(filter: { year: { eq: $yearId } }) {
 		count
 	}
-	partnersMeta: _allPartnersMeta(filter: { year: { eq: $yearId } }) {
+	_allPartnersMeta(filter: { year: { eq: $yearId } }) {
 		count
 	}
-	exhibitionsMeta: _allExhibitionsMeta(filter: { year: { eq: $yearId } }) {
+	_allExhibitionsMeta(filter: { year: { eq: $yearId } }) {
 		count
 	}
-	locationsMeta: _allLocationsMeta(filter: { year: { eq: $yearId } }) {
+	_allLocationsMeta(filter: { year: { eq: $yearId } }) {
 		count
 	}
 }

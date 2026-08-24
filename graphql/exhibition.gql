@@ -1,8 +1,8 @@
 query AllExhibitions($locale: SiteLocale, $yearId: ItemId) {
-	exhibitions: allExhibitions(filter: { year: { eq: $yearId } }, locale: $locale, first: 100) {
+	allExhibitions(filter: { year: { eq: $yearId } }, locale: $locale, first: 100) {
 		...ExhibitionFragmentLight
 	}
-	pagination: _allExhibitionsMeta(filter: { year: { eq: $yearId } }, locale: $locale) {
+	_allExhibitionsMeta(filter: { year: { eq: $yearId } }, locale: $locale) {
 		count
 	}
 }

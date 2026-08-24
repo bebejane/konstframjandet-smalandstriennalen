@@ -1,5 +1,5 @@
 query AllPartners($locale: SiteLocale, $yearId: ItemId) {
-	partners: allPartners(
+	allPartners(
 		filter: { year: { eq: $yearId } }
 		locale: $locale
 		fallbackLocales: [sv]
@@ -7,7 +7,7 @@ query AllPartners($locale: SiteLocale, $yearId: ItemId) {
 	) {
 		...PartnerFragmentLight
 	}
-	pagination: _allPartnersMeta {
+	_allPartnersMeta(filter: { year: { eq: $yearId } }) {
 		count
 	}
 }
