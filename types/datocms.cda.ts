@@ -6450,11 +6450,12 @@ type LocationFragmentLightFragment = { __typename?: 'LocationRecord', id: any, t
 
 type MenuQueryVariables = Exact<{
   locale?: InputMaybe<SiteLocale>;
+  altLocale?: InputMaybe<SiteLocale>;
   yearId?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
-type MenuQuery = { __typename?: 'Query', allAbouts: Array<{ __typename?: 'AboutRecord', id: any, title: string, slug: string, year?: { __typename?: 'YearRecord', title: string } | null }>, allYears: Array<{ __typename?: 'YearRecord', id: any, title: string, slug: string }>, year?: { __typename?: 'YearRecord', id: any, title: string } | null, _allAboutsMeta: { __typename?: 'CollectionMetadata', count: any }, _allProgramsMeta: { __typename?: 'CollectionMetadata', count: any }, _allParticipantsMeta: { __typename?: 'CollectionMetadata', count: any }, _allPartnersMeta: { __typename?: 'CollectionMetadata', count: any }, _allExhibitionsMeta: { __typename?: 'CollectionMetadata', count: any }, _allLocationsMeta: { __typename?: 'CollectionMetadata', count: any } };
+type MenuQuery = { __typename?: 'Query', allAbouts: Array<{ __typename?: 'AboutRecord', id: any, title: string, slug: string, altSlug: string, year?: { __typename?: 'YearRecord', title: string } | null }>, allYears: Array<{ __typename?: 'YearRecord', id: any, title: string, slug: string }>, year?: { __typename?: 'YearRecord', id: any, title: string } | null, _allAboutsMeta: { __typename?: 'CollectionMetadata', count: any }, _allProgramsMeta: { __typename?: 'CollectionMetadata', count: any }, _allParticipantsMeta: { __typename?: 'CollectionMetadata', count: any }, _allPartnersMeta: { __typename?: 'CollectionMetadata', count: any }, _allExhibitionsMeta: { __typename?: 'CollectionMetadata', count: any }, _allLocationsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AllNewsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;

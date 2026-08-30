@@ -1,4 +1,4 @@
-query Menu($locale: SiteLocale, $yearId: ItemId) {
+query Menu($locale: SiteLocale, $altLocale: SiteLocale, $yearId: ItemId) {
 	allAbouts(
 		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
 		first: 100
@@ -8,6 +8,7 @@ query Menu($locale: SiteLocale, $yearId: ItemId) {
 		id
 		title
 		slug
+		altSlug: slug(locale: $altLocale)
 		year {
 			title
 		}

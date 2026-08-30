@@ -5,12 +5,12 @@ export interface StoreState {
 	showMenuMobile: boolean;
 	showSearch: boolean;
 	searchQuery: string | undefined;
-	images: FileField[];
-	imageId?: string;
+	images: FileField[] | null;
+	imageId?: string | null;
 	setShowMenu: (showMenu: boolean) => void;
 	setShowMenuMobile: (showMenuMobile: boolean) => void;
-	setImages: (images: FileField[] | undefined) => void;
-	setImageId: (imageId: string | undefined) => void;
+	setImages: (images: FileField[] | null) => void;
+	setImageId: (imageId: string | null) => void;
 	setShowSearch: (showSearch: boolean) => void;
 	setSearchQuery: (searchQuery: string) => void;
 }
@@ -30,11 +30,11 @@ const useStore = create<StoreState>((set) => ({
 		set((state) => ({
 			showMenuMobile,
 		})),
-	setImageId: (imageId: string | undefined) =>
+	setImageId: (imageId: string | null) =>
 		set((state) => ({
 			imageId,
 		})),
-	setImages: (images: FileField[] | undefined) =>
+	setImages: (images: FileField[] | null) =>
 		set((state) => ({
 			images,
 		})),
