@@ -6,7 +6,7 @@ import { Content, Footer, Menu, Language, FullscreenGallery } from '@/components
 import type { MenuItem } from '@/lib/menu';
 import { buildMenu } from '@/lib/menu';
 import { useRouter } from 'next/router';
-import { useStore } from '@/lib/store';
+import { useShallow, useStore } from '@/lib/store';
 import { usePage } from '@/lib/context/page';
 
 export type LayoutProps = {
@@ -20,11 +20,9 @@ export default function Layout({ children, menu: menuFromProps, footer, title }:
 	const router = useRouter();
 	const { year, section } = usePage();
 	const [menu, setMenu] = useState(menuFromProps);
-	const [images, imageId, setImageId] = useStore((state) => [
-		state.images,
-		state.imageId,
-		state.setImageId,
-	]);
+	const [images, imageId, setImageId] = useStore(
+		useShallow((state) => [state.images, state.imageId, state.setImageId]),
+	);
 
 	useEffect(() => {
 		// Refresh menu on load.

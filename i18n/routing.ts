@@ -26,17 +26,32 @@ export const routing = defineRouting({
 		'/om': {
 			en: '/about',
 		},
+		'/om/[about]': {
+			en: '/about/[about]',
+		},
 		'/platser': {
 			en: '/locations',
+		},
+		'/platser/[location]': {
+			en: '/locations/[location]',
 		},
 		'/program': {
 			en: '/program',
 		},
+		'/program/[program]': {
+			en: '/program/[program]',
+		},
 		'/utstallningar': {
 			en: '/exhibitions',
 		},
+		'/utstallningar/[exhibition]': {
+			en: '/exhibitions/[exhibition]',
+		},
 		'/partners': {
 			en: '/partners',
+		},
+		'/partners/[partner]': {
+			en: '/partners/[partner]',
 		},
 		'/arkiv': {
 			en: '/archive',

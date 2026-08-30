@@ -3,12 +3,14 @@
 import s from './Hamburger.module.scss';
 import cn from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
-import useStore from '@/lib/store';
+import useStore, { useShallow } from '@/lib/store';
 import { usePage } from '@/lib/context/page';
 
 export default function Hamburger() {
 	const { isHome } = usePage();
-	const [showMenu, setShowMenu] = useStore((state) => [state.showMenu, state.setShowMenu]);
+	const [showMenu, setShowMenu] = useStore(
+		useShallow((state) => [state.showMenu, state.setShowMenu]),
+	);
 	const [key, setKey] = useState(Math.random());
 	const [init, setInit] = useState(false);
 	const handleClick = (e) => {

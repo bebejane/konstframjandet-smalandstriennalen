@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { MenuItem } from '@/lib/menu';
 import { useTranslations } from 'next-intl';
 import { usePage } from '@/lib/context/page';
-import useStore from '@/lib/store';
+import useStore, { useShallow } from '@/lib/store';
 import Logo from '@/public/images/logo-text.svg';
 
 export type SectionHeaderProps = {
@@ -21,7 +21,7 @@ export default function SectionHeader() {
 	const router = useRouter();
 	const { locale, asPath } = router;
 
-	const [showMenu] = useStore((state) => [state.showMenu]);
+	const [showMenu] = useStore(useShallow((state) => [state.showMenu]));
 	const { section, parent, isHome, slugs } = usePage();
 
 	const parentPath = slugs.find((slug) => slug.locale === locale)?.parent;

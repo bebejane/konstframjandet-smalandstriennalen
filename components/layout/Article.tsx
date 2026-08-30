@@ -7,7 +7,7 @@ import { StructuredContent } from '@/components';
 import { Image } from 'react-datocms';
 //import { DatoSEO } from 'next-dato-utils/components';
 import { Link } from '@/i18n/routing';
-import useStore from '@/lib/store';
+import useStore, { useShallow } from '@/lib/store';
 import { format } from 'date-fns';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
@@ -45,7 +45,9 @@ export default function Article({
 }: ArticleProps) {
 	const { asPath } = useRouter();
 	const t = useTranslations();
-	const [setImageId, setImages] = useStore((state) => [state.setImageId, state.setImages]);
+	const [setImageId, setImages] = useStore(
+		useShallow((state) => [state.setImageId, state.setImages]),
+	);
 	const captionRef = useRef<HTMLElement | null>(null);
 	const figureRef = useRef<HTMLElement | null>(null);
 

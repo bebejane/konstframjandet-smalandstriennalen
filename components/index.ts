@@ -38,3 +38,4 @@ export { default as Footer } from './nav/Footer';
 export { default as Language } from './nav/Language';
 export { default as Menu } from './nav/Menu';
 export { default as MenuTree } from './nav/MenuTree';
+export { default as Icon } from './common/Icon';

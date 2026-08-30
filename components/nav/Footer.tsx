@@ -6,6 +6,7 @@ import type { MenuItem } from '@/lib/menu';
 import KFLogo from '@/public/images/kf-logo.svg';
 import { useTranslations } from 'next-intl';
 import { PROJECT_NAME } from '@/lib/constant';
+import Icon from '@/components/common/Icon';
 
 export type FooterProps = {
 	menu: MenuItem[];
@@ -33,7 +34,13 @@ export default function Footer({
 					</a>
 				</div>
 				<div>{about}</div>
-				<KFLogo className={s.kf} />
+				{/* <KFLogo className={s.kf} /> */}
+				<Icon
+					//key={pathname}
+					className={s.kf}
+					src={KFLogo}
+					//style={!archiveOverview && color ? { color } : undefined}
+				/>
 			</section>
 		</footer>
 	);

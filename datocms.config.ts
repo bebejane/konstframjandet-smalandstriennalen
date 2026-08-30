@@ -61,6 +61,9 @@ export function getRoute(item: any, locale?: string | null): string {
 		case 'in_english':
 			route = `/in-english`;
 			break;
+		case 'year':
+			route = `/[year]`;
+			break;
 		default:
 			break;
 	}
@@ -83,7 +86,7 @@ export function getRoute(item: any, locale?: string | null): string {
 		locale: locale ?? defaultLocale,
 		href: { pathname: route as any, params },
 	});
-	console.log(route, params, pathname);
+
 	return pathname;
 }
 

@@ -5,7 +5,7 @@ import { Loader, Button } from '@/components';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
-import useStore from '@/lib/store';
+import useStore, { useShallow } from '@/lib/store';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
 import type { SearchResult } from '/pages/api/search';
@@ -18,10 +18,9 @@ export type Props = {
 export default function Search({ query }: Props) {
 	const router = useRouter();
 	const t = useTranslations();
-	const [searchQuery, setSearchQuery] = useStore((state) => [
-		state.searchQuery,
-		state.setSearchQuery,
-	]);
+	const [searchQuery, setSearchQuery] = useStore(
+		useShallow((state) => [state.searchQuery, state.setSearchQuery]),
+	);
 	const [results, setResults] = useState<SearchResult | undefined>();
 	const [error, setError] = useState<Error | undefined>();
 	const [loading, setLoading] = useState<boolean>(false);

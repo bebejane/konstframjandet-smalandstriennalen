@@ -7,7 +7,7 @@ import { useWindowSize } from 'usehooks-ts';
 import Youtube from 'react-youtube';
 import Vimeo from '@u-wave/react-vimeo';
 import { Markdown } from 'next-dato-utils/components';
-import useStore from '@/lib/store';
+import useStore, { useShallow } from '@/lib/store';
 
 export type Props = {
 	data: VideoRecord;
@@ -17,7 +17,7 @@ export default function StartVideo({ data }: Props) {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [videoHeight, setVideoHeight] = useState(360);
 	const { width, height } = useWindowSize();
-	const [showMenu] = useStore((state) => [state.showMenu]);
+	const [showMenu] = useStore(useShallow((state) => [state.showMenu]));
 
 	useEffect(
 		() => setVideoHeight((ref.current?.clientWidth ?? 0 / 16) * 9),

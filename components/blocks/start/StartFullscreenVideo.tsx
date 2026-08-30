@@ -5,13 +5,13 @@ import cn from 'classnames';
 import { VideoPlayer, DatoLink } from '@/components';
 import { useRef } from 'react';
 import { Markdown } from 'next-dato-utils/components';
-import useStore from '@/lib/store';
+import useStore, { useShallow } from '@/lib/store';
 
 export type Props = { data: StartFullscreenVideoRecord };
 
 export default function StartFullscreenVideo({ data: { video, text, headline, link } }: Props) {
 	const ref = useRef(null);
-	const [showMenu] = useStore((state) => [state.showMenu]);
+	const [showMenu] = useStore(useShallow((state) => [state.showMenu]));
 
 	return (
 		<div className={cn(s.fullScreenVideo, !showMenu && s.full)} ref={ref}>
