@@ -1,6 +1,6 @@
 import withGlobalProps from '@/lib/withGlobalProps';
 import { AllLocationsDocument } from '@/graphql';
-import { CardContainer, Card, Thumbnail } from '/components';
+import { CardContainer, Card, Thumbnail } from '@/components';
 import { useRouter } from 'next/router';
 import { DatoSEO } from 'next-dato-utils/components';
 import { useTranslations } from 'next-intl';

@@ -1,20 +1,24 @@
 import s from './LinkButton.module.scss';
-import React from 'react';
-import { Button, Link } from '/components';
-import { recordToSlug } from '@/lib/utils';
+import { getRoute } from '@/datocms.config';
+import { Link } from '@/i18n/routing';
+
 export type LinkButtonBlockProps = { data: LinkButtonRecord; onClick: Function };
 
 export default function LinkButton({ data: { link } }: LinkButtonBlockProps) {
-	const slug = link.__typename === 'ExternalLinkRecord' ? link.url : recordToSlug(link.record);
-	const title =
-		link.__typename === 'ExternalLinkRecord'
-			? link.title
-			: link.title ||
-				(link.record.__typename === 'ParticipantRecord' ? link.record.name : link.record.title);
+	const t = link.__typename;
+	const href =
+		t === 'ExternalLinkRecord'
+			? link.url
+			: t === 'InternalLinkRecord'
+				? getRoute(link.record)
+				: null;
+	const { title } = link;
+
+	if (!href) return null;
 
 	return (
-		<Link href={slug} className={s.button} transformHref={false}>
-			<Button>{title}</Button>
+		<Link href={href}>
+			<button className={s.button}>{title}</button>
 		</Link>
 	);
 }

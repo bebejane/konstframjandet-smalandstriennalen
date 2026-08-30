@@ -1,16 +1,16 @@
+'use client';
+
 import s from './StartFullscreenVideo.module.scss';
 import cn from 'classnames';
-import React from 'react';
-import { VideoPlayer, DatoLink } from '/components';
-import Link from 'next/link';
+import { VideoPlayer, DatoLink } from '@/components';
 import { useRef } from 'react';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import useStore from '@/lib/store';
 
 export type Props = { data: StartFullscreenVideoRecord };
 
 export default function StartFullscreenVideo({ data: { video, text, headline, link } }: Props) {
-	const ref = useRef();
+	const ref = useRef(null);
 	const [showMenu] = useStore((state) => [state.showMenu]);
 
 	return (
@@ -20,7 +20,7 @@ export default function StartFullscreenVideo({ data: { video, text, headline, li
 			</DatoLink>
 			<div className={s.textWrap}>
 				<h2>{headline}</h2>
-				<Markdown className={s.text}>{text}</Markdown>
+				<Markdown className={s.text} content={text} />
 			</div>
 		</div>
 	);

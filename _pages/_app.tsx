@@ -1,5 +1,5 @@
 import '/styles/index.scss';
-import { Layout } from '/components';
+import { Layout } from '@/components';
 import { PageProvider } from '@/lib/context/page';
 import { NextIntlProvider } from 'next-intl';
 import { DefaultDatoSEO } from 'next-dato-utils/components';

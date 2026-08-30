@@ -1,3 +1,5 @@
+'use client';
+
 import s from './FilterBar.module.scss';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';

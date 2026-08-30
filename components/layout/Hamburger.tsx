@@ -1,3 +1,5 @@
+'use client';
+
 import s from './Hamburger.module.scss';
 import cn from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';

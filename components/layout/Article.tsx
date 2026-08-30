@@ -1,16 +1,17 @@
+'use client';
+
 import s from './Article.module.scss';
 import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { StructuredContent } from '/components';
+import { StructuredContent } from '@/components';
 import { Image } from 'react-datocms';
-import { useScrollInfo } from 'next-dato-utils/hooks';
-import { DatoSEO } from 'next-dato-utils/components';
-import Link from '/components/nav/Link';
+//import { DatoSEO } from 'next-dato-utils/components';
+import { Link } from '@/i18n/routing';
 import useStore from '@/lib/store';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { useRouter } from 'next/router';
 import { useTranslations } from 'next-intl';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import useDevice from '@/lib/hooks/useDevice';
 import BalanceText from 'react-balance-text';
 
@@ -59,7 +60,7 @@ export default function Article({
 
 	return (
 		<>
-			<DatoSEO title={title} />
+			{/* <DatoSEO title={title} /> */}
 			<div className={cn(s.article, 'article')}>
 				<h1>
 					<BalanceText>{title}</BalanceText>
@@ -85,7 +86,7 @@ export default function Article({
 							<span>{format(new Date(date), 'dd').replace('.', '')}</span>
 						</div>
 					)}
-					<Markdown className={s.intro}>{intro}</Markdown>
+					<Markdown className={s.intro} content={intro} />
 				</section>
 				{content && (
 					<>
@@ -100,7 +101,7 @@ export default function Article({
 					</>
 				)}
 				{children}
-				{partner?.length > 0 && (
+				{partner && partner?.length > 0 && (
 					<p className='small-body'>
 						{t('General.inCooperationWith')}{' '}
 						{partner.map(({ id, title, slug }, idx) => (

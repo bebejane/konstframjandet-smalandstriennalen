@@ -1,5 +1,10 @@
+query Site ($locale: SiteLocale) {
+	_site (locale: $locale) {
+		...SiteFragment
+	}
+}
 fragment SiteFragment on Site {
-	favicon: faviconMetaTags {
+	faviconMetaTags {
 		attributes
 		content
 		tag

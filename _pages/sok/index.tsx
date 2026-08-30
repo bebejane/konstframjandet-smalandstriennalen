@@ -1,7 +1,7 @@
 import s from './index.module.scss';
 import cn from 'classnames';
 import withGlobalProps from '@/lib/withGlobalProps';
-import { Loader, Button } from '/components';
+import { Loader, Button } from '@/components';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { DatoMarkdown as Markdown } from 'next-dato-utils/components';

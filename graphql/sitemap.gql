@@ -1,0 +1,113 @@
+query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
+	allAbouts(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		slug
+		year {
+			title
+		}
+		_allSlugLocales {
+			locale
+			value
+		}
+	}
+	_allAboutsMeta(locale: $locale) {
+		count
+	}
+	allExhibitions(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		slug
+		year {
+			title
+		}
+		_allSlugLocales {
+			locale
+			value
+		}
+	}
+	_allExhibitionsMeta(locale: $locale) {
+		count
+	}
+	allLocations(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		slug
+		year {
+			title
+		}
+		_allSlugLocales {
+			locale
+			value
+		}
+	}
+	_allLocationsMeta(locale: $locale) {
+		count
+	}
+	allNews(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		slug
+		_allSlugLocales {
+			locale
+			value
+		}
+	}
+	_allNewsMeta(locale: $locale) {
+		count
+	}
+	allParticipants(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		slug
+		year {
+			title
+		}
+		_allSlugLocales {
+			locale
+			value
+		}
+	}
+	_allParticipantsMeta(locale: $locale) {
+		count
+	}
+	allPartners(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		slug
+		year {
+			title
+		}
+		_allSlugLocales {
+			locale
+			value
+		}
+	}
+	_allPartnersMeta(locale: $locale) {
+		count
+	}
+	allPrograms(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		slug
+		_allSlugLocales {
+			locale
+			value
+		}
+		year {
+			title
+		}
+	}
+	_allProgramsMeta(locale: $locale) {
+		count
+	}
+	allYears(locale: $locale, first: $first, skip: $skip) {
+		__typename
+		_updatedAt
+		title
+		slug
+	}
+	_allYearsMeta(locale: $locale) {
+		count
+	}
+}

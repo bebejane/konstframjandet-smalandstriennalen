@@ -1,42 +1,7 @@
-import i18nPaths from './i18n/paths.json';
-import { apiQuery } from 'next-dato-utils/api';
-import type { ApiQueryOptions } from 'next-dato-utils/api';
-import type { MenuItem } from '@@/lib/menu';
+import { apiQuery, TypedDocumentNode } from 'next-dato-utils/api';
 import { format } from 'date-fns';
-import React from 'react';
-import { AllYearsDocument } from '@/graphql';
-
-export const isServer = typeof window === 'undefined';
-
-export const chunkArray = (array: any[] | React.ReactNode[], chunkSize: number) => {
-	const newArr = [];
-	for (let i = 0; i < array.length; i += chunkSize) newArr.push(array.slice(i, i + chunkSize));
-	return newArr;
-};
-
-export const parseDatoError = (err: any) => {
-	const apiError = err.response?.body?.data;
-	if (!apiError) return err?.message ?? err;
-
-	const error = {
-		_error: apiError,
-		message: apiError.map(({ attributes: { details } }) => {
-			const { messages } = details;
-			const m = !messages
-				? undefined
-				: (!Array.isArray(messages) ? [messages] : messages).join('. ');
-			const d = (!Array.isArray(details) ? [details] : details)?.map(
-				({ field_label, field_type, code, extraneous_attributes }) =>
-					extraneous_attributes
-						? `Error fields: ${extraneous_attributes.join(', ')}`
-						: `${field_label} (${field_type}): ${code}`,
-			);
-			return `${m ?? ''} ${d ?? ''}`;
-		}),
-		codes: apiError.map(({ attributes: { code } }) => code),
-	};
-	return error;
-};
+import { AllYearsDocument, YearDocument } from '@/graphql';
+import { capitalize } from 'next-dato-utils/utils';
 
 export const recordToSlug = (record: any): string => {
 	let url;
@@ -96,48 +61,69 @@ export const formatDate = (date: string, endDate?: string) => {
 	const e = endDate ? capitalize(format(new Date(endDate), 'dd MMM')).replace('.', '') : undefined;
 	return `${s}${e ? ` – ${e}` : ''}`;
 };
-
-export async function getStaticYearPaths(doc: TypedDocumentNode, segment: string) {
-	const paths = [];
-
-	const years = await allYears();
-
-	for (let i = 0; i < years.length; i++) {
-		const { id, title: year } = years[i];
-		const res = await apiQueryAll(doc, { variables: { yearId: id } });
-		const items = res[Object.keys(res)[0]];
-		paths.push.apply(
-			paths,
-			items.map((i) => ({ params: { year, [segment]: i.slug } })),
-		);
-	}
-
-	return {
-		paths,
-		fallback: 'blocking',
-	};
+export async function getYear(
+	title = process.env.NEXT_PUBLIC_CURRENT_YEAR!,
+	locale: SiteLocale | string,
+): Promise<NonNullable<YearQuery['year']>> {
+	const { year } = await apiQuery(YearDocument, {
+		variables: { locale: locale as SiteLocale, title },
+	});
+	if (!year) throw new Error('No year found');
+	return year;
 }
 
-export const translatePath = (
-	href: string,
-	locale: string,
-	defaultLocale: string,
-	year?: string,
-): string => {
-	const basePath = href.split('/')[1];
-	const slug = href.split('/').slice(2).join('/');
-	const key = Object.keys(i18nPaths).find((k) =>
-		[i18nPaths[k].sv, i18nPaths[k].en].includes(basePath),
-	);
-	const translatedPath = !basePath || !key ? '/' : `/${i18nPaths[key][locale]}/${slug}`;
+export async function getCurrentYear(locale: SiteLocale | string) {
+	return await getYear(process.env.NEXT_PUBLIC_CURRENT_YEAR!, locale);
+}
 
-	const fullPath = translatedPath
-		? `${locale !== defaultLocale ? `/${locale}` : ''}${year ? `/${year}` : ''}${translatedPath}`
-		: undefined;
-	return fullPath;
-};
+export async function getYearId(
+	title = process.env.NEXT_PUBLIC_CURRENT_YEAR!,
+	locale: SiteLocale | string,
+) {
+	return (await getYear(title, locale)).id;
+}
 
-export const allYears = async (locale?: SiteLocale): Promise<YearRecord[]> => {
-	const { allYears } = await apiQuery(AllYearsDocument, { variables: { locale } });
-	return allYears;
-};
+// export async function getStaticYearPaths(doc: TypedDocumentNode, segment: string) {
+// 	const paths = [];
+
+// 	const years = await allYears();
+
+// 	for (let i = 0; i < years.length; i++) {
+// 		const { id, title: year } = years[i];
+// 		const res = await apiQueryAll(doc, { variables: { yearId: id } });
+// 		const items = res[Object.keys(res)[0]];
+// 		paths.push.apply(
+// 			paths,
+// 			items.map((i) => ({ params: { year, [segment]: i.slug } })),
+// 		);
+// 	}
+
+// 	return {
+// 		paths,
+// 		fallback: 'blocking',
+// 	};
+// }
+
+// export const translatePath = (
+// 	href: string,
+// 	locale: string,
+// 	defaultLocale: string,
+// 	year?: string,
+// ): string => {
+// 	const basePath = href.split('/')[1];
+// 	const slug = href.split('/').slice(2).join('/');
+// 	const key = Object.keys(i18nPaths).find((k) =>
+// 		[i18nPaths[k].sv, i18nPaths[k].en].includes(basePath),
+// 	);
+// 	const translatedPath = !basePath || !key ? '/' : `/${i18nPaths[key][locale]}/${slug}`;
+
+// 	const fullPath = translatedPath
+// 		? `${locale !== defaultLocale ? `/${locale}` : ''}${year ? `/${year}` : ''}${translatedPath}`
+// 		: undefined;
+// 	return fullPath;
+// };
+
+// export const allYears = async (locale?: SiteLocale): Promise<YearRecord[]> => {
+// 	const { allYears } = await apiQuery(AllYearsDocument, { variables: { locale } });
+// 	return allYears;
+// };

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { useShallow } from 'zustand/shallow';
 
 export interface StoreState {
 	showMenu: boolean;
@@ -49,4 +50,4 @@ const useStore = create<StoreState>((set) => ({
 }));
 
 export default useStore;
-export { useStore };
+export { useStore, useShallow };

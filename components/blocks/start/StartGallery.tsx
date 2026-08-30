@@ -1,3 +1,5 @@
+'use client';
+
 import s from './StartGallery.module.scss';
 import cn from 'classnames';
 import 'swiper/css';
@@ -5,8 +7,8 @@ import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
 import { Image } from 'react-datocms';
 import React, { useEffect, useRef, useState } from 'react';
-import DatoLink from '/components/nav/DatoLink';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import DatoLink from '@/components/nav/DatoLink';
+import { Markdown } from 'next-dato-utils/components';
 import { useWindowSize } from 'usehooks-ts';
 
 export type Props = {
@@ -21,7 +23,9 @@ export default function StartGallery({ data: { id, images, headline, link } }: P
 	const [captionHeight, setCaptionHeight] = useState(0);
 
 	useEffect(() => {
-		const figures = Array.from(containerRef.current?.querySelectorAll('figcaption'));
+		const figcaptions = containerRef.current?.querySelectorAll('figcaption');
+		if (!figcaptions) return;
+		const figures = Array.from(figcaptions);
 		const maxHeight = Math.max(
 			...figures.map(
 				(figure) =>
@@ -47,7 +51,7 @@ export default function StartGallery({ data: { id, images, headline, link } }: P
 			>
 				{images.map((item, idx) => (
 					<SwiperSlide key={`${idx}`} className={cn(s.slide)}>
-						<figure id={`${id}-${item.id}`} onClick={() => swiperRef.current.slideNext()}>
+						<figure id={`${id}-${item.id}`} onClick={() => swiperRef.current?.slideNext()}>
 							<Image
 								data={item.responsiveImage}
 								className={s.image}
@@ -57,7 +61,7 @@ export default function StartGallery({ data: { id, images, headline, link } }: P
 								lazyLoad={idx > 0 ? false : true}
 							/>
 							<figcaption>
-								{item.title && <Markdown allowedElements={['em', 'p']}>{item.title}</Markdown>}
+								{item.title && <Markdown allowedElements={['em', 'p']} content={item.title} />}
 							</figcaption>
 						</figure>
 					</SwiperSlide>
@@ -68,7 +72,7 @@ export default function StartGallery({ data: { id, images, headline, link } }: P
 							<li
 								key={id}
 								className={cn(index === idx && s.selected)}
-								onClick={() => swiperRef.current.slideTo(idx)}
+								onClick={() => swiperRef.current?.slideTo(idx)}
 							/>
 						))}
 					</ul>

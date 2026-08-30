@@ -1,9 +1,13 @@
+'use client';
+
 import s from './CardContainer.module.scss';
 import cn from 'classnames';
-import { chunkArray } from '@/lib/utils';
+
 import useDevice from '@/lib/hooks/useDevice';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { chunkArray } from 'next-dato-utils/utils';
+import { useLocale } from 'next-intl';
 
 export type Props = {
 	children?: React.ReactNode | React.ReactNode[];
@@ -32,7 +36,7 @@ export default function CardContainer({
 	const ref = useRef<HTMLUListElement | null>(null);
 	const { isDesktop } = useDevice();
 	const [cards, setCards] = useState(buildCards());
-	const { locale } = useRouter();
+	const locale = useLocale();
 
 	useEffect(() => {
 		setCards(buildCards());

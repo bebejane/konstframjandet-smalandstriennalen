@@ -1,9 +1,11 @@
+'use client';
+
 import s from './Video.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import Youtube from 'react-youtube';
 import Vimeo from '@u-wave/react-vimeo';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 
 export type Props = {
 	data: VideoRecord;
@@ -43,7 +45,7 @@ export default function Video({ data }: Props) {
 			{title && (
 				<div className={s.caption}>
 					<figcaption>
-						<Markdown allowedElements={['em', 'p']}>{title}</Markdown>
+						<Markdown allowedElements={['em', 'p']} content={title} />
 					</figcaption>
 				</div>
 			)}

@@ -1,3 +1,5 @@
+'use client';
+
 import s from './ImageGallery.module.scss';
 import 'swiper/css';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
@@ -5,7 +7,7 @@ import type { Swiper } from 'swiper';
 import cn from 'classnames';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Image } from 'react-datocms';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import { useWindowSize } from 'rooks';
 
 export type ImageGalleryBlockProps = {
@@ -24,7 +26,7 @@ export default function ImageGallery({ data: { id, images }, onClick }: ImageGal
 	const isSingleImage = images.length === 1;
 
 	const calculatePositions = useCallback(() => {
-		if (!arrowRef.current || !arrowRef.current.clientHeight) return;
+		if (!arrowRef.current || !arrowRef.current.clientHeight || !containerRef.current) return;
 
 		const images = Array.from(
 			containerRef.current.querySelectorAll<HTMLImageElement>('picture>img'),
@@ -64,7 +66,7 @@ export default function ImageGallery({ data: { id, images }, onClick }: ImageGal
 								onLoad={calculatePositions}
 							/>
 							<figcaption>
-								{item.title && <Markdown allowedElements={['em', 'p']}>{item.title}</Markdown>}
+								{item.title && <Markdown allowedElements={['em', 'p']} content={item.title} />}
 							</figcaption>
 						</figure>
 					</SwiperSlide>

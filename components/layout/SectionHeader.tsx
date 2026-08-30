@@ -1,13 +1,15 @@
+'use client';
+
 import s from './SectionHeader.module.scss';
 import cn from 'classnames';
 import React from 'react';
-import Link from '/components/nav/Link';
+import { Link } from '@/i18n/routing';
 import { useRouter } from 'next/router';
 import { MenuItem } from '@/lib/menu';
 import { useTranslations } from 'next-intl';
 import { usePage } from '@/lib/context/page';
 import useStore from '@/lib/store';
-import Logo from '/public/images/logo-text.svg';
+import Logo from '@/public/images/logo-text.svg';
 
 export type SectionHeaderProps = {
 	menu: MenuItem[];

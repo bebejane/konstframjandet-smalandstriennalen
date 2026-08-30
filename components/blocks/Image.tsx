@@ -2,7 +2,7 @@ import s from './Image.module.scss';
 import cn from 'classnames';
 import React from 'react';
 import { Image as DatoImage } from 'react-datocms';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 
 export type ImageBlockProps = {
 	id: string;
@@ -20,7 +20,7 @@ export default function Image({ id, data: { image, layout }, onClick }: ImageBlo
 			<DatoImage data={image.responsiveImage} className={s.image} />
 			{image.title && (
 				<figcaption>
-					<Markdown allowedElements={['em', 'p']}>{image.title}</Markdown>
+					<Markdown allowedElements={['em', 'p']} content={image.title} />
 				</figcaption>
 			)}
 		</figure>

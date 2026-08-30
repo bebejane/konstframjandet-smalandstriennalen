@@ -1,14 +1,15 @@
+'use client';
+
 import 'swiper/css';
 import s from './FullscreenGallery.module.scss';
 import cn from 'classnames';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import { Markdown, Modal } from 'next-dato-utils/components';
 import { Image } from 'react-datocms';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFade } from 'swiper';
+import { EffectFade } from 'swiper/modules';
 import SwiperCore from 'swiper';
 import React, { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
-import { Modal } from '/components';
 
 SwiperCore.use([EffectFade]);
 
@@ -25,7 +26,7 @@ export default function FullscreenGallery({
 	index = 0,
 	show,
 }: FullscreenGalleryProps) {
-	const swiperRef = useRef<SwiperType | undefined>();
+	const swiperRef = useRef<SwiperType | null>(null);
 	const [realIndex, setRealIndex] = useState(0);
 	const [title, setTitle] = useState<string>();
 	const [loaded, setLoaded] = useState<any>({});
@@ -93,9 +94,11 @@ export default function FullscreenGallery({
 				</div>
 				<div className={s.caption}>
 					{title && (
-						<Markdown className={cn(s.text, 'small')} allowedElements={['em', 'p']}>
-							{title}
-						</Markdown>
+						<Markdown
+							className={cn(s.text, 'small')}
+							allowedElements={['em', 'p']}
+							content={title}
+						/>
 					)}
 				</div>
 				<div className={cn(s.close, 'mid')} onClick={onClose}>

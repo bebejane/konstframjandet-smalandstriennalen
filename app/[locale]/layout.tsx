@@ -2,7 +2,7 @@ import '@/styles/index.scss';
 import 'swiper/css';
 import s from './layout.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { GeneralDocument, SiteDocument, YearDocument } from '@/graphql';
+import { FooterDocument, GeneralDocument, SiteDocument, YearDocument } from '@/graphql';
 import { Metadata } from 'next';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import { NextIntlClientProvider } from 'next-intl';
@@ -12,7 +12,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { PageProvider } from '@/lib/context/page';
 import { buildMenu } from '@/lib/menu';
-import { Footer, FullscreenGallery, Language, Menu, YearTheme } from '@/components';
+import { Footer, FullscreenGallery, Language, Menu } from '@/components';
 
 export default async function RootLayout({ children, params }: LayoutProps<'/[locale]'>) {
 	const { locale } = await params;
@@ -21,9 +21,9 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[lo
 	setRequestLocale(locale);
 
 	const menu = await buildMenu(locale as SiteLocale);
-	const { general } = await apiQuery(GeneralDocument, {
+	const { footer } = await apiQuery(FooterDocument, {
 		variables: { locale: locale as SiteLocale },
-		tags: ['general'],
+		tags: ['footer'],
 	});
 
 	const { year } = await apiQuery(YearDocument, {
@@ -34,7 +34,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[lo
 		stripStega: true,
 	});
 
-	if (!year) return notFound();
+	if (!year || !footer) return notFound();
 
 	return (
 		<html lang={locale === 'en' ? 'en-US' : 'sv-SE'}>
@@ -47,9 +47,15 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[lo
 					</div>
 					<Menu menu={menu} />
 					<Language menu={menu} />
-					<Footer footer={general} />
-					<FullscreenGallery />
-					<YearTheme year={year} />
+					<Footer menu={menu} footer={footer} />
+					{/* <FullscreenGallery
+						index={images?.findIndex((image) => image?.id === imageId)}
+						images={images}
+						show={imageId !== undefined}
+						onClose={() => setImageId(undefined)}
+					/> */}
+					{/* <FullscreenGallery /> */}
+					{/* <YearTheme year={year} /> */}
 				</NextIntlClientProvider>
 				<DraftModeContentLink />
 			</body>

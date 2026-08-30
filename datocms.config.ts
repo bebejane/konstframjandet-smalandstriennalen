@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { apiQuery } from 'next-dato-utils/api';
 import {
 	DatoCmsConfig,
@@ -6,13 +7,17 @@ import {
 	getItemReferenceRoutes,
 } from 'next-dato-utils/config';
 import { MetadataRoute } from 'next';
-import { SiteDocument, SitemapDocument } from '@@/graphql';
+import { SiteDocument, SitemapDocument } from '@/graphql';
 import { defaultLocale, getPathname, locales, routing } from '@/i18n/routing';
 import years from '@/years.json';
 
 export function getRoute(item: any, locale?: string | null): string {
 	const apiKey = getItemApiKey(item);
-	if (!apiKey) throw new Error('No api key found');
+
+	if (!apiKey) {
+		console.log(item);
+		throw new Error('No api key found');
+	}
 	const slug = typeof item.slug === 'string' ? item.slug : item.slug[locale ?? defaultLocale];
 	let route: string | null = null;
 
@@ -27,7 +32,7 @@ export function getRoute(item: any, locale?: string | null): string {
 			route = `/`;
 			break;
 		case 'about':
-			route = `/om/[news]`;
+			route = `/om/[about]`;
 			break;
 		case 'program':
 			route = `/program/[program]`;
@@ -73,10 +78,13 @@ export function getRoute(item: any, locale?: string | null): string {
 		params.year = year.title;
 		route = `/[year]${route}`;
 	}
-	return getPathname({
+
+	const pathname = getPathname({
 		locale: locale ?? defaultLocale,
 		href: { pathname: route as any, params },
 	});
+	console.log(route, params, pathname);
+	return pathname;
 }
 
 export default {

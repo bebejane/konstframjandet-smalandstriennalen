@@ -2,7 +2,7 @@ import withGlobalProps from '@/lib/withGlobalProps';
 import { apiQuery } from 'next-dato-utils/api';
 import { apiQueryAll } from '@/lib/utils';
 import { ExhibitionDocument, AllExhibitionsDocument } from '@/graphql';
-import { Article, Related, BackButton, MetaSection } from '/components';
+import { Article, Related, BackButton, MetaSection } from '@/components';
 import { formatDate } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { DatoSEO } from 'next-dato-utils/components';

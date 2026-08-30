@@ -1,6 +1,8 @@
+'use client';
+
 import s from './Layout.module.scss';
 import React, { useEffect, useState } from 'react';
-import { Content, Footer, Grid, Menu, Language, FullscreenGallery } from '/components';
+import { Content, Footer, Menu, Language, FullscreenGallery } from '@/components';
 import type { MenuItem } from '@/lib/menu';
 import { buildMenu } from '@/lib/menu';
 import { useRouter } from 'next/router';

@@ -3,7 +3,7 @@ import cn from 'classnames';
 import withGlobalProps from '@/lib/withGlobalProps';
 import { AllExhibitionsDocument, StartDataDocument, StartDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
-import { Block } from '/components';
+import { Block } from '@/components';
 import { pageSlugs } from '@/lib/i18n';
 import { format } from 'date-fns';
 
@@ -70,17 +70,10 @@ export const getStaticProps = withGlobalProps(
 			date,
 		};
 
-		const {
-			news,
-			programs,
-			participants,
-			exhibitions,
-		}: {
-			news: NewsRecord[];
-			programs: ProgramRecord[];
-			participants: ParticipantRecord[];
-			exhibitions: ExhibitionRecord[];
-		} = await apiQuery(StartDataDocument, { variables, excludeInvalid: false });
+		const { news, programs, participants, exhibitions } = await apiQuery(StartDataDocument, {
+			variables,
+			excludeInvalid: false,
+		});
 
 		return {
 			props: {

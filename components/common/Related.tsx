@@ -1,7 +1,7 @@
 import s from './Related.module.scss';
 import React from 'react';
 import { Image } from 'react-datocms';
-import Link from '/components/nav/Link';
+import { Link } from '@/i18n/routing';
 import { recordToSlug } from '@/lib/utils';
 
 export type Props = {

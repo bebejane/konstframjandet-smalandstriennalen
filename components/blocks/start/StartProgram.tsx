@@ -1,9 +1,9 @@
 import s from './StartProgram.module.scss';
 import React from 'react';
-import { CardContainer, Card, Thumbnail } from '/components';
+import { CardContainer, Card, Thumbnail } from '@/components';
 import { useTranslations } from 'next-intl';
 import { formatDate } from '@/lib/utils';
-import Link from '/components/nav/Link';
+import { Link } from '@/i18n/routing';
 
 export type Props = {
 	data: StartProgramRecord & {

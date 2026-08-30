@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import s from './Button.module.scss';
 import cn from 'classnames';
-import { randomInt as rInt } from '@/lib/utils';
+import { rInt } from 'next-dato-utils/utils';
 
 export type Props = {
 	children: React.ReactNode;

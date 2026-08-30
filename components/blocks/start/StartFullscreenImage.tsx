@@ -1,7 +1,7 @@
 import s from './StartFullscreenImage.module.scss';
 import React from 'react';
 import { Image } from 'react-datocms';
-import DatoLink from '/components/nav/DatoLink';
+import DatoLink from '@/components/nav/DatoLink';
 
 export type Props = {
 	data: StartFullscreenImageRecord;

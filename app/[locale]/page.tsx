@@ -7,10 +7,11 @@ import { format } from 'date-fns';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { DraftMode } from 'next-dato-utils/components';
+import { Block } from '@/components';
+import { getYear } from '@/lib/utils';
 
 export type Props = {
 	start: StartRecord;
-	landOwnership: LandOwnershipQuery['landOwnership'];
 };
 
 const fullBlocks = [
@@ -19,18 +20,25 @@ const fullBlocks = [
 	'StartFullscreenVideoRecord',
 ];
 
-export default async function Home({ params }: PageProps<'/[locale]/[year]'>) {
-	const { locale, year: _year } = await params;
+export default async function Home({ params }: PageProps<'/[locale]'>) {
+	const { locale } = await params;
 	if (!locales.includes(locale as any)) return notFound();
 	setRequestLocale(locale);
 
-	const year = await getYear(_year, locale);
+	const year = await getYear(process.env.NEXT_PUBLIC_CURRENT_YEAR!, locale);
 	if (!year) return notFound();
 
-	const { start, landOwnership, draftUrl } = await getData(locale as SiteLocale, year);
+	const { start, draftUrl } = await getData(locale as SiteLocale, year);
 
 	return (
 		<>
+			<div className={s.container}>
+				{start.content.map((block, idx) => (
+					<section key={idx} className={cn(fullBlocks.includes(block.__typename) && s.noborder)}>
+						<Block data={block} record={start} />
+					</section>
+				))}
+			</div>
 			<DraftMode path={'/'} url={draftUrl} />
 		</>
 	);
@@ -84,12 +92,7 @@ async function getData(locale: SiteLocale, year: YearQuery['year']) {
 		variables,
 	});
 
-	const { landOwnership, draftUrl: draftUrlLandOwnership } = await apiQuery(LandOwnershipDocument, {
-		variables: { locale },
-	});
-
 	return {
-		landOwnership,
 		start: {
 			...start,
 			content: start.content.map((block) => ({
@@ -104,6 +107,6 @@ async function getData(locale: SiteLocale, year: YearQuery['year']) {
 						: null,
 			})),
 		},
-		draftUrl: [draftUrl, draftUrlData, draftUrlLandOwnership],
+		draftUrl: [draftUrl, draftUrlData],
 	};
 }

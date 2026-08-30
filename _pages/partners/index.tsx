@@ -2,7 +2,7 @@ import s from './index.module.scss';
 import cn from 'classnames';
 import withGlobalProps from '@/lib/withGlobalProps';
 import { AllLocationsDocument, AllPartnersDocument } from '@/graphql';
-import { CardContainer, Card, Thumbnail, Link } from '/components';
+import { CardContainer, Card, Thumbnail, Link } from '@/components';
 import { useRouter } from 'next/router';
 import { DatoSEO } from 'next-dato-utils/components';
 import { useTranslations } from 'next-intl';

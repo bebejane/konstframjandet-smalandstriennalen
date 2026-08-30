@@ -1,13 +1,13 @@
 import s from './index.module.scss';
 import withGlobalProps from '@/lib/withGlobalProps';
 import { AllNewsDocument } from '@/graphql';
-import Link from '/components/nav/Link';
+import { Link } from '@/i18n/routing';
 import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
 import format from 'date-fns/format';
 import { useTranslations } from 'next-intl';
 import { DatoSEO } from 'next-dato-utils/components';
 import { pageSlugs } from '@/lib/i18n';
-import { Button } from '/components';
+import { Button } from '@/components';
 import { useRouter } from 'next/router';
 import i18nPaths from '@/lib/i18n/paths.json';
 

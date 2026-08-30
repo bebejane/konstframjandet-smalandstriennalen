@@ -79,15 +79,6 @@ declare module '*/SeoMetaTagsFragment.gql' {
 }
     
 
-declare module '*/SiteFragment.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const SiteFragment: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
 declare module '*/VideoFragment.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
@@ -101,15 +92,6 @@ declare module '*/general.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const General: DocumentNode;
-
-  export default defaultDocument;
-}
-    
-
-declare module '*/global.gql' {
-  import { DocumentNode } from 'graphql';
-  const defaultDocument: DocumentNode;
-  export const Global: DocumentNode;
 
   export default defaultDocument;
 }
@@ -198,6 +180,25 @@ declare module '*/search.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const SiteSearch: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/site.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Site: DocumentNode;
+export const SiteFragment: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
+declare module '*/sitemap.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Sitemap: DocumentNode;
 
   export default defaultDocument;
 }

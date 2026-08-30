@@ -1,9 +1,10 @@
-query AllYears($locale: SiteLocale, $year: String) {
+query AllYears($locale: SiteLocale, $year: String, $first: IntType, $skip: IntType) {
 	allYears(
 		filter: { title: { neq: $year } }
+		first: $first
+		skip: $skip
 		locale: $locale
 		fallbackLocales: [sv]
-		first: 100
 		orderBy: title_DESC
 	) {
 		...YearFragment
@@ -20,12 +21,16 @@ query Year($title: String!, $locale: SiteLocale) {
 }
 
 fragment YearFragment on YearRecord {
+	__typename
+	_modelApiKey
 	id
 	title
 	slug
 }
 
 fragment YearFragmentLight on YearRecord {
+	__typename
+	_modelApiKey
 	id
 	title
 	slug

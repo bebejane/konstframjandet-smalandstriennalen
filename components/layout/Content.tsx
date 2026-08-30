@@ -1,7 +1,7 @@
 import s from './Content.module.scss';
 import cn from 'classnames';
 import React from 'react';
-import { SectionHeader } from '/components';
+import { SectionHeader } from '@/components';
 import { Menu } from '@/lib/menu';
 import useStore from '@/lib/store';
 

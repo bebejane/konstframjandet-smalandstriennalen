@@ -3,7 +3,7 @@ import withGlobalProps from '@/lib/withGlobalProps';
 import { apiQuery } from 'next-dato-utils/api';
 import { apiQueryAll } from '@/lib/utils';
 import { InEnglishDocument } from '@/graphql';
-import { Article } from '/components';
+import { Article } from '@/components';
 import { DatoSEO } from 'next-dato-utils/components';
 import { pageSlugs } from '@/lib/i18n';
 

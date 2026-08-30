@@ -1,7 +1,7 @@
 import s from './index.module.scss';
 import withGlobalProps from '@/lib/withGlobalProps';
 import { ContactDocument } from '@/graphql';
-import { Article } from '/components';
+import { Article } from '@/components';
 import { apiQuery } from 'next-dato-utils/api';
 import { pageSlugs } from '@/lib/i18n';
 import { DatoSEO } from 'next-dato-utils/components';

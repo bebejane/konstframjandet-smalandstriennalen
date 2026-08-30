@@ -1,7 +1,7 @@
 import s from './index.module.scss';
 import withGlobalProps from '@/lib/withGlobalProps';
 import { AllProgramsDocument, AllProgramCategoriesDocument } from '@/graphql';
-import { CardContainer, Card, Thumbnail, FilterBar } from '/components';
+import { CardContainer, Card, Thumbnail, FilterBar } from '@/components';
 import { formatDate } from '@/lib/utils';
 import { useState } from 'react';
 import { useRouter } from 'next/router';

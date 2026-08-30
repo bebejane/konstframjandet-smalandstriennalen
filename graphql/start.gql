@@ -11,42 +11,51 @@ query Start($locale: SiteLocale) {
 				link {
 					__typename
 					... on ExternalLinkRecord {
-						__typename
+						_modelApiKey
 						id
 						title
 						url
 					}
 					... on InternalLinkRecord {
 						__typename
+						_modelApiKey
 						id
 						internalTitle: title
 						record {
+							__typename
+
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
@@ -88,40 +97,48 @@ query Start($locale: SiteLocale) {
 					__typename
 					... on ExternalLinkRecord {
 						__typename
+						_modelApiKey
 						id
 						title
 						url
 					}
 					... on InternalLinkRecord {
 						__typename
+						_modelApiKey
 						id
 						record {
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
@@ -142,41 +159,49 @@ query Start($locale: SiteLocale) {
 					__typename
 					... on ExternalLinkRecord {
 						__typename
+						_modelApiKey
 						id
 						title
 						url
 					}
 					... on InternalLinkRecord {
 						__typename
+						_modelApiKey
 						id
 						internalTitle: title
 						record {
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
@@ -214,6 +239,7 @@ query Start($locale: SiteLocale) {
 					__typename
 					... on ExternalLinkRecord {
 						__typename
+						_modelApiKey
 						id
 						title
 						url
@@ -223,31 +249,37 @@ query Start($locale: SiteLocale) {
 						id
 						record {
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
@@ -274,6 +306,7 @@ query Start($locale: SiteLocale) {
 					__typename
 					... on ExternalLinkRecord {
 						__typename
+						_modelApiKey
 						id
 						title
 						url
@@ -283,31 +316,37 @@ query Start($locale: SiteLocale) {
 						id
 						record {
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
@@ -327,15 +366,10 @@ query StartData(
 	$yearId: ItemId
 	$locale: SiteLocale
 ) {
-	news: allNews(
-		locale: $locale
-		fallbackLocales: [sv]
-		first: $newsItems
-		orderBy: _createdAt_DESC
-	) {
+	allNews(locale: $locale, fallbackLocales: [sv], first: $newsItems, orderBy: _createdAt_DESC) {
 		...NewsFragmentLight
 	}
-	programs: allPrograms(
+	allPrograms(
 		filter: { startDate: { gte: $date }, year: { eq: $yearId } }
 		locale: $locale
 		fallbackLocales: [sv]
@@ -344,7 +378,7 @@ query StartData(
 	) {
 		...ProgramFragmentLight
 	}
-	participants: allParticipants(
+	allParticipants(
 		filter: { year: { eq: $yearId } }
 		first: 100
 		orderBy: _createdAt_DESC

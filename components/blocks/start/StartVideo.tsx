@@ -1,10 +1,12 @@
+'use client';
+
 import s from './StartVideo.module.scss';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import Youtube from 'react-youtube';
 import Vimeo from '@u-wave/react-vimeo';
-import { DatoMarkdown as Markdown } from 'next-dato-utils/components';
+import { Markdown } from 'next-dato-utils/components';
 import useStore from '@/lib/store';
 
 export type Props = {
@@ -17,7 +19,10 @@ export default function StartVideo({ data }: Props) {
 	const { width, height } = useWindowSize();
 	const [showMenu] = useStore((state) => [state.showMenu]);
 
-	useEffect(() => setVideoHeight((ref.current?.clientWidth / 16) * 9), [width, height, data, ref]); // Set to 16:9
+	useEffect(
+		() => setVideoHeight((ref.current?.clientWidth ?? 0 / 16) * 9),
+		[width, height, data, ref],
+	); // Set to 16:9
 
 	if (!data || !data.video) return null;
 
@@ -46,7 +51,7 @@ export default function StartVideo({ data }: Props) {
 			{title && (
 				<div className={s.caption}>
 					<figcaption>
-						<Markdown allowedElements={['em', 'p']}>{title}</Markdown>
+						<Markdown allowedElements={['em', 'p']} content={title} />
 					</figcaption>
 				</div>
 			)}

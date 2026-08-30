@@ -6,15 +6,15 @@ type PageSlug = {
 	parent: string;
 };
 
-type PageProps = {
-	year: YearExtendedRecord;
-	title?: string;
-	isHome: boolean;
-	slugs?: PageSlugs[];
-	section: SectionId;
-	parent?: boolean;
-	overview?: string;
-};
+// type PageProps = {
+// 	year: YearExtendedRecord;
+// 	title?: string;
+// 	isHome: boolean;
+// 	slugs?: PageSlugs[];
+// 	section: SectionId;
+// 	parent?: boolean;
+// 	overview?: string;
+// };
 
 type YearExtendedRecord = YearRecord & {
 	isArchive: boolean;
