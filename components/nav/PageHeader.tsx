@@ -7,8 +7,7 @@ import { PROJECT_ABBR } from '@/lib/constant';
 import { Link } from '@/i18n/routing';
 import { useStore, useShallow } from '@/lib/store';
 import { stripStega } from '@datocms/content-link';
-import Logo from '@/public/images/logo-text.svg';
-import Icon from '@/components/common/Icon';
+import useDevice from '@/lib/hooks/useDevice';
 
 export type PageHeaderProps = {
 	title?: string;
@@ -41,11 +40,12 @@ export default function PageHeader({
 			);
 	const isArchiveOverview = archive;
 	const isHome = href === '/';
+	const { isMobile } = useDevice();
 
 	return (
 		<>
 			<Link href='/' className={s.logo}>
-				<Icon src={Logo} style={{ color: 'var(--yellow)' }} />
+				<img src={`/images/logo-${isMobile ? 'blue' : 'yellow'}.svg`} alt={'Logo'} />
 			</Link>
 			<header className={cn(s.header, !showMenu && s.full, isHome && s.home)}>
 				{href && title ? (

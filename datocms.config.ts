@@ -8,7 +8,7 @@ import {
 } from 'next-dato-utils/config';
 import { MetadataRoute } from 'next';
 import { SiteDocument, SitemapDocument } from '@/graphql';
-import { defaultLocale, getPathname, locales, routing } from '@/i18n/routing';
+import { defaultLocale, getInternalPath, getPathname, locales } from '@/i18n/routing';
 import years from '@/years.json';
 
 export function getRoute(item: any, locale?: string | null): string {
@@ -17,6 +17,7 @@ export function getRoute(item: any, locale?: string | null): string {
 	if (!apiKey) {
 		throw new Error('No api key found');
 	}
+
 	const slug = typeof item.slug === 'string' ? item.slug : item.slug[locale ?? defaultLocale];
 	let route: string | null = null;
 
@@ -57,9 +58,6 @@ export function getRoute(item: any, locale?: string | null): string {
 		case 'contact':
 			route = `/kontakt`;
 			break;
-		case 'in_english':
-			route = `/in-english`;
-			break;
 		case 'year':
 			route = `/[year]`;
 			break;
@@ -92,39 +90,58 @@ export function getRoute(item: any, locale?: string | null): string {
 export default {
 	route: async (item, locale) => getRoute(item, locale) ?? null,
 	routes: {
-		year: async (item, locale) => [getRoute(item, locale)],
-		general: async (item, locale) => [getRoute(item, locale)],
-		start: async (item, locale) => [getRoute(item, locale)],
+		year: async ({ title }, locale) => [getInternalPath(`/[year]`, locale, { year: title })],
+		general: async (item, locale) => [getInternalPath('/', locale)],
+		start: async (item, locale) => [getInternalPath('/', locale)],
 		about: async (item, locale) => [
-			getRoute(item, locale),
+			getInternalPath('/[year]/om', locale, { year: item.year?.title }),
+			getInternalPath('/[year]/om/[about]', locale, {
+				about: locale && item.slug[locale] ? item.slug[locale] : item.slug,
+				year: item.year?.title,
+			}),
 			...(await getItemReferenceRoutes(item)),
 		],
 		program: async (item, locale) => [
-			getRoute(item, locale),
+			getInternalPath('/[year]/program', locale, { year: item.year?.title }),
+			getInternalPath('/[year]/program/[program]', locale, {
+				year: item.year?.title,
+				program: locale && item.slug[locale] ? item.slug[locale] : item.slug,
+			}),
 			...(await getItemReferenceRoutes(item)),
 		],
 		program_category: async (item, locale) => [
-			getRoute(item, locale),
+			getInternalPath('/[year]/program', locale, { year: item.year?.title }),
+			getInternalPath('/[year]/program/[program]', locale, {
+				year: item.year?.title,
+				program: locale && item.slug[locale] ? item.slug[locale] : item.slug,
+			}),
 			...(await getItemReferenceRoutes(item)),
 		],
 		participant: async (item, locale) => [
-			getRoute(item, locale),
+			getInternalPath('/[year]/medverkande', locale, { year: item.year?.title }),
+			getInternalPath('/[year]/medverkande/[participant]', locale, {
+				participant: locale && item.slug[locale] ? item.slug[locale] : item.slug,
+				year: item.year?.title,
+			}),
 			...(await getItemReferenceRoutes(item)),
 		],
 		location: async (item, locale) => [
-			getRoute(item, locale),
+			getInternalPath('/[year]/platser', locale, { year: item.year?.title }),
+			getInternalPath('/[year]/platser/[location]', locale, {
+				location: locale && item.slug[locale] ? item.slug[locale] : item.slug,
+				year: item.year?.title,
+			}),
 			...(await getItemReferenceRoutes(item)),
 		],
 		exhibition: async (item, locale) => [
-			getRoute(item, locale),
+			getInternalPath('/[year]/utstallningar-och-projekt', locale, { year: item.year?.title }),
+			getInternalPath('/[year]/utstallningar/[exhibition]', locale, {
+				exhibition: locale && item.slug[locale] ? item.slug[locale] : item.slug,
+				year: item.year?.title,
+			}),
 			...(await getItemReferenceRoutes(item)),
 		],
-		partner: async (item, locale) => [
-			getRoute(item, locale),
-			...(await getItemReferenceRoutes(item)),
-		],
-		contact: async (item, locale) => [getRoute(item, locale)],
-		in_english: async (item, locale) => [getRoute(item, locale)],
+		contact: async (item, locale) => [getInternalPath('/kontakt', locale)],
 		upload: async ({ id }) => getUploadReferenceRoutes(id),
 	},
 	sitemap: async () => {
@@ -135,7 +152,6 @@ export default {
 			allLocations,
 			allNews,
 			allParticipants,
-			allPartners,
 			allPrograms,
 			allYears,
 		} = await apiQuery(SitemapDocument, {
@@ -168,7 +184,6 @@ export default {
 			...allLocations,
 			...allNews,
 			...allParticipants,
-			...allPartners,
 			...allPrograms,
 		].map((item) => ({
 			url: `${host}${getRoute(item, locale)}`,
@@ -178,6 +193,7 @@ export default {
 			alternates: {
 				languages: locales
 					.filter((l) => l !== locale)
+					.filter((l) => item._allSlugLocales?.find(({ locale: l2 }) => l2 === l))
 					.reduce(
 						(acc, l) => ({
 							...acc,

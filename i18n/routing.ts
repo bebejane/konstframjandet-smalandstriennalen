@@ -113,3 +113,18 @@ export function exists(pathname: string) {
 }
 
 export const { Link, redirect, usePathname, useRouter, getPathname } = createNavigation(routing);
+
+export function getInternalPath(
+	pathname: string,
+	locale?: string | null,
+	params?: Record<string, string>,
+): string {
+	const href = params ? { pathname, params } : ({ pathname } as any);
+	try {
+		const path = getPathname({ locale: defaultLocale, href, forcePrefix: false });
+		return `/${locale}${path}`;
+	} catch (e) {
+		console.log(e);
+		return pathname;
+	}
+}

@@ -28,7 +28,6 @@ export { default as Thumbnail } from './common/Thumbnail';
 export { default as VideoPlayer } from './common/VideoPlayer';
 export { default as Article } from './layout/Article';
 export { default as Hamburger } from './layout/Hamburger';
-export { default as Logo } from './layout/Logo';
 export { default as PageHeader } from './nav/PageHeader';
 export { default as DatoLink } from './nav/DatoLink';
 export { default as Footer } from './nav/Footer';

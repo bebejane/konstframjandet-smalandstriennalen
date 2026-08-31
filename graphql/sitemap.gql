@@ -1,9 +1,11 @@
 query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	allAbouts(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		slug
 		year {
+			id
 			title
 		}
 		_allSlugLocales {
@@ -16,9 +18,11 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	}
 	allExhibitions(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		slug
 		year {
+			id
 			title
 		}
 		_allSlugLocales {
@@ -31,9 +35,11 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	}
 	allLocations(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		slug
 		year {
+			id
 			title
 		}
 		_allSlugLocales {
@@ -46,6 +52,7 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	}
 	allNews(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		slug
 		_allSlugLocales {
@@ -58,9 +65,11 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	}
 	allParticipants(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		slug
 		year {
+			id
 			title
 		}
 		_allSlugLocales {
@@ -73,9 +82,11 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	}
 	allPartners(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		slug
 		year {
+			id
 			title
 		}
 		_allSlugLocales {
@@ -88,6 +99,7 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	}
 	allPrograms(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		slug
 		_allSlugLocales {
@@ -95,6 +107,7 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 			value
 		}
 		year {
+			id
 			title
 		}
 	}
@@ -103,6 +116,7 @@ query Sitemap($locale: SiteLocale!, $first: IntType = 500, $skip: IntType = 0) {
 	}
 	allYears(locale: $locale, first: $first, skip: $skip) {
 		__typename
+		_modelApiKey
 		_updatedAt
 		title
 		slug
