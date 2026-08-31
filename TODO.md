@@ -1,5 +1,6 @@
 - Archive links
 - Fullscreen gallery
+- Missing locales, fallbacks
 
 datocms.config.ts
 
