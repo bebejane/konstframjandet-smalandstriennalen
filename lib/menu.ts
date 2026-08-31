@@ -117,7 +117,7 @@ export const buildMenu = async (locale: SiteLocale) => {
 	const menu = buildYearMenu(res, { locale, altLocale, isArchive: false, messages });
 	const archiveIndex = menu.findIndex((el) => el.route === '/arkiv');
 	if (archiveIndex === -1) throw new Error('No archive index found');
-	console.log(archive, archiveIndex);
+
 	menu[archiveIndex].sub = archive.map((el) => {
 		const year = el.year?.title;
 		if (!year) throw new Error('No year found');
@@ -220,7 +220,7 @@ export const buildYearMenu = (
 		item.href = href;
 		item.hrefAlt = href;
 		item.title = messages.Menu[mKey];
-		console.log(mKey);
+
 		let sub: MenuItem[] = [];
 
 		switch (item.route) {

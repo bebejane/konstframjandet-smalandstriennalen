@@ -108,7 +108,7 @@ const MenuTree = memo(function MenuTree({ menu, ref, onSelect }: MenuTreeProps) 
 
 				const { id, title, year, route, archive } = item.getItemData();
 				const props = item.getProps();
-				const bold = route === '/arkiv';
+				const bold = item.isSelected();
 
 				return (
 					<div

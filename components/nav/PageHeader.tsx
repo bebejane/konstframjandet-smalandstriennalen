@@ -30,9 +30,15 @@ export default function PageHeader({
 	const [showMenu] = useStore(useShallow((state) => [state.showMenu]));
 	const t = useTranslations('Menu');
 	const titlePrefix = `${PROJECT_ABBR}°${year?.title.substring(2)}`;
-	const title = stripStega(
-		_title && (!year || noPrefix) ? _title : _title ? `${titlePrefix} — ${_title}` : titlePrefix,
-	);
+	const title = !_title
+		? null
+		: stripStega(
+				_title && (!year || noPrefix)
+					? _title
+					: _title
+						? `${titlePrefix} — ${_title}`
+						: titlePrefix,
+			);
 	const isArchiveOverview = archive;
 	const isHome = href === '/';
 
@@ -42,7 +48,7 @@ export default function PageHeader({
 				<Icon src={Logo} style={{ color: 'var(--yellow)' }} />
 			</Link>
 			<header className={cn(s.header, !showMenu && s.full, isHome && s.home)}>
-				{href ? (
+				{href && title ? (
 					//@ts-expect-error
 					<Link href={{ pathname: href, params }}>
 						<h2>
@@ -60,9 +66,9 @@ export default function PageHeader({
 							</span>
 						</h2>
 					</Link>
-				) : (
+				) : title ? (
 					<h2>{title}</h2>
-				)}
+				) : null}
 			</header>
 			{!isHome && (
 				<>

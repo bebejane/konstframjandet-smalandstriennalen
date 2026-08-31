@@ -16,7 +16,7 @@ export default async function Exhibition({
 	params,
 }: PageProps<'/[locale]/[year]/utstallningar-och-projekt/[exhibition]'>) {
 	const { locale, exhibition: slug, year: _year } = await params;
-	console.log(locale);
+
 	if (!locales.includes(locale as any)) return notFound();
 	setRequestLocale(locale);
 

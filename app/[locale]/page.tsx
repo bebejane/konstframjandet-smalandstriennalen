@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { DraftMode } from 'next-dato-utils/components';
-import { Block } from '@/components';
+import { Block, PageHeader } from '@/components';
 import { getYear } from '@/lib/utils';
 
 export type Props = {
@@ -32,6 +32,7 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
 
 	return (
 		<>
+			<PageHeader href={'/'} />
 			<div className={s.container}>
 				{start.content.map((block, idx) => (
 					<section key={idx} className={cn(fullBlocks.includes(block.__typename) && s.noborder)}>

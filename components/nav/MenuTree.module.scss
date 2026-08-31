@@ -27,13 +27,16 @@
 	.bold {
 		font-weight: bold;
 	}
+	.bold {
+		color: var(--black);
+	}
 
 	button {
 		all: unset;
 		display: inline-block;
 		cursor: pointer;
 		line-height: 1;
-		color: var(--black);
+		color: var(--blue);
 	}
 
 	a {

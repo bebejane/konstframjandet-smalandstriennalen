@@ -101,7 +101,7 @@ export const siteSearch = async (opt: { q: string; locale: string }) => {
 				[k]: chunk.filter((el) => el._api_key === model).map((el) => el.id),
 			});
 		});
-		console.log(variables);
+
 		const res = await apiQuery(SiteSearchDocument, { variables });
 
 		Object.keys(res).forEach((k) => {
