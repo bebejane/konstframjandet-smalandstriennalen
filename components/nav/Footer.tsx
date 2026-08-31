@@ -34,13 +34,7 @@ export default function Footer({
 					</a>
 				</div>
 				<div>{about}</div>
-				{/* <KFLogo className={s.kf} /> */}
-				<Icon
-					//key={pathname}
-					className={s.kf}
-					src={KFLogo}
-					//style={!archiveOverview && color ? { color } : undefined}
-				/>
+				<Icon src={KFLogo} style={{ color: 'var(--white)' }} />
 			</section>
 		</footer>
 	);

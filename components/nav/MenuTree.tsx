@@ -105,6 +105,7 @@ const MenuTree = memo(function MenuTree({ menu, ref, onSelect }: MenuTreeProps) 
 				const isFolder = item.isFolder();
 				const data = item.getItemData();
 				const href = data.href ?? undefined;
+
 				const { id, title, year, route, archive } = item.getItemData();
 				const props = item.getProps();
 				const bold = route === '/arkiv';

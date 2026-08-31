@@ -1,23 +1,33 @@
 'use client';
 
-import { Button } from '@/components';
-import { Link } from '@/i18n/routing';
-import { useRouter } from 'next/router';
+import { Link, usePathname, exists } from '@/i18n/routing';
+import { useLocale } from 'next-intl';
 
 export type Props = {
-	children: React.ReactNode;
-	href?: string;
+	children: string;
+	year?: YearQuery['year'];
 };
 
-export default function BackButton(props: Props) {
-	const { children, href } = props;
-	const { asPath } = useRouter();
-	const segemnts = asPath.split('/');
-	segemnts.pop();
+export default function BackButton({ children, year }: Props) {
+	const locale = useLocale();
+	const _pathname = usePathname().split('/');
+	_pathname.pop();
+	const pathname = _pathname.join('/');
+
+	if (!exists(pathname)) return null;
 
 	return (
-		<Link href={href || segemnts.join('/')} transformHref={false}>
-			<Button className='back'>{children}</Button>
+		<Link
+			locale={locale}
+			href={{
+				//@ts-ignore
+				pathname,
+				params: {
+					year: year?.title,
+				},
+			}}
+		>
+			<button className='back'>{children}</button>
 		</Link>
 	);
 }

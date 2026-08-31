@@ -1,15 +1,15 @@
 import s from './MetaSection.module.scss';
 import { Link } from '@/i18n/routing';
 
-export type Props = {
+export type MetaSectionProps = {
 	items: {
 		title: string;
-		value: string | string[];
-		link?: string | string[];
+		value: string | React.ReactNode | React.ReactNode[];
+		link?: string | null;
 	}[];
 };
 
-export default function MetaSection({ items = [] }: Props) {
+export default function MetaSection({ items = [] }: MetaSectionProps) {
 	items = items.filter(({ value, title }) => value && title);
 
 	if (!items.length) return null;
@@ -37,7 +37,7 @@ export default function MetaSection({ items = [] }: Props) {
 											//@ts-ignore
 										)
 										.reduce((prev, curr) => [prev, ', ', curr])
-								) : values.length > 1 && Array.isArray(values) ? (
+								) : Array.isArray(values) && values.length > 1 ? (
 									values.join(', ')
 								) : (
 									<>{value}</>

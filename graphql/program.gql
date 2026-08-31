@@ -1,10 +1,11 @@
-query AllPrograms($locale: SiteLocale, $yearId: ItemId) {
+query AllPrograms($locale: SiteLocale, $yearId: ItemId, $first: IntType = 500, $skip: IntType = 0) {
 	allPrograms(
 		filter: { year: { eq: $yearId } }
 		locale: $locale
 		fallbackLocales: [sv]
 		orderBy: [startDate_ASC, startTime_ASC]
-		first: 100
+		first: $first
+		skip: $skip
 	) {
 		...ProgramFragmentLight
 	}

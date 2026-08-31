@@ -2,10 +2,8 @@
 
 import s from './CardContainer.module.scss';
 import cn from 'classnames';
-
 import useDevice from '@/lib/hooks/useDevice';
 import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import { chunkArray } from 'next-dato-utils/utils';
 import { useLocale } from 'next-intl';
 

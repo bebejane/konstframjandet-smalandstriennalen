@@ -15,7 +15,6 @@ export function getRoute(item: any, locale?: string | null): string {
 	const apiKey = getItemApiKey(item);
 
 	if (!apiKey) {
-		console.log(item);
 		throw new Error('No api key found');
 	}
 	const slug = typeof item.slug === 'string' ? item.slug : item.slug[locale ?? defaultLocale];

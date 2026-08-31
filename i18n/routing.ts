@@ -23,6 +23,9 @@ export const routing = defineRouting({
 		'/nyheter': {
 			en: '/news',
 		},
+		'/nyheter/[news]': {
+			en: '/news/[news]',
+		},
 		'/om': {
 			en: '/about',
 		},
@@ -41,8 +44,8 @@ export const routing = defineRouting({
 		'/program/[program]': {
 			en: '/program/[program]',
 		},
-		'/utstallningar': {
-			en: '/exhibitions',
+		'/utstallningar-och-projekt': {
+			en: '/exhibitions-and-projects',
 		},
 		'/utstallningar/[exhibition]': {
 			en: '/exhibitions/[exhibition]',

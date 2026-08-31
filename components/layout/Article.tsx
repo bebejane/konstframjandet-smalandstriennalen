@@ -5,23 +5,20 @@ import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { StructuredContent } from '@/components';
 import { Image } from 'react-datocms';
-//import { DatoSEO } from 'next-dato-utils/components';
-import { Link } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 import useStore, { useShallow } from '@/lib/store';
 import { format } from 'date-fns';
-import { useRouter } from 'next/router';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Markdown } from 'next-dato-utils/components';
-import useDevice from '@/lib/hooks/useDevice';
 import BalanceText from 'react-balance-text';
 
 export type ArticleProps = {
 	id: string;
 	children?: React.ReactNode | React.ReactNode[] | undefined;
-	title?: string;
+	title?: string | null;
 	subtitle?: string;
-	intro?: string;
-	image?: FileField;
+	intro?: string | null;
+	image?: Maybe<FileField>;
 	imageSize?: 'small' | 'medium' | 'large';
 	content?: any;
 	onClick?: (id: string) => void;
@@ -43,7 +40,6 @@ export default function Article({
 	onClick,
 	record,
 }: ArticleProps) {
-	const { asPath } = useRouter();
 	const t = useTranslations();
 	const [setImageId, setImages] = useStore(
 		useShallow((state) => [state.setImageId, state.setImages]),
@@ -53,16 +49,15 @@ export default function Article({
 
 	useEffect(() => {
 		const images = [image];
-		content?.blocks.forEach((el) => {
+		content?.blocks.forEach((el: any) => {
 			el.__typename === 'ImageRecord' && images.push(el.image);
 			el.__typename === 'ImageGalleryRecord' && images.push.apply(images, el.images);
 		});
-		setImages(images.filter((el) => el));
+		setImages(images.filter((el) => el) as FileField[]);
 	}, []);
 
 	return (
 		<>
-			{/* <DatoSEO title={title} /> */}
 			<div className={cn(s.article, 'article')}>
 				<h1>
 					<BalanceText>{title}</BalanceText>
@@ -77,7 +72,9 @@ export default function Article({
 						onClick={() => setImageId(image?.id)}
 						ref={figureRef}
 					>
-						<Image data={image.responsiveImage} pictureClassName={s.picture} />
+						{image.responsiveImage && (
+							<Image data={image.responsiveImage} pictureClassName={s.picture} />
+						)}
 						<figcaption ref={captionRef}>{image.title}</figcaption>
 					</figure>
 				)}
@@ -108,7 +105,9 @@ export default function Article({
 						{t('General.inCooperationWith')}{' '}
 						{partner.map(({ id, title, slug }, idx) => (
 							<React.Fragment key={id}>
-								<Link href={`/partners/${slug}`}>{title}</Link>
+								<Link href={{ pathname: `/partners/[partner]`, params: { partner: slug } }}>
+									{title}
+								</Link>
 								{partner.length - 1 > idx && ', '}
 							</React.Fragment>
 						))}

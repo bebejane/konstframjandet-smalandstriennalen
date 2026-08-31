@@ -61,6 +61,7 @@ export const formatDate = (date: string, endDate?: string) => {
 	const e = endDate ? capitalize(format(new Date(endDate), 'dd MMM')).replace('.', '') : undefined;
 	return `${s}${e ? ` – ${e}` : ''}`;
 };
+
 export async function getYear(
 	title = process.env.NEXT_PUBLIC_CURRENT_YEAR!,
 	locale: SiteLocale | string,

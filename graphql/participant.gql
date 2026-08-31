@@ -1,9 +1,15 @@
-query AllParticipants($locale: SiteLocale, $yearId: ItemId) {
+query AllParticipants(
+	$locale: SiteLocale
+	$yearId: ItemId
+	$first: IntType = 500
+	$skip: IntType = 0
+) {
 	allParticipants(
 		filter: { year: { eq: $yearId } }
 		locale: $locale
 		fallbackLocales: [sv]
-		first: 100
+		first: $first
+		skip: $skip
 		orderBy: name_ASC
 	) {
 		...ParticipantFragmentLight
@@ -20,6 +26,8 @@ query Participant($slug: String, $locale: SiteLocale) {
 }
 
 fragment ParticipantFragment on ParticipantRecord {
+	__typename
+	_modelApiKey
 	_createdAt
 	id
 	name
@@ -135,6 +143,8 @@ fragment ParticipantFragment on ParticipantRecord {
 }
 
 fragment ParticipantFragmentLight on ParticipantRecord {
+	__typename
+	_modelApiKey
 	id
 	name
 	intro(markdown: false)
