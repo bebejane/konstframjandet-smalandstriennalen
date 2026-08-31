@@ -1,6 +1,6 @@
-import { apiQuery, TypedDocumentNode } from 'next-dato-utils/api';
+import { apiQuery } from 'next-dato-utils/api';
 import { format } from 'date-fns';
-import { AllYearsDocument, YearDocument } from '@/graphql';
+import { YearDocument } from '@/graphql';
 import { capitalize } from 'next-dato-utils/utils';
 
 export const recordToSlug = (record: any): string => {
@@ -83,48 +83,3 @@ export async function getYearId(
 ) {
 	return (await getYear(title, locale)).id;
 }
-
-// export async function getStaticYearPaths(doc: TypedDocumentNode, segment: string) {
-// 	const paths = [];
-
-// 	const years = await allYears();
-
-// 	for (let i = 0; i < years.length; i++) {
-// 		const { id, title: year } = years[i];
-// 		const res = await apiQueryAll(doc, { variables: { yearId: id } });
-// 		const items = res[Object.keys(res)[0]];
-// 		paths.push.apply(
-// 			paths,
-// 			items.map((i) => ({ params: { year, [segment]: i.slug } })),
-// 		);
-// 	}
-
-// 	return {
-// 		paths,
-// 		fallback: 'blocking',
-// 	};
-// }
-
-// export const translatePath = (
-// 	href: string,
-// 	locale: string,
-// 	defaultLocale: string,
-// 	year?: string,
-// ): string => {
-// 	const basePath = href.split('/')[1];
-// 	const slug = href.split('/').slice(2).join('/');
-// 	const key = Object.keys(i18nPaths).find((k) =>
-// 		[i18nPaths[k].sv, i18nPaths[k].en].includes(basePath),
-// 	);
-// 	const translatedPath = !basePath || !key ? '/' : `/${i18nPaths[key][locale]}/${slug}`;
-
-// 	const fullPath = translatedPath
-// 		? `${locale !== defaultLocale ? `/${locale}` : ''}${year ? `/${year}` : ''}${translatedPath}`
-// 		: undefined;
-// 	return fullPath;
-// };
-
-// export const allYears = async (locale?: SiteLocale): Promise<YearRecord[]> => {
-// 	const { allYears } = await apiQuery(AllYearsDocument, { variables: { locale } });
-// 	return allYears;
-// };

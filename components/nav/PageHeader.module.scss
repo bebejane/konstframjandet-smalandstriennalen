@@ -121,24 +121,12 @@
 	top: 0;
 	z-index: var(--z-menu);
 
-	svg {
-		path {
-			transform: scale(0.8);
-
-			@include mq($until: tablet) {
-				transform: scale(0.38);
-			}
-		}
-
+	img {
+		width: 271px;
+		height: 110px;
 		@include mq($until: tablet) {
 			width: 120px;
 			height: 50px;
-			mask {
-				display: none;
-			}
-			path {
-				fill: var(--blue) !important;
-			}
 		}
 	}
 }
