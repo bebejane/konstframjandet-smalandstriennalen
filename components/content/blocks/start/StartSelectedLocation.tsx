@@ -29,7 +29,6 @@ export default function StartSelectedLocation({ data: { locations } }: Props) {
 							titleLength={100}
 							titleRows={1}
 							slug={`/platser/${slug}`}
-							transformHref={false}
 						/>
 					</Card>
 				))}

@@ -1,6 +1,6 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { default as AboutPage } from './[about]/page';
-import { MainAboutDocument, YearDocument } from '@/graphql';
+import { MainAboutDocument } from '@/graphql';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';

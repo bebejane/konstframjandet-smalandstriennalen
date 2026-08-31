@@ -1,6 +1,5 @@
 'use client';
 
-import 'swiper/css';
 import s from './FullscreenGallery.module.scss';
 import cn from 'classnames';
 import { Markdown, Modal } from 'next-dato-utils/components';
@@ -8,34 +7,29 @@ import { Image } from 'react-datocms';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
 import SwiperCore from 'swiper';
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
+import useStore, { useShallow } from '@/lib/store';
 
 SwiperCore.use([EffectFade]);
 
-export type FullscreenGalleryProps = {
-	images: FileField[];
-	onClose: (event?: React.MouseEvent) => void;
-	index: number;
-	show: boolean;
-};
+export type FullscreenGalleryProps = {};
 
-export default function FullscreenGallery({
-	images,
-	onClose,
-	index = 0,
-	show,
-}: FullscreenGalleryProps) {
+export default function FullscreenGallery({}: FullscreenGalleryProps) {
+	const [images, imageId, setImageId] = useStore(
+		useShallow((state) => [state.images, state.imageId, state.setImageId]),
+	);
 	const swiperRef = useRef<SwiperType | null>(null);
 	const [realIndex, setRealIndex] = useState(0);
 	const [title, setTitle] = useState<string>();
 	const [loaded, setLoaded] = useState<any>({});
 	const [initLoaded, setInitLoaded] = useState(false);
 	const isSingleSlide = images?.length === 1;
-	const isHidden = !images || !show;
+	const isHidden = !images || !imageId;
+	const index = images?.findIndex((image) => image?.id === imageId) ?? 0;
 
 	useEffect(() => {
-		if (images) setTitle(images[realIndex]?.title);
+		if (images && images[realIndex]?.title) setTitle(images[realIndex]?.title);
 	}, [realIndex, images, setTitle]);
 
 	useEffect(() => {
@@ -43,20 +37,19 @@ export default function FullscreenGallery({
 	}, [index]);
 
 	useEffect(() => {
-		// handle  keys
-		const handleKeys = ({ key }) => {
+		const handleKeys = ({ key }: KeyboardEvent) => {
 			if (isHidden) return;
 			if (key === 'ArrowRight') swiperRef?.current?.slideNext();
 			if (key === 'ArrowLeft') swiperRef?.current?.slidePrev();
-			if (key === 'Escape') onClose();
+			if (key === 'Escape') setImageId(null);
 		};
 		document.addEventListener('keydown', handleKeys);
 		return () => document.removeEventListener('keydown', handleKeys);
-	}, [onClose, isHidden]);
+	}, [isHidden]);
 
 	useEffect(() => {
 		setTimeout(() => setInitLoaded(true), 300);
-	}, [initLoaded]); // Delay loader
+	}, [initLoaded]);
 
 	if (isHidden) return null;
 
@@ -75,21 +68,21 @@ export default function FullscreenGallery({
 						onSlideChange={({ realIndex }) => setRealIndex(realIndex)}
 						onSwiper={(swiper) => (swiperRef.current = swiper)}
 					>
-						{images.map((image, idx) => (
-							<SwiperSlide key={idx} className={cn(s.slide)}>
-								<Image
-									pictureClassName={cn(s.image)}
-									data={image.responsiveImage}
-									lazyLoad={false}
-									usePlaceholder={false}
-									onLoad={() => setLoaded({ ...loaded, [image.id]: true })}
-									fadeInDuration={0}
-								/>
-								{/*!loaded[image.id] && initLoaded &&
-                  <div className={s.loading}><Loader /></div>
-                */}
-							</SwiperSlide>
-						))}
+						{images.map(
+							(image, idx) =>
+								image.responsiveImage && (
+									<SwiperSlide key={idx} className={cn(s.slide)}>
+										<Image
+											imgClassName={cn(s.image)}
+											data={image.responsiveImage}
+											usePlaceholder={false}
+											onLoad={() => setLoaded({ ...loaded, [image.id]: true })}
+											fadeInDuration={0}
+											priority={true}
+										/>
+									</SwiperSlide>
+								),
+						)}
 					</Swiper>
 				</div>
 				<div className={s.caption}>
@@ -101,7 +94,7 @@ export default function FullscreenGallery({
 						/>
 					)}
 				</div>
-				<div className={cn(s.close, 'mid')} onClick={onClose}>
+				<div className={cn(s.close, 'mid')} onClick={() => setImageId(null)}>
 					STÄNG
 				</div>
 			</div>

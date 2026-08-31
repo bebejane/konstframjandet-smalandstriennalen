@@ -8,7 +8,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { getPathname, locales } from '@/i18n/routing';
 import { createLoader, parseAsString } from 'nuqs/server';
-import { DraftMode } from 'next-dato-utils/components';
 import { buildMetadata } from '@/app/[locale]/layout';
 import { Metadata } from 'next';
 
@@ -78,24 +77,10 @@ export default async function Program({
 		.filter(({ id }) => pastPrograms.find(({ id: _id }) => _id === id) === undefined)
 		.filter(categoryFilter);
 
-	const places = allPrograms.reduce(
-		(acc, el) => {
-			if (acc.find(({ id }) => el.programPlace?.find((el) => el.id === id))) return acc;
-			return el.programPlace
-				? [
-						...acc,
-						...el.programPlace.filter(({ id }) => !acc.some(({ id: accId }) => accId === id)),
-					]
-				: acc;
-		},
-		[] as AllProgramsQuery['allPrograms'][number]['programPlace'],
-	);
-
 	return (
 		<>
 			<PageHeader title={t('Menu.program')} />
 			<FilterBar
-				category={t('Program.types')}
 				name='category'
 				value={category}
 				params={{ category }}

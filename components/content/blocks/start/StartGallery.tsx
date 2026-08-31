@@ -52,14 +52,15 @@ export default function StartGallery({ data: { id, images, headline, link } }: P
 				{images.map((item, idx) => (
 					<SwiperSlide key={`${idx}`} className={cn(s.slide)}>
 						<figure id={`${id}-${item.id}`} onClick={() => swiperRef.current?.slideNext()}>
-							<Image
-								data={item.responsiveImage}
-								className={s.image}
-								pictureClassName={s.picture}
-								placeholderClassName={s.picture}
-								objectFit={'cover'}
-								lazyLoad={idx > 0 ? false : true}
-							/>
+							{item.responsiveImage && (
+								<Image
+									data={item.responsiveImage}
+									className={s.image}
+									pictureClassName={s.picture}
+									placeholderClassName={s.picture}
+									objectFit={'cover'}
+								/>
+							)}
 							<figcaption>
 								{item.title && <Markdown allowedElements={['em', 'p']} content={item.title} />}
 							</figcaption>

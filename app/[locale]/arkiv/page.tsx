@@ -40,11 +40,7 @@ export default async function Archive({ params }: PageProps<'/[locale]/arkiv'>) 
 					.filter(({ title }) => title !== year.title)
 					.map(({ id, title, slug }) => (
 						<Card key={id}>
-							<Thumbnail
-								title={`${PROJECT_NAME} ${title}`}
-								slug={`/${title}`}
-								transformHref={false}
-							/>
+							<Thumbnail title={`${PROJECT_NAME} ${title}`} slug={`/${title}`} />
 						</Card>
 					))}
 			</CardContainer>

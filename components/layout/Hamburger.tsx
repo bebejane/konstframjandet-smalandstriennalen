@@ -13,11 +13,11 @@ export default function Hamburger() {
 	);
 	const [key, setKey] = useState(Math.random());
 	const [init, setInit] = useState(false);
-	const handleClick = (e) => {
+	const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+		e.stopPropagation();
 		setInit(true);
 		setShowMenu(!showMenu);
 		setKey(Math.random());
-		e.stopPropagation();
 	};
 
 	return (

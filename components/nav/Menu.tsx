@@ -62,10 +62,7 @@ export default function Menu({ menu }: MenuProps) {
 			<Hamburger />
 			<nav ref={navRef} className={cn(s.menu, !showMenu && s.hide)}>
 				<MenuTree menu={menu} ref={treeRef} onSelect={setSelectedItem} />
-				<Language
-					menu={menu}
-					//className={s.language}
-				/>
+				<Language menu={menu} />
 			</nav>
 		</>
 	);

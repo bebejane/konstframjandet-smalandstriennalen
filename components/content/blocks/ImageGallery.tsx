@@ -1,22 +1,22 @@
 'use client';
 
 import s from './ImageGallery.module.scss';
-import 'swiper/css';
+import cn from 'classnames';
 import { Swiper as SwiperReact, SwiperSlide } from 'swiper/react';
 import type { Swiper } from 'swiper';
-import cn from 'classnames';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useId } from 'react';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
 import { useWindowSize } from 'rooks';
+import useStore, { useShallow } from '@/lib/store';
 
 export type ImageGalleryBlockProps = {
-	id: string;
 	data: ImageGalleryRecord;
-	onClick?: Function;
 };
 
-export default function ImageGallery({ data: { id, images }, onClick }: ImageGalleryBlockProps) {
+export default function ImageGallery({ data: { images } }: ImageGalleryBlockProps) {
+	const id = useId();
+	const [setImageId] = useStore(useShallow((state) => [state.setImageId]));
 	const swiperRef = useRef<Swiper | null>(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const arrowRef = useRef<HTMLDivElement | null>(null);
@@ -31,19 +31,22 @@ export default function ImageGallery({ data: { id, images }, onClick }: ImageGal
 		const images = Array.from(
 			containerRef.current.querySelectorAll<HTMLImageElement>('picture>img'),
 		);
-		const maxImageHeight = Math.max(...images.map((img) => img.clientHeight));
+		const maxImageHeight = images.reduce(
+			(prev, img) => (img.clientHeight > prev ? img.clientHeight : prev),
+			0,
+		);
 		setArrowMarginTop(maxImageHeight / 2 - arrowRef.current.clientHeight / 2);
 	}, [setArrowMarginTop]);
 
 	useEffect(() => {
 		calculatePositions();
-	}, [innerHeight, innerWidth, calculatePositions]);
+	}, [innerHeight, innerWidth]);
 
 	return (
 		<div className={s.gallery} ref={containerRef}>
 			<div className={s.fade}></div>
 			<SwiperReact
-				id={`${id}-swiper-wrap`}
+				id={id}
 				className={s.swiper}
 				loop={isSingleImage ? false : true}
 				noSwiping={isSingleImage ? true : false}
@@ -55,16 +58,21 @@ export default function ImageGallery({ data: { id, images }, onClick }: ImageGal
 			>
 				{images.map((item, idx) => (
 					<SwiperSlide key={`${idx}`} className={cn(s.slide)}>
-						<figure id={`${id}-${item.id}`} onClick={() => onClick?.(item.id)}>
-							<Image
-								data={item.responsiveImage}
-								className={s.image}
-								pictureClassName={s.picture}
-								placeholderClassName={s.picture}
-								objectFit={'cover'}
-								lazyLoad={index !== idx}
-								onLoad={calculatePositions}
-							/>
+						<figure
+							onClick={() => setImageId(item.id)}
+							data-datocms-content-link-source={item.title}
+							data-datocms-content-link-group={true}
+						>
+							{item.responsiveImage && (
+								<Image
+									data={item.responsiveImage}
+									className={s.image}
+									imgClassName={s.picture}
+									placeholderClassName={s.picture}
+									objectFit={'cover'}
+									onLoad={calculatePositions}
+								/>
+							)}
 							<figcaption>
 								{item.title && <Markdown allowedElements={['em', 'p']} content={item.title} />}
 							</figcaption>
@@ -72,7 +80,7 @@ export default function ImageGallery({ data: { id, images }, onClick }: ImageGal
 					</SwiperSlide>
 				))}
 			</SwiperReact>
-			{images.length > 3 && (
+			{images.length && images.length > 3 && (
 				<>
 					<div
 						ref={arrowRef}

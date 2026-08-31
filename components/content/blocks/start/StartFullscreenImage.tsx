@@ -11,7 +11,7 @@ export default function StartFullscreenImage({ data: { id, image, text, headline
 	return (
 		<DatoLink link={link} className={s.container}>
 			<figure>
-				<Image data={image.responsiveImage} className={s.image} />
+				{image.responsiveImage && <Image data={image.responsiveImage} className={s.image} />}
 				<figcaption>
 					<h2>{headline}</h2>
 					<p>{text}</p>

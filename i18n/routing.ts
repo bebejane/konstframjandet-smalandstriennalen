@@ -95,6 +95,12 @@ export const routing = defineRouting({
 		'/[year]/program/[program]': {
 			en: '/[year]/program/[program]',
 		},
+		'/[year]/utstallningar-och-projekt': {
+			en: '/[year]/exhibitions-and-projects',
+		},
+		'/[year]/utstallningar-och-projekt/[exhibition]': {
+			en: '/[year]/exhibitions/[exhibition]',
+		},
 	},
 });
 

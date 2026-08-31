@@ -48,14 +48,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[lo
 					<Menu menu={menu} />
 					<Language menu={menu} />
 					<Footer menu={menu} footer={footer} />
-					{/* <FullscreenGallery
-						index={images?.findIndex((image) => image?.id === imageId)}
-						images={images}
-						show={imageId !== undefined}
-						onClose={() => setImageId(undefined)}
-					/> */}
-					{/* <FullscreenGallery /> */}
-					{/* <YearTheme year={year} /> */}
+					<FullscreenGallery />
 				</NextIntlClientProvider>
 				<DraftModeContentLink />
 			</body>

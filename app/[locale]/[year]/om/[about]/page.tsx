@@ -44,7 +44,6 @@ export default async function AboutPage({ params }: PageProps<'/[locale]/[year]/
 				intro={intro}
 				content={content}
 			/>
-
 			<DraftMode path={`/om/${slug}`} url={draftUrl} />
 		</>
 	);

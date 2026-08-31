@@ -16,7 +16,10 @@ export default function Video({ data }: Props) {
 	const [videoHeight, setVideoHeight] = useState(360);
 	const { width, height } = useWindowSize();
 
-	useEffect(() => setVideoHeight((ref.current?.clientWidth / 16) * 9), [width, height, data, ref]); // Set to 16:9
+	useEffect(
+		() => setVideoHeight((ref.current?.clientWidth ?? 0 / 16) * 9),
+		[width, height, data, ref],
+	); // Set to 16:9
 
 	if (!data || !data.video) return null;
 

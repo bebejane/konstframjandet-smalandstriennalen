@@ -3,12 +3,12 @@
 import s from './Article.module.scss';
 import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { StructuredContent } from '@/components';
+import { Content } from '@/components';
 import { Image } from 'react-datocms';
 import { Link, usePathname } from '@/i18n/routing';
 import useStore, { useShallow } from '@/lib/store';
 import { format } from 'date-fns';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { Markdown } from 'next-dato-utils/components';
 import BalanceText from 'react-balance-text';
 
@@ -21,8 +21,6 @@ export type ArticleProps = {
 	image?: Maybe<FileField>;
 	imageSize?: 'small' | 'medium' | 'large';
 	content?: any;
-	onClick?: (id: string) => void;
-	record?: any;
 	date?: string;
 	partner?: PartnerRecord[];
 };
@@ -37,8 +35,6 @@ export default function Article({
 	intro,
 	partner,
 	date,
-	onClick,
-	record,
 }: ArticleProps) {
 	const t = useTranslations();
 	const [setImageId, setImages] = useStore(
@@ -90,12 +86,7 @@ export default function Article({
 				{content && (
 					<>
 						<div className='structured'>
-							<StructuredContent
-								id={id}
-								record={record}
-								content={content}
-								onClick={(imageId) => setImageId(imageId)}
-							/>
+							<Content id={id} content={content} />
 						</div>
 					</>
 				)}

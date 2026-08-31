@@ -36,7 +36,7 @@ export default async function Home({ params }: PageProps<'/[locale]'>) {
 			<div className={s.container}>
 				{start.content.map((block, idx) => (
 					<section key={idx} className={cn(fullBlocks.includes(block.__typename) && s.noborder)}>
-						<Block data={block} record={start} />
+						<Block data={block} />
 					</section>
 				))}
 			</div>
