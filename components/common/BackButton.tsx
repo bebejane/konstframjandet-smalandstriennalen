@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/components/common/Button';
 import { Link, usePathname, exists } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 
@@ -27,7 +28,7 @@ export default function BackButton({ children, year }: Props) {
 				},
 			}}
 		>
-			<button className='back'>{children}</button>
+			<Button className='back'>{children}</Button>
 		</Link>
 	);
 }

@@ -10,6 +10,6 @@
 	}
 
 	@include mq($from: tablet) {
-		margin-bottom: var(--small-space);
+		margin-bottom: var(--space);
 	}
 }

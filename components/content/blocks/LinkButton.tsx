@@ -1,3 +1,4 @@
+import Button from '@/components/common/Button';
 import s from './LinkButton.module.scss';
 import { getRoute } from '@/datocms.config';
 import { Link } from '@/i18n/routing';
@@ -17,8 +18,8 @@ export default function LinkButton({ data: { link } }: LinkButtonBlockProps) {
 	if (!href) return null;
 
 	return (
-		<Link href={href as any}>
-			<button className={s.button}>{title}</button>
+		<Link href={href as any} className={s.button}>
+			<Button className={s.button}>{title}</Button>
 		</Link>
 	);
 }
