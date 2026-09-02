@@ -366,11 +366,16 @@ query StartData(
 	$yearId: ItemId
 	$locale: SiteLocale
 ) {
-	allNews(locale: $locale, fallbackLocales: [sv], first: $newsItems, orderBy: _createdAt_DESC) {
+	allNews(
+		locale: $locale
+		first: $newsItems
+		orderBy: _createdAt_DESC
+		filter: { slug: { neq: null } }
+	) {
 		...NewsFragmentLight
 	}
 	allPrograms(
-		filter: { startDate: { gte: $date }, year: { eq: $yearId } }
+		filter: { startDate: { gte: $date }, year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
 		fallbackLocales: [sv]
 		first: $programItems
@@ -379,7 +384,7 @@ query StartData(
 		...ProgramFragmentLight
 	}
 	allParticipants(
-		filter: { year: { eq: $yearId } }
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		first: 100
 		orderBy: _createdAt_DESC
 		locale: $locale
