@@ -223,7 +223,7 @@ export const buildYearMenu = (
 		item.title = messages.Menu[mKey];
 
 		let sub: MenuItem[] = [];
-		console.log();
+
 		switch (item.route) {
 			case '/om':
 				sub = allAbouts

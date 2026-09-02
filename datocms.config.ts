@@ -88,6 +88,10 @@ export function getRoute(item: any, locale?: string | null): string {
 }
 
 export default {
+	i18n: {
+		locales,
+		defaultLocale,
+	},
 	route: async (item, locale) => getRoute(item, locale) ?? null,
 	routes: {
 		year: async ({ title }, locale) => [getInternalPath(`/[year]`, locale, { year: title })],

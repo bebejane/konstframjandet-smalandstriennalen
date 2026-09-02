@@ -28,7 +28,7 @@ export default async function News({ params }: PageProps<'/[locale]/nyheter'>) {
 	const { allNews, draftUrl } = await apiQuery(AllNewsDocument, {
 		variables: { locale: locale as SiteLocale, first: 10 },
 	});
-	console.log(locale);
+
 	return (
 		<>
 			<PageHeader title={t('Menu.news')} year={year} />
