@@ -1,3 +1,5 @@
+- Link to year menu
 - Archive links
+- Start news links
 - Missing locales, fallbacks
-  Testa dev
+- Testa dev

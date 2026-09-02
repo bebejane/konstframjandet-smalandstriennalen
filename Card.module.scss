@@ -1,0 +1,32 @@
+.card {
+  position: relative;
+  overflow: hidden;
+
+  @include mq($until: tablet) {
+    padding-left: var(--outer-margin);
+    padding-right: var(--outer-margin);
+  }
+
+  padding-left: var(--gutter);
+  margin-bottom: var(--small-space);
+
+  @include mq($from: tablet) {
+    margin-bottom: var(--space);
+  }
+
+  &.hideLastOnDesktop {
+    @include mq($from: tablet) {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+
+  &.hideLastOnMobile {
+    @include mq($until: tablet) {
+      &:last-child {
+        display: none;
+      }
+    }
+  }
+}

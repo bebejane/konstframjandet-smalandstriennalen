@@ -1,10 +1,14 @@
 [
   {
+    "__typename": "YearRecord",
+    "_modelApiKey": "year",
     "id": "ci_anPwJQsOvNZU-KK5psg",
     "title": "2026",
     "slug": "2026"
   },
   {
+    "__typename": "YearRecord",
+    "_modelApiKey": "year",
     "id": "140925715",
     "title": "2023",
     "slug": "2023"
