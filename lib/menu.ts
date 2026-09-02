@@ -203,14 +203,15 @@ export const buildYearMenu = (
 	const menu = base.map((item) => {
 		const { route } = item;
 		const mKey = item.id as keyof typeof routing.pathnames;
-		// routing.pathnames[route as keyof typeof routing.pathnames].en
-		// 	.split('/')
-		// 	.at(-1)
-		// 	?.replace('[year]', '') || 'home';
-
 		const isArchiveOverview = item.route === '/arkiv' && !isArchive;
-		const pathname = isArchiveOverview ? `/arkiv` : route === '/arkiv' ? `/[year]` : route;
-		const params = isArchiveOverview || isBaseYear ? {} : route === '/arkiv' ? {} : { year };
+		const pathname = isArchiveOverview
+			? `/arkiv`
+			: route === '/arkiv'
+				? `/[year]`
+				: item.archive
+					? `/[year]${route}`
+					: route;
+		const params = isArchiveOverview ? {} : route === '/arkiv' ? {} : { year };
 
 		const href = {
 			pathname,
@@ -222,7 +223,7 @@ export const buildYearMenu = (
 		item.title = messages.Menu[mKey];
 
 		let sub: MenuItem[] = [];
-
+		console.log();
 		switch (item.route) {
 			case '/om':
 				sub = allAbouts

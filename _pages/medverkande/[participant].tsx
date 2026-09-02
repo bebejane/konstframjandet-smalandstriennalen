@@ -17,24 +17,16 @@ export type Props = {
 };
 
 export default function Participant({
-	participant: { id, image, name, intro, content, exhibitions, programs, _seoMetaTags },
+	participant: { id, image, name, intro, content, exhibitions, programs, _seoMetaTags, year },
 }: Props) {
 	const t = useTranslations();
 
 	return (
 		<>
 			<DatoSEO title={name} description={intro} seo={_seoMetaTags} />
-			<Article
-				id={id}
-				key={id}
-				title={name}
-				image={image}
-				intro={intro}
-				content={content}
-				onClick={(imageId) => {}}
-			/>
+			<Article id={id} key={id} title={name} image={image} intro={intro} content={content} />
 			<Related header={t('Related.participatingIn')} items={[...exhibitions, ...programs]} />
-			<BackButton>{t('BackButton.showAllParticipants')}</BackButton>
+			<BackButton year={year as YearRecord}>{t('BackButton.showAllParticipants')}</BackButton>
 		</>
 	);
 }

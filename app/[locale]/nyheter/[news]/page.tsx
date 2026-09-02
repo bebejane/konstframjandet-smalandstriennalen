@@ -32,7 +32,6 @@ export default async function News({ params }: PageProps<'/[locale]/nyheter/[new
 				key={id}
 				title={title}
 				image={image as FileField}
-
 				intro={intro}
 				content={content}
 			/>

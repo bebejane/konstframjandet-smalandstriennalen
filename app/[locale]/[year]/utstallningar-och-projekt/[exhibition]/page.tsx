@@ -73,7 +73,7 @@ export default async function Exhibition({
 				]}
 			/>
 			<Related header={t('Menu.participants')} items={participants as ParticipantRecord[]} />
-			<BackButton>{t('BackButton.showAllExhibitons')}</BackButton>
+			<BackButton year={year}>{t('BackButton.showAllExhibitons')}</BackButton>
 		</>
 	);
 }

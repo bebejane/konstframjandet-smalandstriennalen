@@ -13,22 +13,14 @@ export type Props = {
 };
 
 export default function Partner({
-	partner: { id, image, title, intro, content, address, city, webpage, _seoMetaTags },
+	partner: { id, image, title, intro, content, address, city, webpage, _seoMetaTags, year },
 }: Props) {
 	const t = useTranslations();
 
 	return (
 		<>
 			<DatoSEO title={title} description={intro} seo={_seoMetaTags} />
-			<Article
-				id={id}
-				key={id}
-				title={title}
-				image={image}
-				intro={intro}
-				content={content}
-				onClick={(imageId) => {}}
-			/>
+			<Article id={id} key={id} title={title} image={image} intro={intro} content={content} />
 			<MetaSection
 				key={`${id}-meta`}
 				items={[
@@ -44,7 +36,7 @@ export default function Partner({
 			{/*
       <Related header={t('Menu.participants')} items={partners} />
       */}
-			<BackButton>{t('BackButton.showAllPartners')}</BackButton>
+			<BackButton year={year as YearRecord}>{t('BackButton.showAllPartners')}</BackButton>
 		</>
 	);
 }

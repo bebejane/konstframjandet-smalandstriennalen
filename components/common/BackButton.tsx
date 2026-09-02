@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl';
 
 export type Props = {
 	children: string;
-	year?: YearQuery['year'];
+	year?: YearQuery['year'] | YearRecord;
 };
 
 export default function BackButton({ children, year }: Props) {
