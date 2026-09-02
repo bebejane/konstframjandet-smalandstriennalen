@@ -5,16 +5,15 @@ query AllParticipants(
 	$skip: IntType = 0
 ) {
 	allParticipants(
-		filter: { year: { eq: $yearId } }
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
-		fallbackLocales: [sv]
 		first: $first
 		skip: $skip
 		orderBy: name_ASC
 	) {
 		...ParticipantFragmentLight
 	}
-	_allParticipantsMeta(locale: $locale, filter: { year: { eq: $yearId } }) {
+	_allParticipantsMeta(locale: $locale, filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }

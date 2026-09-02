@@ -1,14 +1,13 @@
 query AllAbouts($first: IntType = 100, $skip: IntType = 0, $yearId: ItemId, $locale: SiteLocale) {
 	allAbouts(
-		filter: { year: { eq: $yearId } }
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
-		fallbackLocales: [sv]
 		first: $first
 		skip: $skip
 	) {
 		...AboutFragmentLight
 	}
-	_allAboutsMeta(filter: { year: { eq: $yearId } }) {
+	_allAboutsMeta(filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }

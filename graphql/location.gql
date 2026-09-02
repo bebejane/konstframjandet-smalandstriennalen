@@ -5,7 +5,7 @@ query AllLocations(
 	$yearId: ItemId
 ) {
 	allLocations(
-		filter: { year: { eq: $yearId } }
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		first: $first
 		skip: $skip
 		orderBy: [title_ASC]
@@ -14,7 +14,7 @@ query AllLocations(
 		...LocationFragmentLight
 	}
 
-	_allLocationsMeta(locale: $locale, filter: { year: { eq: $yearId } }) {
+	_allLocationsMeta(locale: $locale, filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }

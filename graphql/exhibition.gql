@@ -5,15 +5,14 @@ query AllExhibitions(
 	$skip: IntType = 0
 ) {
 	allExhibitions(
-		filter: { year: { eq: $yearId } }
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
-		fallbackLocales: [sv]
 		first: $first
 		skip: $skip
 	) {
 		...ExhibitionFragmentLight
 	}
-	_allExhibitionsMeta(filter: { year: { eq: $yearId } }, locale: $locale) {
+	_allExhibitionsMeta(filter: { year: { eq: $yearId }, slug: { neq: null } }, locale: $locale) {
 		count
 	}
 }

@@ -1,15 +1,14 @@
 query AllPrograms($locale: SiteLocale, $yearId: ItemId, $first: IntType = 500, $skip: IntType = 0) {
 	allPrograms(
-		filter: { year: { eq: $yearId } }
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
-		fallbackLocales: [sv]
 		orderBy: [startDate_ASC, startTime_ASC]
 		first: $first
 		skip: $skip
 	) {
 		...ProgramFragmentLight
 	}
-	_allProgramsMeta(locale: $locale, filter: { year: { eq: $yearId } }) {
+	_allProgramsMeta(locale: $locale, filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }
