@@ -28,17 +28,18 @@ export default function PageHeader({
 }: PageHeaderProps) {
 	const [showMenu] = useStore(useShallow((state) => [state.showMenu]));
 	const t = useTranslations('Menu');
-	const titlePrefix = `${PROJECT_ABBR}°${year?.title.substring(2)}`;
+	const isArchiveYear = year?.title !== process.env.NEXT_PUBLIC_CURRENT_YEAR;
+	const titlePrefix = isArchiveYear ? `${PROJECT_ABBR}°${year?.title.substring(2)}` : '';
 	const title = !_title
 		? null
 		: stripStega(
 				_title && (!year || noPrefix)
 					? _title
 					: _title
-						? `${titlePrefix} — ${_title}`
+						? `${titlePrefix ? titlePrefix + ' — ' : ''}${_title}`
 						: titlePrefix,
 			);
-	const isArchiveOverview = archive;
+
 	const isHome = href === '/';
 	const { isMobile } = useDevice();
 
