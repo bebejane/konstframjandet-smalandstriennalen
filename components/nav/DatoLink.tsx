@@ -14,7 +14,9 @@ export default function DatoLink({ link, className, children }: Props) {
 	const { title } = link;
 
 	return link.__typename === 'ExternalLinkRecord' ? (
-		<a href={slug}>{children ?? title}</a>
+		<a href={slug} className={className}>
+			{children ?? title}
+		</a>
 	) : (
 		<Link href={slug} className={className}>
 			{children ?? title}

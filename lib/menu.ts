@@ -3,6 +3,7 @@ import { AllYearsDocument, MenuDocument } from '@/graphql';
 import { locales, routing } from '@/i18n/routing';
 import { getMessages } from 'next-intl/server';
 import { ca } from 'date-fns/locale';
+import { PROJECT_ABBR } from '@/lib/constant';
 
 export type Href = {
 	pathname: keyof typeof routing.pathnames;
@@ -133,7 +134,7 @@ export const buildMenu = async (locale: SiteLocale) => {
 		return {
 			id: `archive-${year}`,
 			route: `/arkiv`,
-			title: `LB°${year.substring(2)}`,
+			title: `${PROJECT_ABBR}°${year.substring(2)}`,
 			href: haveAboutOverview ? href : null,
 			hrefAlt: haveAboutOverview ? href : null,
 			sub: buildYearMenu(el, { locale, altLocale, isArchive: true, messages })

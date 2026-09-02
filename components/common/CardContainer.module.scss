@@ -13,6 +13,13 @@
 		width: calc(100% + (var(--gutter)));
 	}
 
+	&.hideLastOnDesktop {
+		@include mq($from: desktop) {
+			li:last-of-type {
+				display: none;
+			}
+		}
+	}
 	li a:hover {
 		color: var(--black) !important;
 	}

@@ -2,6 +2,7 @@
 
 import s from './StartNews.module.scss';
 import { CardContainer, Card, Thumbnail } from '@/components';
+import { Link } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
 
 export type Props = {
@@ -18,9 +19,9 @@ export default function StartNews({ data: { news } }: Props) {
 		<div className={s.container}>
 			<header>
 				<h2>{t('Menu.news')}</h2>
-				{/* <Link href={`/${i18nPaths.news[locale]}`} className='small' transformHref={false}>
+				<Link href={`/nyheter`} locale={locale} className='small'>
 					{t('General.showAll')}
-				</Link> */}
+				</Link>
 			</header>
 			<CardContainer hideLastOnDesktop={news.length % 3 !== 0}>
 				{news.map(({ id, intro, title, slug }) => (

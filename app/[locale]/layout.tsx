@@ -13,6 +13,7 @@ import { notFound } from 'next/navigation';
 import { PageProvider } from '@/lib/context/page';
 import { buildMenu } from '@/lib/menu';
 import { Footer, FullscreenGallery, Language, Menu } from '@/components';
+import { PROJECT_ABBR } from '@/lib/constant';
 
 export default async function RootLayout({ children, params }: LayoutProps<'/[locale]'>) {
 	const { locale } = await params;
@@ -122,7 +123,7 @@ export async function buildMetadata({
 	const url = pathname ? `${process.env.NEXT_PUBLIC_SITE_URL}${pathname}` : undefined;
 	const title =
 		year && year !== process.env.NEXT_PUBLIC_CURRENT_YEAR
-			? `LB°${year.substring(2)}${_title ? ` — ${_title}` : ''}`
+			? `${PROJECT_ABBR}°${year.substring(2)}${_title ? ` — ${_title}` : ''}`
 			: _title;
 
 	return {
