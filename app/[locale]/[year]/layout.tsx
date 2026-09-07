@@ -9,8 +9,6 @@ export default async function YearLayout({ children, params }: LayoutProps<'/[lo
 	if (!locales.includes(locale as any)) return notFound();
 	setRequestLocale(locale);
 
-	//const year = await getYear(_year, locale);
-
 	return <>{children}</>;
 }
 

@@ -79,7 +79,7 @@ export default async function Program({
 
 	return (
 		<>
-			<PageHeader title={t('Menu.program')} />
+			<PageHeader title={t('Menu.program')} year={year} />
 			<FilterBar
 				name='category'
 				value={category}
