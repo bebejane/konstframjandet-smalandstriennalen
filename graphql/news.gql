@@ -1,5 +1,5 @@
 query AllNews($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale) {
-	news: allNews(
+	allNews(
 		locale: $locale
 		fallbackLocales: [sv]
 		first: $first
@@ -9,7 +9,7 @@ query AllNews($first: IntType = 100, $skip: IntType = 0, $locale: SiteLocale) {
 		...NewsFragmentLight
 	}
 
-	pagination: _allNewsMeta(locale: $locale) {
+	_allNewsMeta(locale: $locale) {
 		count
 	}
 }
@@ -63,35 +63,62 @@ fragment NewsFragment on NewsRecord {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}

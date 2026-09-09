@@ -1,15 +1,16 @@
+'use client';
+
 import s from './Footer.module.scss';
 import cn from 'classnames';
-import type { MenuItem } from '/lib/menu';
-import KFLogo from '/public/images/kf-logo.svg';
+import type { MenuItem } from '@/lib/menu';
+import KFLogo from '@/public/images/kf-logo.svg';
 import { useTranslations } from 'next-intl';
-import { usePage } from '/lib/context/page';
-import Logo from '/components/layout/Logo';
-import { PROJECT_NAME } from '/lib/constant';
+import { PROJECT_NAME } from '@/lib/constant';
+import Icon from '@/components/common/Icon';
 
 export type FooterProps = {
 	menu: MenuItem[];
-	footer: GeneralRecord;
+	footer: NonNullable<FooterQuery['footer']>;
 };
 
 export default function Footer({
@@ -17,7 +18,6 @@ export default function Footer({
 	footer: { email, facebook, instagram, about },
 }: FooterProps) {
 	const t = useTranslations('Footer');
-	const { isHome } = usePage();
 
 	return (
 		<footer className={cn(s.footer)} id='footer'>
@@ -27,11 +27,14 @@ export default function Footer({
 					<a href={`mailto:${email}`}>{email}</a> Cookies & GDPR
 				</div>
 				<div>
-					{t('followUs')} <a href={instagram}>Instagram</a><br />
-					<a href="https://smalandstriennalen.us6.list-manage.com/subscribe?u=0cee99232ee087dbedebff728&id=db45c9b977">{t('newsletter')}</a>
+					{t('followUs')} <a href={instagram ?? ''}>Instagram</a>
+					<br />
+					<a href='https://smalandstriennalen.us6.list-manage.com/subscribe?u=0cee99232ee087dbedebff728&id=db45c9b977'>
+						{t('newsletter')}
+					</a>
 				</div>
 				<div>{about}</div>
-				<KFLogo className={s.kf} />
+				<Icon src={KFLogo} style={{ color: 'var(--white)' }} />
 			</section>
 		</footer>
 	);

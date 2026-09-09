@@ -1,13 +1,13 @@
 query AllPartners($locale: SiteLocale, $yearId: ItemId) {
-	partners: allPartners(
-		filter: { year: { eq: $yearId } }
+	allPartners(
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
-		fallbackLocales: [sv]
+
 		first: 100
 	) {
 		...PartnerFragmentLight
 	}
-	pagination: _allPartnersMeta {
+	_allPartnersMeta(filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }
@@ -68,35 +68,62 @@ fragment PartnerFragment on PartnerRecord {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}

@@ -1,14 +1,14 @@
-query AllPrograms($locale: SiteLocale, $yearId: ItemId) {
-	programs: allPrograms(
-		filter: { year: { eq: $yearId } }
+query AllPrograms($locale: SiteLocale, $yearId: ItemId, $first: IntType = 500, $skip: IntType = 0) {
+	allPrograms(
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
-		fallbackLocales: [sv]
 		orderBy: [startDate_ASC, startTime_ASC]
-		first: 100
+		first: $first
+		skip: $skip
 	) {
 		...ProgramFragmentLight
 	}
-	pagination: _allProgramsMeta(locale: $locale) {
+	_allProgramsMeta(locale: $locale, filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }
@@ -20,7 +20,7 @@ query Program($slug: String!, $locale: SiteLocale) {
 }
 
 query AllProgramCategories($locale: SiteLocale) {
-	programCategories: allProgramCategories(locale: $locale, orderBy: title_DESC, first: 100) {
+	allProgramCategories(locale: $locale, orderBy: title_DESC, first: 100) {
 		id
 		title
 		desc
@@ -93,35 +93,62 @@ fragment ProgramFragment on ProgramRecord {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}

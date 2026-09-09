@@ -1,83 +1,78 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: flex-start;
+	width: 100%;
+	padding: 0;
+	list-style: none;
 
-  @include mq($until: tablet) {
-    //margin-left: calc(-1 * var(--outer-margin));
-  }
+	@include mq($from: tablet) {
+		margin-left: calc(-1 * var(--gutter));
+		width: calc(100% + (var(--gutter)));
+	}
 
-  @include mq($from: tablet) {
-    margin-left: calc(-1 * var(--gutter));
-    width: calc(100% + (var(--gutter)));
-  }
+	&.hideLastOnDesktop {
+		@include mq($from: desktop) {
+			li:last-of-type {
+				display: none;
+			}
+		}
+	}
+	li a:hover {
+		color: var(--black) !important;
+	}
 
-  padding: 0;
-  list-style: none;
+	> li {
+		border-right: 1px solid var(--beige-mid);
+		width: 33.333%;
 
-  li a:hover {
-    color: var(--black) !important;
-  }
+		@include mq($from: tablet) {
+			&:nth-of-type(3n) {
+				border-right: none;
+			}
+		}
 
-  >li {
-    border-right: 1px solid var(--beige-mid);
-  }
+		@include mq($until: tablet) {
+			width: 50%;
 
-  &.two>li {
-    p {
-      text-align: center;
-    }
+			&:nth-of-type(odd) {
+				padding-right: calc(0.5 * var(--outer-margin));
+			}
 
-    @include mq($from: tablet) {
-      width: 50%;
+			&:nth-of-type(even) {
+				padding-left: calc(0.5 * var(--outer-margin));
+			}
+		}
+	}
 
-      &:nth-of-type(2n) {
-        border-right: none;
-      }
-    }
+	&.col2 {
+		> li {
+			p {
+				text-align: center;
+			}
 
-    @include mq($until: tablet) {
-      width: 100%;
-      border-right: none;
+			@include mq($from: tablet) {
+				width: 50%;
 
-      a:last-of-type {
-        border-bottom: 1px solid var(--beige-mid);
-      }
+				&:nth-of-type(2n) {
+					border-right: none;
+				}
+			}
 
-      &:last-of-type a:last-of-type {
-        margin-bottom: 0;
-      }
-    }
-  }
+			@include mq($until: tablet) {
+				width: 100%;
+				border-right: none;
 
-  &.two {
-    @include mq($until: tablet) {
-      hr {
-        display: none;
-      }
-    }
-  }
+				a:last-of-type {
+					border-bottom: 1px solid var(--beige-mid);
+				}
 
-  &.three>li {
-    width: 33.333%;
-
-    @include mq($from: tablet) {
-      &:nth-of-type(3n) {
-        border-right: none;
-      }
-    }
-
-    @include mq($until: tablet) {
-      width: 50%;
-
-      &:nth-of-type(odd) {
-        padding-right: calc(0.5 * var(--outer-margin));
-      }
-
-      &:nth-of-type(even) {
-        padding-left: calc(0.5 * var(--outer-margin));
-      }
-    }
-  }
+				&:last-of-type a:last-of-type {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
 }

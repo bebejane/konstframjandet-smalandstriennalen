@@ -1,14 +1,13 @@
 query AllAbouts($first: IntType = 100, $skip: IntType = 0, $yearId: ItemId, $locale: SiteLocale) {
-	abouts: allAbouts(
-		filter: { year: { eq: $yearId } }
+	allAbouts(
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		locale: $locale
-		fallbackLocales: [sv]
 		first: $first
 		skip: $skip
 	) {
 		...AboutFragmentLight
 	}
-	pagination: _allAboutsMeta {
+	_allAboutsMeta(filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }
@@ -20,7 +19,7 @@ query About($slug: String!, $locale: SiteLocale) {
 }
 
 query MainAbout($yearId: ItemId, $locale: SiteLocale) {
-	abouts: allAbouts(
+	allAbouts(
 		filter: { OR: [{ year: { eq: $yearId } }, { year: { exists: false } }] }
 		first: 1
 		locale: $locale
@@ -31,7 +30,7 @@ query MainAbout($yearId: ItemId, $locale: SiteLocale) {
 }
 
 query AllAboutsMenu($locale: SiteLocale) {
-	abouts: allAbouts(locale: $locale, fallbackLocales: [sv], first: 100) {
+	allAbouts(locale: $locale, fallbackLocales: [sv], first: 100) {
 		title
 		slug
 	}
@@ -87,35 +86,62 @@ fragment AboutFragment on AboutRecord {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}

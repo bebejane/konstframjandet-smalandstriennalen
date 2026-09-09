@@ -4,8 +4,8 @@ query AllLocations(
 	$locale: SiteLocale
 	$yearId: ItemId
 ) {
-	locations: allLocations(
-		filter: { year: { eq: $yearId } }
+	allLocations(
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
 		first: $first
 		skip: $skip
 		orderBy: [title_ASC]
@@ -14,7 +14,7 @@ query AllLocations(
 		...LocationFragmentLight
 	}
 
-	pagination: _allLocationsMeta(locale: $locale) {
+	_allLocationsMeta(locale: $locale, filter: { year: { eq: $yearId }, slug: { neq: null } }) {
 		count
 	}
 }
@@ -35,10 +35,10 @@ query Location($slug: String!, $locale: SiteLocale, $yearId: ItemId) {
 		intro(markdown: false)
 		webpage
 		slug
-		exhibitions: _allReferencingExhibitions(first: 100, filter: { year: { eq: $yearId } }) {
+		_allReferencingExhibitions(first: 100, filter: { year: { eq: $yearId } }) {
 			...ExhibitionFragmentLight
 		}
-		programs: _allReferencingPrograms(first: 100, filter: { year: { eq: $yearId } }) {
+		_allReferencingPrograms(first: 100, filter: { year: { eq: $yearId } }) {
 			...ProgramFragmentLight
 		}
 		content {
@@ -75,35 +75,62 @@ query Location($slug: String!, $locale: SiteLocale, $yearId: ItemId) {
 							__typename
 							id
 							record {
+								__typename
 								... on AboutRecord {
+									_modelApiKey
 									id
 									slug
 									title
+									_year: year {
+										id
+										title
+									}
 								}
 								... on ExhibitionRecord {
+									_modelApiKey
 									id
 									slug
 									title
+									year {
+										id
+										title
+									}
 								}
 								... on LocationRecord {
+									_modelApiKey
 									id
 									slug
 									title
+									year {
+										id
+										title
+									}
 								}
 								... on NewsRecord {
+									_modelApiKey
 									id
 									slug
 									title
 								}
 								... on ParticipantRecord {
+									_modelApiKey
 									id
 									slug
 									name
+									year {
+										id
+										title
+									}
 								}
 								... on ProgramRecord {
+									_modelApiKey
 									id
 									slug
 									title
+									year {
+										id
+										title
+									}
 								}
 							}
 						}
@@ -190,35 +217,62 @@ fragment LocationFragment on LocationRecord {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
+								_modelApiKey
 								id
 								slug
 								title
 							}
 							... on ParticipantRecord {
+								_modelApiKey
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
+								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}

@@ -1,8 +1,18 @@
-query AllExhibitions($locale: SiteLocale, $yearId: ItemId) {
-	exhibitions: allExhibitions(filter: { year: { eq: $yearId } }, locale: $locale, first: 100) {
+query AllExhibitions(
+	$locale: SiteLocale
+	$yearId: ItemId
+	$first: IntType = 500
+	$skip: IntType = 0
+) {
+	allExhibitions(
+		filter: { year: { eq: $yearId }, slug: { neq: null } }
+		locale: $locale
+		first: $first
+		skip: $skip
+	) {
 		...ExhibitionFragmentLight
 	}
-	pagination: _allExhibitionsMeta(filter: { year: { eq: $yearId } }, locale: $locale) {
+	_allExhibitionsMeta(filter: { year: { eq: $yearId }, slug: { neq: null } }, locale: $locale) {
 		count
 	}
 }
@@ -73,6 +83,7 @@ fragment ExhibitionFragment on ExhibitionRecord {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
 								id
 								slug

@@ -1,8 +1,8 @@
-import Link from './Link';
-import { recordToSlug } from '/lib/utils';
+import { getRoute } from '@/datocms.config';
+import { Link } from '@/i18n/routing';
 
 export type Props = {
-	link: ExternalLinkRecord | (InternalLinkRecord & { internalTitle: String }) | any;
+	link: ExternalLinkRecord | InternalLinkRecord | any;
 	className?: string;
 	children?: React.ReactNode;
 };
@@ -10,12 +10,10 @@ export type Props = {
 export default function DatoLink({ link, className, children }: Props) {
 	if (!link) return <a className={className}>{children}</a>;
 
-	const slug = link.__typename === 'ExternalLinkRecord' ? link.url : recordToSlug(link.record);
-	const title =
-		link.__typename === 'ExternalLinkRecord'
-			? link.title
-			: link.internalTitle ||
-			  (link.record.__typename === 'ParticipantRecord' ? link.record.name : link.record.title);
+	const year = link.record?._year ?? link.record?.year ?? {};
+	const slug =
+		link.__typename === 'ExternalLinkRecord' ? link.url : getRoute({ ...link.record, year });
+	const title = link.internalTitle || link.title;
 
 	return link.__typename === 'ExternalLinkRecord' ? (
 		<a href={slug} className={className}>

@@ -1,0 +1,83 @@
+.container {
+	position: relative;
+	margin-bottom: calc(-1 * var(--space));
+	transition: all var(--menu-transition);
+
+	@include mq($until: tablet) {
+		height: 50vh;
+	}
+
+	width: 100vw;
+	margin-left: calc(-1 * calc(var(--outer-margin)));
+	margin-right: calc(-1 * calc(var(--outer-margin)));
+
+	@include mq($from: tablet) {
+		width: calc(100% + (2 * var(--total-outer-margin)));
+		margin-left: calc(-1 * calc(var(--total-outer-margin)));
+		margin-right: calc(-1 * calc(var(--total-outer-margin)));
+	}
+
+	&.full {
+		width: calc(100% + (2 * var(--outer-margin)));
+		margin-left: calc(-1 * calc(var(--outer-margin)));
+		margin-right: calc(-1 * calc(var(--outer-margin)));
+
+		@include mq($from: tablet) {
+			width: 100vw;
+			margin-left: calc(-1 * (var(--total-outer-margin) + var(--grid-unit)));
+			margin-right: calc(-1 * (var(--total-outer-margin) + var(--grid-unit)));
+		}
+
+		@include mq($from: wide) {
+			margin-left: calc(-1 * calc(var(--wide-margin)));
+			margin-right: calc(-1 * calc(var(--wide-margin)));
+		}
+	}
+
+	.image {
+		width: 100%;
+		min-width: 100%;
+		height: 100vh;
+		max-height: 100vh;
+
+		@include mq($until: tablet) {
+			height: 50vh;
+		}
+	}
+
+	figcaption {
+		position: absolute;
+		bottom: var(--space);
+		left: 0;
+		width: 100%;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: var(--white);
+		padding: var(--outer-margin);
+		padding-bottom: 0;
+		font-size: 1rem;
+		font-family: var(--body-font);
+
+		h2 {
+			padding-bottom: var(--space);
+			color: var(--white);
+		}
+
+		h2,
+		p {
+			z-index: 1;
+		}
+
+		.fade {
+			position: absolute;
+			bottom: calc(-1 * var(--space));
+			z-index: 0;
+			left: 0;
+			width: 100%;
+			height: 170%;
+			background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0));
+		}
+	}
+}
