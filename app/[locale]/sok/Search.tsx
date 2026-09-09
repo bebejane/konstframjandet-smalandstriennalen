@@ -3,90 +3,50 @@
 import s from './Search.module.scss';
 import cn from 'classnames';
 import { Button, Loader } from '@/components';
-import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Markdown } from 'next-dato-utils/components';
-import type { SearchResult } from '@/app/api/search/route';
+import type { SearchResult } from '@/lib/search';
 import { useTranslations } from 'next-intl';
 import { useQueryState } from 'nuqs';
+import { useTransition, useEffect, useRef } from 'react';
 
 type SearchProps = {
-	locale: SiteLocale;
+	results: SearchResult | null;
 };
 
-export function Search({ locale }: SearchProps) {
+export function Search({ results }: SearchProps) {
 	const t = useTranslations();
-	const [query, setQuery] = useQueryState('q', { history: 'replace' });
-	const [results, setResults] = useState<SearchResult | null>(null);
-	const [error, setError] = useState<Error | null>(null);
-	const [loading, setLoading] = useState<boolean>(false);
-	const searchTimeout = useRef<NodeJS.Timeout | null>(null);
-	const abortController = useRef<AbortController | null>(null);
-
-	const siteSearch = (q: string | null) => {
-		const variables = {
-			q: q
-				? `${q
-						.split(' ')
-						.filter((el) => el)
-						.join('|')}`
-				: undefined,
-			locale,
-		};
-
-		if (
-			!Object.keys(variables).filter((k) => variables[k as keyof typeof variables] !== undefined)
-				.length
-		)
-			return;
-
-		setResults(null);
-		setLoading(true);
-		setError(null);
-
-		if (abortController.current) abortController.current.abort();
-		abortController.current = new AbortController();
-		fetch('/api/search', {
-			body: JSON.stringify(variables),
-			method: 'POST',
-			signal: abortController.current.signal,
-			headers: { 'Content-Type': 'application/json' },
-		})
-			.then(async (res) => {
-				const results = await res.json();
-				if (res.status === 200) {
-					setResults(results);
-				} else setError(new Error('error in search'));
-			})
-			.catch((err) => {
-				if (err.name === 'AbortError') return;
-				setError(err);
-			})
-			.finally(() => setLoading(false));
-	};
+	const [query, setQuery] = useQueryState('q', { history: 'replace', shallow: false });
+	const [isPending, startTransition] = useTransition();
+	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-		setResults(null);
-		setLoading(false);
-		setError(null);
-		searchTimeout.current && clearTimeout(searchTimeout.current);
-		searchTimeout.current = setTimeout(() => siteSearch(query), 300);
-	}, [query]);
+		inputRef.current?.focus({ preventScroll: true });
+	}, []);
+
+	const handleQueryChange = (value: string) => {
+		startTransition(() => {
+			setQuery(value || null);
+		});
+	};
 
 	return (
 		<>
 			<section className={cn(s.container)}>
 				<div className={cn(s.search)}>
 					<input
+						ref={inputRef}
 						className={'mid'}
 						placeholder={t('Menu.search')}
 						value={query || ''}
-						autoFocus={true}
-						onChange={({ target: { value } }) => setQuery(value || null)}
+						onChange={({ target: { value } }) => handleQueryChange(value)}
 					/>
 				</div>
-				{results && Object.keys(results).length > 0 ? (
+				{isPending ? (
+					<div className={s.loading}>
+						<Loader />
+					</div>
+				) : results && Object.keys(results).length > 0 ? (
 					<>
 						{Object.keys(results).map((type, idx) => (
 							<ul key={idx}>
@@ -113,23 +73,12 @@ export function Search({ locale }: SearchProps) {
 							</ul>
 						))}
 					</>
-				) : loading ? (
-					<div className={s.loading}>
-						<Loader />
-					</div>
 				) : (
-					results &&
-					query &&
-					!loading && (
+					query && (
 						<p className={cn(s.nohits, 'small')}>
 							{t('Search.noHitsFor')}: &quot;{query}&quot;
 						</p>
 					)
-				)}
-				{error && (
-					<div className={s.error}>
-						<p>{typeof error === 'string' ? error : error.message}</p>
-					</div>
 				)}
 			</section>
 		</>
