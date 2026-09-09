@@ -6,6 +6,7 @@ import { FooterDocument, GeneralDocument, SiteDocument, YearDocument } from '@/g
 import { Metadata } from 'next';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import { NextIntlClientProvider } from 'next-intl';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { getPathname, locales } from '@/i18n/routing';
 import { DraftModeContentLink } from 'next-dato-utils/components';
 import { setRequestLocale } from 'next-intl/server';
@@ -41,14 +42,16 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[lo
 		<html lang={locale === 'en' ? 'en-US' : 'sv-SE'}>
 			<body id='root' className='root'>
 				<NextIntlClientProvider>
-					<div className={s.layout}>
-						<main id='content' className={s.content} data-full={true}>
-							<article>{children}</article>
-						</main>
-					</div>
-					<Menu menu={menu} />
-					<Footer menu={menu} footer={footer} />
-					<FullscreenGallery />
+					<NuqsAdapter>
+						<div className={s.layout}>
+							<main id='content' className={s.content} data-full={true}>
+								<article>{children}</article>
+							</main>
+						</div>
+						<Menu menu={menu} />
+						<Footer menu={menu} footer={footer} />
+						<FullscreenGallery />
+					</NuqsAdapter>
 				</NextIntlClientProvider>
 				<DraftModeContentLink />
 			</body>

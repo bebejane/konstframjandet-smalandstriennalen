@@ -13,13 +13,12 @@ export default async function SearchPage({ params, searchParams }: PageProps<'/[
 	setRequestLocale(locale);
 
 	const year = await getCurrentYear(locale);
-	const { q } = await searchParams;
 	const t = await getTranslations();
 
 	return (
 		<>
 			<PageHeader title={t('Menu.search')} year={year} route='/sok' />
-			<Search query={q as string} locale={locale as SiteLocale} />
+			<Search locale={locale as SiteLocale} />
 		</>
 	);
 }

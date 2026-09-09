@@ -20,6 +20,9 @@ export const routing = defineRouting({
 		'/medverkande': {
 			en: '/participants',
 		},
+		'/medverkande/[participant]': {
+			en: '/participants/[participant]',
+		},
 		'/nyheter': {
 			en: '/news',
 		},

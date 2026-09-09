@@ -8,15 +8,15 @@ import Link from 'next/link';
 import { Markdown } from 'next-dato-utils/components';
 import type { SearchResult } from '@/app/api/search/route';
 import { useTranslations } from 'next-intl';
+import { useQueryState } from 'nuqs';
 
 type SearchProps = {
-	query?: string | null;
 	locale: SiteLocale;
 };
 
-export function Search({ query: _query, locale }: SearchProps) {
+export function Search({ locale }: SearchProps) {
 	const t = useTranslations();
-	const [query, setQuery] = useState<string | null>(_query ?? null);
+	const [query, setQuery] = useQueryState('q', { history: 'replace' });
 	const [results, setResults] = useState<SearchResult | null>(null);
 	const [error, setError] = useState<Error | null>(null);
 	const [loading, setLoading] = useState<boolean>(false);
@@ -74,10 +74,6 @@ export function Search({ query: _query, locale }: SearchProps) {
 		searchTimeout.current = setTimeout(() => siteSearch(query), 300);
 	}, [query]);
 
-	useEffect(() => {
-		return () => setQuery(null);
-	}, []);
-
 	return (
 		<>
 			<section className={cn(s.container)}>
@@ -87,7 +83,7 @@ export function Search({ query: _query, locale }: SearchProps) {
 						placeholder={t('Menu.search')}
 						value={query || ''}
 						autoFocus={true}
-						onChange={({ target: { value } }) => setQuery(value)}
+						onChange={({ target: { value } }) => setQuery(value || null)}
 					/>
 				</div>
 				{results && Object.keys(results).length > 0 ? (
