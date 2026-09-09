@@ -4,7 +4,7 @@ import s from './Menu.module.scss';
 import cn from 'classnames';
 import { useState, useRef, useEffect } from 'react';
 import { type Menu } from '@/lib/menu';
-import { Hamburger, Language, MenuTree } from '@/components';
+import { Hamburger, MenuTree } from '@/components';
 import useStore, { useShallow } from '@/lib/store';
 import { useScrollInfo } from 'next-dato-utils/hooks';
 import { useWindowSize } from 'usehooks-ts';

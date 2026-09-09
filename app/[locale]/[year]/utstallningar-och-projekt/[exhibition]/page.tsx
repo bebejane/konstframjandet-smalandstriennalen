@@ -1,7 +1,7 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { ExhibitionDocument, AllExhibitionsDocument } from '@/graphql';
 import { Article, Related, BackButton, PageHeader, MetaSection } from '@/components';
-import { formatDate, getYear, getYearId } from '@/lib/utils';
+import { formatDate, getLocaleSlugs, getYear, getYearId } from '@/lib/utils';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { getPathname, locales } from '@/i18n/routing';
@@ -38,6 +38,7 @@ export default async function Exhibition({
 		partner,
 		startDate,
 		endDate,
+		_allSlugLocales,
 		//times,
 		_seoMetaTags,
 	} = exhibition;
@@ -45,7 +46,13 @@ export default async function Exhibition({
 
 	return (
 		<>
-			<PageHeader title={t('Menu.exhibitions')} href={'/utstallningar-och-projekt'} year={year} />
+			<PageHeader
+				title={t('Menu.exhibitions')}
+				href={'/utstallningar-och-projekt'}
+				year={year}
+				route='/[year]/utstallningar-och-projekt/[exhibition]'
+				slug={getLocaleSlugs(slug, _allSlugLocales)}
+			/>
 			<Article
 				id={id}
 				key={id}

@@ -28,7 +28,11 @@ export default async function Exhibition({
 
 	return (
 		<>
-			<PageHeader title={t('Menu.exhibitions')} year={year} />
+			<PageHeader
+				title={t('Menu.exhibitions')}
+				year={year}
+				route='/[year]/utstallningar-och-projekt'
+			/>
 			{/* <Markdown className={s.intro} content={year.introExhibitions} /> */}
 			<CardContainer columns={3}>
 				{allExhibitions.map(({ id, image, title, startDate, endDate, slug, location }) => (

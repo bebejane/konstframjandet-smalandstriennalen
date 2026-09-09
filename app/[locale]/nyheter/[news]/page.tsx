@@ -1,5 +1,6 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { NewsDocument, AllNewsDocument } from '@/graphql';
+import { getLocaleSlugs } from '@/lib/utils';
 import { Article, BackButton, PageHeader } from '@/components';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -21,12 +22,17 @@ export default async function News({ params }: PageProps<'/[locale]/nyheter/[new
 		variables: { slug, locale: locale as SiteLocale },
 	});
 	if (!news) return notFound();
-	const { id, image, title, intro, content } = news;
+	const { id, image, title, intro, content, _allSlugLocales } = news;
 	const t = await getTranslations();
 
 	return (
 		<>
-			<PageHeader title={t('Menu.news')} href='/nyheter' />
+			<PageHeader
+				title={t('Menu.news')}
+				href='/nyheter'
+				route='/nyheter/[news]'
+				slug={getLocaleSlugs(slug, _allSlugLocales)}
+			/>
 			<Article
 				id={id}
 				key={id}

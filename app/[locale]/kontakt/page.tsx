@@ -29,7 +29,7 @@ export default async function Contact({ params }: PageProps<'/[locale]/kontakt'>
 
 	return (
 		<>
-			<PageHeader title={t('contact')} year={year} />
+			<PageHeader title={t('contact')} year={year} route='/kontakt' />
 			<Article
 				id={id}
 				key={id}

@@ -18,7 +18,7 @@ export default async function SearchPage({ params, searchParams }: PageProps<'/[
 
 	return (
 		<>
-			<PageHeader title={t('Menu.search')} year={year} />
+			<PageHeader title={t('Menu.search')} year={year} route='/sok' />
 			<Search query={q as string} locale={locale as SiteLocale} />
 		</>
 	);

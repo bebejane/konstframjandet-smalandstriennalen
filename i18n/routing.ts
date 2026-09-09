@@ -47,8 +47,8 @@ export const routing = defineRouting({
 		'/utstallningar-och-projekt': {
 			en: '/exhibitions-and-projects',
 		},
-		'/utstallningar/[exhibition]': {
-			en: '/exhibitions/[exhibition]',
+		'/utstallningar-och-projekt/[exhibition]': {
+			en: '/exhibitions-and-projects/[exhibition]',
 		},
 		'/partners': {
 			en: '/partners',
@@ -85,6 +85,9 @@ export const routing = defineRouting({
 		},
 		'/[year]/partners/[partner]': {
 			en: '/[year]/partners/[partner]',
+		},
+		'/[year]/platser': {
+			en: '/[year]/locations',
 		},
 		'/[year]/platser/[location]': {
 			en: '/[year]/locations/[location]',

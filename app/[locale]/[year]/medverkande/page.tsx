@@ -31,7 +31,11 @@ export default async function Participant({ params }: PageProps<'/[locale]/[year
 
 	return (
 		<>
-			<PageHeader title={t('participants')} year={year} />
+			<PageHeader
+				title={t('participants')}
+				year={year}
+				route='/[year]/medverkande'
+			/>
 			<CardContainer>
 				{allParticipants.map(({ id, image, name, intro, slug }) => (
 					<Card key={id}>

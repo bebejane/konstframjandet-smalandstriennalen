@@ -4,7 +4,9 @@ import s from './PageHeader.module.scss';
 import cn from 'classnames';
 import { useTranslations } from 'next-intl';
 import { PROJECT_ABBR } from '@/lib/constant';
+import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
+import { Language } from '@/components';
 import { useStore, useShallow } from '@/lib/store';
 import { stripStega } from '@datocms/content-link';
 import useDevice from '@/lib/hooks/useDevice';
@@ -16,6 +18,8 @@ export type PageHeaderProps = {
 	noPrefix?: boolean;
 	archive?: boolean;
 	year?: YearQuery['year'];
+	route?: keyof typeof routing.pathnames;
+	slug?: Record<string, string>;
 };
 
 export default function PageHeader({
@@ -25,6 +29,8 @@ export default function PageHeader({
 	noPrefix,
 	archive,
 	year,
+	route,
+	slug,
 }: PageHeaderProps) {
 	const [showMenu] = useStore(useShallow((state) => [state.showMenu]));
 	const t = useTranslations('Menu');
@@ -49,6 +55,7 @@ export default function PageHeader({
 				<img src={`/images/logo-${isMobile ? 'blue' : 'yellow'}.svg`} alt={'Logo'} />
 			</Link>
 			<header className={cn(s.header, !showMenu && s.full, isHome && s.home)}>
+				{route && <Language route={route} slug={slug} year={year?.title} />}
 				{href && title ? (
 					//@ts-expect-error
 					<Link href={{ pathname: href, params }}>

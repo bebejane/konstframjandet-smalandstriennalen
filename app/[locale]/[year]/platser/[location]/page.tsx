@@ -7,7 +7,7 @@ import { getPathname, locales } from '@/i18n/routing';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { buildMetadata } from '@/app/[locale]/layout';
-import { getYear, getYearId } from '@/lib/utils';
+import { getLocaleSlugs, getYear, getYearId } from '@/lib/utils';
 
 export default async function Location({
 	params,
@@ -33,12 +33,19 @@ export default async function Location({
 		content,
 		_allReferencingExhibitions,
 		_allReferencingPrograms,
+		_allSlugLocales,
 	} = location;
 	const t = await getTranslations();
 	const href = '/locations#locations';
 	return (
 		<>
-			<PageHeader title={t('Menu.locations')} href={href} year={year} />
+			<PageHeader
+				title={t('Menu.locations')}
+				href={href}
+				year={year}
+				route='/[year]/platser/[location]'
+				slug={getLocaleSlugs(slug, _allSlugLocales)}
+			/>
 			<Article
 				id={id}
 				key={id}

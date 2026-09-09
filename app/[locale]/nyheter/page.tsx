@@ -31,7 +31,7 @@ export default async function News({ params }: PageProps<'/[locale]/nyheter'>) {
 
 	return (
 		<>
-			<PageHeader title={t('Menu.news')} year={year} />
+			<PageHeader title={t('Menu.news')} year={year} route='/nyheter' />
 			<section className={s.news}>
 				<ul>
 					<InfiniteScrollClient

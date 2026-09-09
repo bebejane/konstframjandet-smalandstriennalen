@@ -139,7 +139,7 @@ export default {
 		],
 		exhibition: async (item, locale) => [
 			getInternalPath('/[year]/utstallningar-och-projekt', locale, { year: item.year?.title }),
-			getInternalPath('/[year]/utstallningar/[exhibition]', locale, {
+			getInternalPath('/[year]/utstallningar-och-projekt/[exhibition]', locale, {
 				exhibition: locale && item.slug[locale] ? item.slug[locale] : item.slug,
 				year: item.year?.title,
 			}),

@@ -26,7 +26,7 @@ export default async function Location({ params }: PageProps<'/[locale]/[year]/p
 
 	return (
 		<>
-			<PageHeader title={t('Menu.locations')} year={year} />
+			<PageHeader title={t('Menu.locations')} year={year} route='/[year]/platser' />
 			{/* <Markdown className={s.intro} content={year.introLocations} /> */}
 			<CardContainer columns={3}>
 				{allLocations.map(({ id, image, title, intro, slug }) => (
