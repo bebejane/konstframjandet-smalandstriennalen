@@ -28,18 +28,30 @@ query Start($locale: SiteLocale) {
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
 								_modelApiKey
@@ -52,12 +64,20 @@ query Start($locale: SiteLocale) {
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}
@@ -106,23 +126,36 @@ query Start($locale: SiteLocale) {
 						_modelApiKey
 						id
 						record {
+							__typename
 							... on AboutRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
 								_modelApiKey
@@ -135,12 +168,20 @@ query Start($locale: SiteLocale) {
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}
@@ -169,23 +210,36 @@ query Start($locale: SiteLocale) {
 						id
 						internalTitle: title
 						record {
+							__typename
 							... on AboutRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
 								_modelApiKey
@@ -198,12 +252,20 @@ query Start($locale: SiteLocale) {
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}
@@ -247,23 +309,36 @@ query Start($locale: SiteLocale) {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
 								_modelApiKey
@@ -276,12 +351,20 @@ query Start($locale: SiteLocale) {
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}
@@ -314,23 +397,36 @@ query Start($locale: SiteLocale) {
 						__typename
 						id
 						record {
+							__typename
 							... on AboutRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								_year: year {
+									id
+									title
+								}
 							}
 							... on ExhibitionRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on LocationRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 							... on NewsRecord {
 								_modelApiKey
@@ -343,12 +439,20 @@ query Start($locale: SiteLocale) {
 								id
 								slug
 								name
+								year {
+									id
+									title
+								}
 							}
 							... on ProgramRecord {
 								_modelApiKey
 								id
 								slug
 								title
+								year {
+									id
+									title
+								}
 							}
 						}
 					}

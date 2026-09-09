@@ -6214,12 +6214,12 @@ type AboutQuery = { __typename?: 'Query', about?: { __typename: 'AboutRecord', _
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6237,12 +6237,12 @@ type MainAboutQuery = { __typename?: 'Query', allAbouts: Array<{ __typename: 'Ab
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6261,12 +6261,12 @@ type AboutFragment = { __typename: 'AboutRecord', _modelApiKey: string, id: any,
       | { __typename: 'LinkButtonRecord', id: any, link:
           | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6285,12 +6285,12 @@ type ContactQuery = { __typename?: 'Query', contact?: { __typename?: 'ContactRec
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6318,12 +6318,12 @@ type ExhibitionQuery = { __typename?: 'Query', exhibition?: { __typename: 'Exhib
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', id: any, slug: string, title: string }
+                | { __typename: 'ExhibitionRecord', id: any, slug: string, title: string }
+                | { __typename: 'LocationRecord', id: any, slug: string, title: string }
+                | { __typename: 'NewsRecord', id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', id: any, slug: string, name: string }
+                | { __typename: 'ProgramRecord', id: any, slug: string, title: string }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6335,12 +6335,12 @@ type ExhibitionFragment = { __typename: 'ExhibitionRecord', _modelApiKey: string
       | { __typename: 'LinkButtonRecord', id: any, link:
           | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', id: any, slug: string, title: string }
+              | { __typename: 'ExhibitionRecord', id: any, slug: string, title: string }
+              | { __typename: 'LocationRecord', id: any, slug: string, title: string }
+              | { __typename: 'NewsRecord', id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', id: any, slug: string, name: string }
+              | { __typename: 'ProgramRecord', id: any, slug: string, title: string }
              }
          }
       | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6381,12 +6381,12 @@ type InEnglishQuery = { __typename?: 'Query', inEnglish?: { __typename?: 'InEngl
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6415,12 +6415,12 @@ type LocationQuery = { __typename?: 'Query', location?: { __typename?: 'Location
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6432,12 +6432,12 @@ type LocationFragment = { __typename?: 'LocationRecord', id: any, title: string,
       | { __typename: 'LinkButtonRecord', id: any, link:
           | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6475,12 +6475,12 @@ type NewsQuery = { __typename?: 'Query', news?: { __typename?: 'NewsRecord', id:
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6492,12 +6492,12 @@ type NewsFragment = { __typename?: 'NewsRecord', id: any, title: string, intro: 
       | { __typename: 'LinkButtonRecord', id: any, link:
           | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6527,12 +6527,12 @@ type ParticipantQuery = { __typename?: 'Query', participant?: { __typename: 'Par
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6544,12 +6544,12 @@ type ParticipantFragment = { __typename: 'ParticipantRecord', _modelApiKey: stri
       | { __typename: 'LinkButtonRecord', id: any, link:
           | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6577,12 +6577,12 @@ type PartnerQuery = { __typename?: 'Query', partner?: { __typename?: 'PartnerRec
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6594,12 +6594,12 @@ type PartnerFragment = { __typename?: 'PartnerRecord', _createdAt: any, id: any,
       | { __typename: 'LinkButtonRecord', id: any, link:
           | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6629,12 +6629,12 @@ type ProgramQuery = { __typename?: 'Query', program?: { __typename: 'ProgramReco
         | { __typename: 'LinkButtonRecord', id: any, link:
             | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
             | { __typename: 'InternalLinkRecord', id: any, record:
-                | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-                | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-                | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-                | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-                | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+                | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+                | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+                | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+                | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
                }
            }
         | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6653,12 +6653,12 @@ type ProgramFragment = { __typename: 'ProgramRecord', _modelApiKey: string, id: 
       | { __typename: 'LinkButtonRecord', id: any, link:
           | { __typename: 'ExternalLinkRecord', id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'VideoRecord', id: any, title: string, video: { __typename?: 'VideoField', height: any, width: any, title: string, provider: string, providerUid: string, thumbnailUrl: string, url: string } }
@@ -6710,45 +6710,45 @@ type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', 
       | { __typename: 'StartFullBleedImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link:
           | { __typename: 'ExternalLinkRecord', _modelApiKey: string, id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'StartFullscreenImageRecord', id: any, headline: string, text: string, image: { __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }, link:
           | { __typename: 'ExternalLinkRecord', _modelApiKey: string, id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', _modelApiKey: string, id: any, record:
-              | { __typename?: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'StartFullscreenVideoRecord', id: any, headline: string, text: string, video: { __typename?: 'VideoFileField', id: any, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, width: any, height: any, video: { __typename?: 'UploadVideoField', thumbnailUrl: string, streamingUrl: string, framerate?: number | null, duration?: number | null, mp4high?: string | null, mp4med?: string | null, mp4low?: string | null } }, link:
           | { __typename: 'ExternalLinkRecord', _modelApiKey: string, id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', _modelApiKey: string, id: any, internalTitle?: string | null, record:
-              | { __typename?: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'StartGalleryRecord', id: any, headline: string, images: Array<{ __typename?: 'FileField', id: any, mimeType: string, url: string, title?: string | null, alt?: string | null, height?: any | null, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', src: string, width: any, height: any, alt?: string | null, title?: string | null, base64?: string | null, sizes: string } | null }>, link:
           | { __typename: 'ExternalLinkRecord', _modelApiKey: string, id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', id: any, record:
-              | { __typename?: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename?: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string }
-              | { __typename?: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'StartNewsRecord', id: any, amount: string }
@@ -6758,12 +6758,12 @@ type StartQuery = { __typename?: 'Query', start?: { __typename?: 'StartRecord', 
       | { __typename: 'StartTextRecord', id: any, headline: string, text: string, link:
           | { __typename: 'ExternalLinkRecord', _modelApiKey: string, id: any, title?: string | null, url: string }
           | { __typename: 'InternalLinkRecord', _modelApiKey: string, id: any, internalTitle?: string | null, record:
-              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'AboutRecord', _modelApiKey: string, id: any, slug: string, title: string, _year?: { __typename?: 'YearRecord', id: any, title: string } | null }
+              | { __typename: 'ExhibitionRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'LocationRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
               | { __typename: 'NewsRecord', _modelApiKey: string, id: any, slug: string, title: string }
-              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string }
-              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string }
+              | { __typename: 'ParticipantRecord', _modelApiKey: string, id: any, slug: string, name: string, year: { __typename?: 'YearRecord', id: any, title: string } }
+              | { __typename: 'ProgramRecord', _modelApiKey: string, id: any, slug: string, title: string, year: { __typename?: 'YearRecord', id: any, title: string } }
              }
          }
       | { __typename: 'StartVideoRecord', id: any, title: string, video: { __typename?: 'VideoField', provider: string, providerUid: string, thumbnailUrl: string, url: string } }
