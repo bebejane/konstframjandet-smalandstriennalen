@@ -23,7 +23,6 @@ query Start($locale: SiteLocale) {
 						internalTitle: title
 						record {
 							__typename
-
 							... on AboutRecord {
 								_modelApiKey
 								id
